@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaChau-Sense: IoT & Hộ Chiếu Số Nước Mắm Sa Châu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans + Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-red': {
+                            950: '#2b0306',
+                            900: '#43060a',
+                            850: '#54090f',
+                            800: '#6f0c15',
+                            700: '#8e141f',
+                            600: '#b01d2a',
+                            500: '#d32635'
+                        },
+                        'sc-gold': {
+                            DEFAULT: '#F59E0B',
+                            light: '#FDE68A',
+                            dark: '#B45309',
+                            royal: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                        mono: ['"Space Grotesk"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* KHÓA MÀU NỀN VÀ TRÁNH MẤT MÀU */
+        body {
+            background-color: #2b0306 !important;
+            color: #fff1f2;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Họa tiết gấm cung đình chìm màu đỏ ruby */
+        .royal-damask-bg {
+            background-color: #43060a;
+            background-image: 
+                radial-gradient(#6f0c15 1.5px, transparent 1.5px),
+                radial-gradient(#8e141f 1.5px, #43060a 1.5px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+
+        .royal-gradient-card {
+            background: linear-gradient(145deg, #54090f 0%, #3a0408 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* KHUNG LOGO TRẮNG GIỮ CHỖ VIỀN NÉT ĐỨT */
+        .logo-box-placeholder {
+            background-color: #ffffff !important;
+            border: 2px dashed #D4AF37 !important;
+            color: #54090f !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
+        }
+        .logo-box-placeholder:hover {
+            border-color: #f59e0b !important;
+            transform: scale(1.03);
+        }
+
+        /* Hiệu ứng ánh vàng hoàng gia */
+        .gold-glow {
+            text-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Tùy chỉnh thanh cuộn màu đỏ mắm */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2b0306;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8e141f;
+            border-radius: 4px;
+            border: 1px solid #D4AF37;
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid rgba(245, 158, 11, 0.3);
+            border-top: 4px solid #f59e0b;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="selection:bg-sc-gold selection:text-sc-red-950">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-sc-red-950 border-b border-sc-gold/25 py-2 px-4 text-xs font-mono text-sc-gold-light">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Dự án Cấp Tỉnh: <strong>SaChau-Sense</strong> - Hữu Xạ Tự Nhiên Hương</span>
+            </div>
+            <div class="flex items-center gap-4 text-[11px] text-amber-200/80">
+                <span><i class="fa-solid fa-location-dot text-sc-gold mr-1"></i> Xã Giao Châu, Giao Thủy, Nam Định</span>
+                <span class="hidden md:inline">•</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i> Chứng Nhận OCOP 3 Sao</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR HEADER -->
+    <header class="sticky top-0 z-40 bg-sc-red-900/95 backdrop-blur-md border-b-2 border-sc-gold/40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND & LOGO THỰC TẾ -->
+                <a href="#hero" onclick="switchMainView('home')" class="flex items-center gap-3.5 group cursor-pointer">
+                    <img src="IMG_20261112_075425.png" alt="SaChau-Sense Logo" class="w-14 h-14 rounded-2xl object-cover border border-sc-gold/40 shadow-md shrink-0">
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-cinzel font-black text-2xl tracking-wide text-white">SACHAU<span class="text-sc-gold">-SENSE</span></span>
+                        </div>
+                        <p class="text-[10px] text-amber-200/90 tracking-widest uppercase font-mono font-medium">IoT & Hộ Chiếu Số Làng Nghề</p>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAVIGATION -->
+                <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold text-rose-100">
+                    <button onclick="switchMainView('home'); scrollToSection('hero')" class="hover:text-sc-gold transition">Trang Chủ</button>
+                    <button onclick="switchMainView('home'); scrollToSection('heritage')" class="hover:text-sc-gold transition">Di Sản Sa Châu</button>
+                    <button onclick="switchMainView('home'); scrollToSection('process')" class="hover:text-sc-gold transition">Quy Trình 5 Bước</button>
+                    <button onclick="switchMainView('home'); scrollToSection('products')" class="hover:text-sc-gold transition">Sản Phẩm Mắm</button>
+                    <button onclick="switchMainView('home'); scrollToSection('culinary')" class="hover:text-sc-gold transition flex items-center gap-1.5 text-yellow-300">
+                        <i class="fa-solid fa-utensils text-xs text-sc-gold"></i>
+                        <span>Vào Bếp</span>
+                    </button>
+                    <button onclick="switchMainView('passport-app')" class="hover:text-amber-300 transition flex items-center gap-1.5 text-sc-gold-light bg-sc-red-950 px-3.5 py-1.5 rounded-xl border border-sc-gold/50 shadow">
+                        <i class="fa-solid fa-id-card-clip text-sc-gold"></i>
+                        <span>Hộ Chiếu Số & Cửa Hàng</span>
+                    </button>
+                </nav>
+
+                <!-- ACTIONS: AUTH & CART -->
+                <div class="flex items-center gap-2.5">
+                    <!-- Auth Trigger -->
+                    <div id="auth-nav-container">
+                        <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-user text-sc-gold"></i>
+                            <span class="hidden sm:inline">Tài Khoản</span>
+                        </button>
+                    </div>
+
+                    <!-- Direct Order / DPP button -->
+                    <button id="nav-primary-btn" onclick="handlePrimaryActionClick()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5">
+                        <i id="nav-primary-icon" class="fa-solid fa-cart-shopping"></i>
+                        <span id="nav-primary-text" class="hidden md:inline">Đặt Mua Mắm</span>
+                        <span id="nav-primary-text-mobile" class="md:hidden">Mua</span>
+                    </button>
+
+                    <!-- Mobile Toggle -->
+                    <button onclick="toggleMobileMenu()" class="xl:hidden p-2 text-amber-200 hover:text-white rounded-lg hover:bg-sc-red-800 transition">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-sc-red-950 border-t border-sc-gold/30 px-5 py-4 space-y-3 text-sm shadow-2xl">
+            <button onclick="switchMainView('home'); scrollToSection('hero'); toggleMobileMenu()" class="block w-full text-left py-2 text-rose-100 font-semibold hover:text-sc-gold">
+                <i class="fa-solid fa-house w-6 text-sc-gold"></i> Trang chủ
+            </button>
+            <button onclick="switchMainView('home'); scrollToSection('heritage'); toggleMobileMenu()" class="block w-full text-left py-2 text-rose-100 font-semibold hover:text-sc-gold">
+                <i class="fa-solid fa-crown w-6 text-sc-gold"></i> Di sản & Làng nghề Sa Châu
+            </button>
+            <button onclick="switchMainView('home'); scrollToSection('process'); toggleMobileMenu()" class="block w-full text-left py-2 text-rose-100 font-semibold hover:text-sc-gold">
+                <i class="fa-solid fa-arrows-spin w-6 text-sc-gold"></i> Quy trình 5 bước gia truyền
+            </button>
+            <button onclick="switchMainView('home'); scrollToSection('products'); toggleMobileMenu()" class="block w-full text-left py-2 text-rose-100 font-semibold hover:text-sc-gold">
+                <i class="fa-solid fa-bottle-droplet w-6 text-sc-gold"></i> Sản phẩm Mắm Mạnh Sánh
+            </button>
+            <button onclick="switchMainView('home'); scrollToSection('culinary'); toggleMobileMenu()" class="block w-full text-left py-2 text-yellow-300 font-bold hover:text-white">
+                <i class="fa-solid fa-utensils w-6 text-sc-gold"></i> Vào Bếp: Cẩm nang món ngon
+            </button>
+            <button onclick="switchMainView('passport-app'); toggleMobileMenu()" class="block w-full text-left py-2 text-sc-gold-light font-black border-l-2 border-sc-gold pl-2">
+                <i class="fa-solid fa-id-card-clip w-6 text-sc-gold"></i> Hộ Chiếu Số & Cửa Hàng
+            </button>
+            <div class="pt-3 border-t border-sc-red-800 flex gap-2" id="mobile-auth-actions">
+                <button onclick="openAuthModal('login'); toggleMobileMenu()" class="flex-1 py-2 rounded-xl bg-sc-red-900 border border-sc-gold/40 text-sc-gold text-xs font-bold text-center">
+                    Đăng Nhập
+                </button>
+                <button onclick="openAuthModal('register'); toggleMobileMenu()" class="flex-1 py-2 rounded-xl bg-sc-gold text-sc-red-950 text-xs font-black text-center">
+                    Đăng Ký
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NÚT XE ĐẨY HÀNG / QUẢN LÝ ĐƠN NỔI -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="floating-primary-btn" onclick="handlePrimaryActionClick()" title="Xem giỏ hàng / Quản lý đơn" class="relative w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-r from-sc-gold to-amber-500 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 flex items-center justify-center shadow-xl shadow-black/60 border-2 border-yellow-200 transition-all duration-300 transform hover:scale-110 group">
+            <i id="floating-primary-icon" class="fa-solid fa-cart-shopping text-lg sm:text-xl group-hover:rotate-12 transition"></i>
+            <span id="floating-cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] px-1 rounded-full bg-sc-red-950 text-yellow-300 font-mono text-[10px] flex items-center justify-center font-bold border border-sc-gold shadow-sm">
+                0
+            </span>
+        </button>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 1: TRANG CHỦ TOÀN DIỆN (HOME VIEW) -->
+    <!-- ========================================================================= -->
+    <main id="main-view-home" class="block">
+
+        <!-- HERO BANNER TÔNG ĐỎ NAM NGƯ SANG TRỌNG -->
+        <section id="hero" class="relative royal-damask-bg pt-16 pb-24 overflow-hidden border-b-2 border-sc-gold/30">
+            <!-- Glow vương giả -->
+            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-sc-gold/20 via-sc-red-600/30 to-transparent blur-[140px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sc-red-950/90 border border-sc-gold/50 text-xs font-mono text-sc-gold-light shadow-md">
+                            <i class="fa-solid fa-crown text-sc-gold"></i>
+                            <span>Nghề Truyền Thống Từ Thời Vua Minh Mạng • Ứng Dụng IoT</span>
+                        </div>
+
+                        <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.18] tracking-tight">
+                            SaChau-Sense: <br>
+                            <span class="block bg-gradient-to-r from-yellow-200 via-sc-gold-light to-sc-gold bg-clip-text text-transparent gold-glow">
+                                Giọt Ngọc Trong Cát,
+                            </span>
+                            <span class="block text-white mt-1">
+                                Minh Bạch Số Toàn Trình
+                            </span>
+                        </h1>
+
+                        <p class="text-rose-100/90 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            Kế thừa 3 thế hệ làm mắm thủ công tại làng Sa Châu. Kết hợp phương pháp ủ phơi <strong>"đêm sương ngày nắng"</strong> truyền thống cùng <strong>cảm biến IoT quan trắc vi khí hậu</strong> và <strong>Hộ chiếu số DPP</strong>, bảo vệ sức khỏe và niềm tin của người tiêu dùng.
+                        </p>
+
+                        <!-- Badges -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                            <div class="px-3.5 py-1.5 rounded-xl bg-sc-red-950/80 border border-sc-gold/30 text-xs font-medium text-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-fish text-yellow-300"></i>
+                                <span>85% Cá/Tôm - 15% Muối</span>
+                            </div>
+                            <div class="px-3.5 py-1.5 rounded-xl bg-sc-red-950/80 border border-sc-gold/30 text-xs font-medium text-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-jar text-amber-400"></i>
+                                <span>Ủ Chượp Tự Nhiên Lâu Năm</span>
+                            </div>
+                            <div class="px-3.5 py-1.5 rounded-xl bg-sc-red-950/80 border border-sc-gold/30 text-xs font-medium text-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-id-card text-sc-gold"></i>
+                                <span>Hộ Chiếu Số DPP</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <button onclick="handlePrimaryActionClick()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-sm uppercase tracking-wider shadow-2xl shadow-sc-gold/30 transition transform hover:scale-105 flex items-center justify-center gap-2.5">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span>Đặt Mua Mắm Mạnh Sánh</span>
+                            </button>
+                            <button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-sc-red-950 hover:bg-sc-red-900 text-rose-100 font-bold text-sm border-2 border-sc-gold/60 transition flex items-center justify-center gap-2.5">
+                                <i class="fa-solid fa-magnifying-glass text-sc-gold"></i>
+                                <span>Tra Cứu Hộ Chiếu DPP</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual -->
+                    <div class="lg:col-span-5">
+                        <div class="royal-gradient-card rounded-3xl p-8 border-2 border-sc-gold/60 relative overflow-hidden text-center shadow-2xl">
+                            <!-- Golden ambient halo -->
+                            <div class="absolute -top-16 -right-16 w-48 h-48 bg-sc-gold/25 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <div class="flex items-center justify-between pb-4 border-b border-rose-900/80 mb-6">
+                                <div class="flex items-center gap-3">
+                                    <img src="IMG_20261112_075425.png" alt="SaChau-Sense Logo" class="w-12 h-12 rounded-xl object-cover border border-sc-gold/40 shadow-sm shrink-0">
+                                    <div class="text-left">
+                                        <span class="text-[10px] font-mono text-sc-gold-light uppercase tracking-widest font-bold">Thượng Phẩm 3 Thế Hệ</span>
+                                        <h3 class="font-serif font-bold text-white text-base">Cơ Sở Mạnh Sánh</h3>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-sc-gold text-sc-red-950 font-black text-[11px] font-mono">
+                                    OCOP ĐẠT CHUẨN
+                                </span>
+                            </div>
+
+                            <div class="py-6 flex flex-col items-center justify-center">
+                                <div class="relative w-48 h-64 flex flex-col items-center justify-center mx-auto">
+                                    <img src="DSC_0112.JPG" alt="Nước Mắm Mạnh Sánh" class="w-full h-full object-cover rounded-3xl border-2 border-sc-gold shadow-2xl">
+                                </div>
+                                <p class="font-serif italic font-bold text-sc-gold-light text-sm mt-6">
+                                    "Hữu Xạ Tự Nhiên Hương • Giọt nước mắm là kết tinh tâm huyết"
+                                </p>
+                            </div>
+
+                            <!-- 3 Quick badges -->
+                            <div class="grid grid-cols-3 gap-2.5 pt-4 border-t border-rose-900/80 text-center text-xs">
+                                <div class="bg-sc-red-950/80 p-2 rounded-xl border border-rose-900">
+                                    <span class="text-[10px] text-rose-300 font-mono block">Cá & Tôm</span>
+                                    <strong class="text-white font-mono text-[11px]">Chọn Lọc Vụ Mùa</strong>
+                                </div>
+                                <div class="bg-sc-red-950/80 p-2 rounded-xl border border-rose-900">
+                                    <span class="text-[10px] text-rose-300 font-mono block">Bảo Quản</span>
+                                    <strong class="text-emerald-400 font-mono text-[11px]">0% Phụ Gia</strong>
+                                </div>
+                                <div class="bg-sc-red-950/80 p-2 rounded-xl border border-rose-900">
+                                    <span class="text-[10px] text-rose-300 font-mono block">Hương Vị</span>
+                                    <strong class="text-sc-gold font-mono text-[11px]">Mặn - Ngọt Hậu</strong>
+                                </div>
+                            </div>
+
+                            <button onclick="handlePrimaryActionClick()" class="w-full mt-5 py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-basket-shopping"></i>
+                                <span>Mua Sản Phẩm Mạnh Sánh</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 1: DI SẢN SA CHÂU & THÔNG TIN CƠ SỞ -->
+        <!-- ========================================================================= -->
+        <section id="heritage" class="py-24 bg-sc-red-900 border-b-2 border-sc-gold/30 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-sc-gold"></i> Di Sản Làng Gỏi - Ngọc Trong Cát
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                        Giữ Lửa Nghề Nước Mắm Truyền Thống Hàng Thế Kỷ
+                    </h2>
+                    <p class="text-rose-100/90 text-sm sm:text-base mt-3 font-light leading-relaxed">
+                        Từ thời vua Minh Mạng đến nay, làng Sa Châu (Giao Châu, Giao Thủy) vẫn vang vọng tiếng chắt chiu, gìn giữ phương pháp làm mắm hoàn toàn thủ công, không dùng bất kỳ hóa chất hay phụ gia bảo quản nào.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
+                    
+                    <!-- Left: Câu chuyện Cơ sở Mạnh Sánh & Ý nghĩa Sa Châu -->
+                    <div class="lg:col-span-7 royal-gradient-card rounded-3xl border-2 border-sc-gold/50 shadow-2xl flex flex-col justify-between overflow-hidden">
+                        <div class="h-56 w-full relative">
+                            <img src="1000002833.jpg" alt="Chứng nhận OCOP" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#3a0408] to-transparent"></div>
+                        </div>
+                        <div class="p-7 sm:p-9 pt-2 space-y-4">
+                            <div class="flex items-center gap-2 text-sc-gold font-mono text-xs font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-scroll text-sm"></i>
+                                <span>Hữu Xạ Tự Nhiên Hương</span>
+                            </div>
+                            <h3 class="font-serif text-2xl sm:text-3xl font-extrabold text-white">Giọt Ngọc Trong Cát & Tâm Huyết 3 Thế Hệ Mạnh Sánh</h3>
+                            <div class="text-rose-100/90 text-sm sm:text-base space-y-4 font-light leading-relaxed">
+                                <p>Sa Châu xưa kia được gọi là làng Gỏi. Từ <strong>"Sa"</strong> mang ý nghĩa là bãi biển phù sa, còn <strong>"Châu"</strong> được ví như giọt ngọc trong cát. Làng nghề đã hình thành và tự hào giữ gìn cách thức làm mắm truyền thống lâu năm quý hiếm từ thời vua Minh Mạng.</p>
+                                <p>Cơ sở <strong>Mạnh Sánh</strong> vinh dự duy trì nghề tới thế hệ thứ 3. Làm nghề này không giàu nhanh, nhưng mỗi giọt nước mắm là kết tinh của biển cả, công sức và cả tâm huyết của người dân Sa Châu, để giữ được hồn cốt tinh túy cha ông để lại.</p>
+                                <p>Hơn 30 năm qua, sản phẩm Mạnh Sánh đã lan tỏa khắp mọi miền Tổ quốc: từ Hà Nội, Bắc Giang, Bắc Ninh, Hải Phòng... trải dài đến TP.Hồ Chí Minh, mũi Cà Mau và vươn ra thị trường quốc tế với phương châm: Làm nghề bằng <em>cái tâm</em>, chất lượng và sức khỏe khách hàng luôn là thượng đế.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-rose-900 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-amber-200/80 mx-7 mb-7">
+                            <span><i class="fa-solid fa-award text-sc-gold mr-1"></i> Tồn tại 3 Thế Hệ</span>
+                            <span>Sạch & Bảo vệ sức khỏe</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quy tắc lựa chọn Nguyên Liệu Khắt Khe -->
+                    <div class="lg:col-span-5 space-y-4 flex flex-col justify-between">
+                        <div class="royal-gradient-card rounded-2xl p-6 border border-sc-gold/40">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-xl bg-sc-gold/20 text-sc-gold flex items-center justify-center text-lg border border-sc-gold/40"><i class="fa-solid fa-shrimp"></i></div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-white text-base">Tôm Vụ Tháng 6 - Tháng 8</h4>
+                                    <span class="text-[11px] font-mono text-sc-gold-light">Nguồn nguyên liệu chính vụ</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-rose-100/80 leading-relaxed font-light">Để có mắm tôm ngon, tôm phải mua loại <strong>tôm chà</strong> đúng vụ vào tháng 6 và tháng 8. Tôm được đánh bắt trong ngày, đủ độ tươi mang về sơ chế ngay để tránh ươn hỏng.</p>
+                        </div>
+                        <div class="royal-gradient-card rounded-2xl p-6 border border-sc-gold/40">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-xl bg-sc-gold/20 text-sc-gold flex items-center justify-center text-lg border border-sc-gold/40"><i class="fa-solid fa-fish"></i></div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-white text-base">Cá Vụ Tháng 3 Đến Tháng 5</h4>
+                                    <span class="text-[11px] font-mono text-sc-gold-light">Không non quá, không to quá</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-rose-100/80 leading-relaxed font-light">Tuyển chọn các loại cá cơm, cá nục, con mực mua đúng vụ tháng 3-5. Nguyên tắc khắt khe: Cá to quá ruột sẽ đắng, cá non quá nước sẽ không ngọt. Lựa chọn kỹ lưỡng, không được vội vàng.</p>
+                        </div>
+                        <div class="royal-gradient-card rounded-2xl p-6 border border-sc-gold/40">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-xl bg-sc-gold/20 text-sc-gold flex items-center justify-center text-lg border border-sc-gold/40"><i class="fa-solid fa-cube"></i></div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-white text-base">Tỉ Lệ 85% - 15% & Muối Bạch Long</h4>
+                                    <span class="text-[11px] font-mono text-sc-gold-light">Muối phải để ráo chát cả năm</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-rose-100/80 leading-relaxed font-light">Muối phải mua loại muối Bạch Long hạt to từ vụ tháng 3-5. Muối được đưa vào hệ thống cho chảy hết nước chát <strong>sau một năm</strong> mới được dùng để ủ. Tỉ lệ chuẩn: 85% tôm/cá và 15% muối.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 2: QUY TRÌNH 5 CÔNG ĐOẠN ĐỘC BẢN SA CHÂU -->
+        <!-- ========================================================================= -->
+        <section id="process" class="py-24 royal-damask-bg border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold">
+                        Đêm Phơi Sương - Ngày Phơi Nắng
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                        Quy Trình Làm Mắm Thủ Công Mạnh Sánh
+                    </h2>
+                    <p class="text-rose-100/90 text-sm sm:text-base mt-3 font-light">
+                        Mỗi bước đều tuân thủ nguyên tắc cổ truyền, đảm bảo mắm ngon từ khâu chọn nguyên liệu đầu tiên.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+                    <!-- Bước 1 -->
+                    <div class="royal-gradient-card rounded-2xl p-5 border border-sc-gold/40 hover:border-sc-gold transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-sc-gold text-sc-red-950 font-black font-mono text-xl flex items-center justify-center shadow mb-4">01</div>
+                            <h3 class="font-serif font-bold text-white text-base mb-2">Chọn Lọc Khắt Khe</h3>
+                            <p class="text-xs text-rose-200/80 font-light leading-relaxed">Cá và tôm đánh bắt trong ngày, mang về sơ chế ngay. Tỉ lệ trộn đúng 85% nguyên liệu và 15% muối Bạch Long đã ráo nước chát 1 năm.</p>
+                        </div>
+                    </div>
+                    <!-- Bước 2 -->
+                    <div class="royal-gradient-card rounded-2xl p-5 border border-sc-gold/40 hover:border-sc-gold transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-sc-gold text-sc-red-950 font-black font-mono text-xl flex items-center justify-center shadow mb-4">02</div>
+                            <h3 class="font-serif font-bold text-white text-base mb-2">Ủ & Đánh Đảo Thường Xuyên</h3>
+                            <p class="text-xs text-rose-200/80 font-light leading-relaxed">Cá tôm được ủ trong bể/ang, ngày 2 chiều phải vệ sinh thành bể sạch sẽ. Củ đánh, đánh thường xuyên để cho cá và tôm đều muối.</p>
+                        </div>
+                    </div>
+                    <!-- Bước 3 -->
+                    <div class="royal-gradient-card rounded-2xl p-5 border-2 border-sc-gold hover:border-amber-400 transition flex flex-col justify-between relative shadow-xl">
+                        <span class="absolute -top-3 right-3 px-2 py-0.5 rounded bg-sc-gold text-sc-red-950 font-mono font-bold text-[9px] z-10">IoT SENSE</span>
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-300 to-sc-gold text-sc-red-950 font-black font-mono text-xl flex items-center justify-center shadow mb-4 relative z-10">03</div>
+                            <img src="DSC_0055.JPG" class="w-full h-24 object-cover rounded-lg mb-3 border border-sc-gold/30" alt="Phơi mắm">
+                            <h3 class="font-serif font-bold text-white text-base mb-2">Phơi Sương Phơi Nắng</h3>
+                            <p class="text-xs text-rose-200/80 font-light leading-relaxed">Ủ từ 12-24 tháng. Khi nước cốt nổi trên mặt bã 20 phân, lấy ra chắt lọc rồi đem ra phơi. Đêm phơi sương, ngày phơi nắng.</p>
+                        </div>
+                    </div>
+                    <!-- Bước 4 -->
+                    <div class="royal-gradient-card rounded-2xl p-5 border border-sc-gold/40 hover:border-sc-gold transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-sc-gold text-sc-red-950 font-black font-mono text-xl flex items-center justify-center shadow mb-4">04</div>
+                            <img src="DSC_0063.JPG" class="w-full h-24 object-cover rounded-lg mb-3 border border-sc-gold/30" alt="Ủ trong chum">
+                            <h3 class="font-serif font-bold text-white text-base mb-2">Ủ Chum Nóng Nguội</h3>
+                            <p class="text-xs text-rose-200/80 font-light leading-relaxed">Khi lượng nước cốt phơi cạn chỉ còn 1/3 vại, tiếp tục đưa vào chum để "ấm nóng", sau đó chuyển sang khâu "âm nguội" cho hương vị chín muồi.</p>
+                        </div>
+                    </div>
+                    <!-- Bước 5 -->
+                    <div class="royal-gradient-card rounded-2xl p-5 border border-sc-gold/40 hover:border-sc-gold transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-sc-gold text-sc-red-950 font-black font-mono text-xl flex items-center justify-center shadow mb-4">05</div>
+                            <img src="DSC_0032.JPG" class="w-full h-24 object-cover rounded-lg mb-3 border border-sc-gold/30" alt="Đóng chai">
+                            <h3 class="font-serif font-bold text-white text-base mb-2">Lọc Lại & Đóng Chai</h3>
+                            <p class="text-xs text-rose-200/80 font-light leading-relaxed">Khâu cuối cùng là lọc mắm lại một lần nữa cho lên màu trong vắt, đóng chai 1 Lít sạch sẽ an toàn gửi đến tay khách hàng.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 3: BỘ SƯU TẬP CÁC LOẠI NƯỚC MẮM MẠNH SÁNH -->
+        <!-- ========================================================================= -->
+        <section id="products" class="py-24 bg-sc-red-900 border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold">
+                        Đặc Sản Làng Nghề Nam Định
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                        Các Sản Phẩm Nước Mắm Mạnh Sánh
+                    </h2>
+                    <p class="text-rose-100/90 text-sm sm:text-base mt-3 font-light">
+                        Quy cách đóng chai 1 Lít tiêu chuẩn. Nếm vào mặn nơi đầu lưỡi nhưng ngọt nơi cuống họng.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                    
+                    <!-- Chai 1: Set Combo Mạnh Sánh -->
+                    <div class="royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold flex flex-col justify-between hover:shadow-2xl transition duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-xs border border-sc-gold/40">
+                                    BỘ QUÀ TẶNG
+                                </span>
+                                <span class="text-amber-200/80 text-xs font-mono"><i class="fa-solid fa-gift mr-1"></i> Song Vị</span>
+                            </div>
+
+                            <div class="w-full h-48 rounded-2xl border border-sc-gold/30 flex items-center justify-center relative overflow-hidden mb-5">
+                                <img src="DSC_0112.JPG" class="w-full h-full object-cover" alt="Set Song Vị">
+                            </div>
+
+                            <h3 class="font-serif font-bold text-white text-lg">Set Song Vị Mạnh Sánh (Bộ 2 chai x 1L)</h3>
+                            <p class="text-xs text-rose-200/80 mt-2 font-light line-clamp-3 leading-relaxed">
+                                Kết hợp tùy chọn giữa Mắm Tôm (màu mật ong, mùi vị khó quên) và Mắm Cá (màu cánh gián, vị bùi bùi). Rất hợp làm quà biếu.
+                            </p>
+                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">200.000 đ / set 2 chai</span>
+                        </div>
+
+                        <div class="pt-5 border-t border-rose-900/80 mt-4 flex items-center justify-between gap-2">
+                            <button onclick="openProductDetailModal('manhsanh_combo')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-sc-gold-light border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1">
+                                <span>Xem thêm</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <button onclick="quickAddToCart('manhsanh_combo')" class="px-3.5 py-2 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center gap-1 shadow">
+                                <i class="fa-solid fa-cart-plus"></i> <span>Chọn Mua</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chai 2: Loại Vừa (Hộp 1 chai) -->
+                    <div class="royal-gradient-card rounded-3xl p-6 border border-sc-gold/40 flex flex-col justify-between hover:border-sc-gold transition duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-xs border border-sc-gold/40">
+                                    LOẠI VỪA
+                                </span>
+                                <span class="text-amber-200/80 text-xs font-mono"><i class="fa-solid fa-box mr-1"></i> Kèm Hộp Đơn</span>
+                            </div>
+
+                            <div class="w-full h-48 rounded-2xl border border-sc-gold/30 flex items-center justify-center relative overflow-hidden mb-5">
+                                <img src="DSC_0032.JPG" class="w-full h-full object-cover" alt="Mạnh Sánh Hộp Đơn">
+                            </div>
+
+                            <h3 class="font-serif font-bold text-white text-lg">Mạnh Sánh Hộp Đơn (1 Lít)</h3>
+                            <p class="text-xs text-rose-200/80 mt-2 font-light line-clamp-3 leading-relaxed">
+                                Sản phẩm đóng chai 1.000ml kèm hộp giấy cứng cáp. Lựa chọn Mắm Cá đậm đà hoặc Mắm Tôm thơm nức nở bóp nem tuyệt vời.
+                            </p>
+                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">150.000 đ / hộp</span>
+                        </div>
+
+                        <div class="pt-5 border-t border-rose-900/80 mt-4 flex items-center justify-between gap-2">
+                            <button onclick="openProductDetailModal('manhsanh_hop1')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-sc-gold-light border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1">
+                                <span>Xem thêm</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <button onclick="quickAddToCart('manhsanh_hop1')" class="px-3.5 py-2 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center gap-1 shadow">
+                                <i class="fa-solid fa-cart-plus"></i> <span>Chọn Mua</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chai 3: Loại Thường (Chai lẻ) -->
+                    <div class="royal-gradient-card rounded-3xl p-6 border border-sc-gold/40 flex flex-col justify-between hover:border-sc-gold transition duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-xs border border-sc-gold/40">
+                                    LOẠI THƯỜNG
+                                </span>
+                                <span class="text-amber-200/80 text-xs font-mono"><i class="fa-solid fa-bottle-droplet mr-1"></i> Tiết Kiệm</span>
+                            </div>
+
+                            <div class="w-full h-48 rounded-2xl border border-sc-gold/30 flex items-center justify-center relative overflow-hidden mb-5">
+                                <img src="DSC_0025.JPG" class="w-full h-full object-cover" alt="Mạnh Sánh Chai Lẻ">
+                            </div>
+
+                            <h3 class="font-serif font-bold text-white text-lg">Mạnh Sánh Chai Lẻ (1 Lít)</h3>
+                            <p class="text-xs text-rose-200/80 mt-2 font-light line-clamp-3 leading-relaxed">
+                                Dòng nước mắm gia truyền chai lẻ không hộp, tiết kiệm hơn, là sự lựa chọn số 1 của các bà nội trợ cho mâm cơm hàng ngày.
+                            </p>
+                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">100.000 đ / chai</span>
+                        </div>
+
+                        <div class="pt-5 border-t border-rose-900/80 mt-4 flex items-center justify-between gap-2">
+                            <button onclick="openProductDetailModal('manhsanh_thuong')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-sc-gold-light border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1">
+                                <span>Xem thêm</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <button onclick="quickAddToCart('manhsanh_thuong')" class="px-3.5 py-2 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center gap-1 shadow">
+                                <i class="fa-solid fa-cart-plus"></i> <span>Chọn Mua</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 4: VÀO BẾP - CẨM NANG HƯƠNG VỊ -->
+        <!-- ========================================================================= -->
+        <section id="culinary" class="py-24 royal-damask-bg border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2">
+                        <i class="fa-solid fa-kitchen-set text-sc-gold"></i> Cẩm Nang Ẩm Thực
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white mt-4">
+                        Nhận Diện Hương Vị Nước Mắm Mạnh Sánh
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    <div class="royal-gradient-card rounded-2xl p-8 border border-sc-gold/40">
+                        <span class="text-sm font-mono text-sc-gold font-bold uppercase block mb-2"><i class="fa-solid fa-shrimp mr-2"></i>Nước Mắm Tôm</span>
+                        <h4 class="font-serif font-bold text-white text-xl mb-4">Mùi Thơm Khó Quên</h4>
+                        <p class="text-sm text-rose-200/80 font-light leading-relaxed mb-4">Nước mắm tôm được ủ từ tôm chà vụ tháng 6, tháng 8 có màu giống <strong>màu mật ong hoặc nước chè loãng</strong>.</p>
+                        <p class="text-sm text-rose-200/80 font-light leading-relaxed">Hương vị của nước mắm tôm có mùi thơm khó quên nhất khi đem trộn bóp vào nem, hoặc dùng ướp vào các món thịt luộc, thịt nướng.</p>
+                    </div>
+                    <div class="royal-gradient-card rounded-2xl p-8 border border-sc-gold/40">
+                        <span class="text-sm font-mono text-sc-gold font-bold uppercase block mb-2"><i class="fa-solid fa-fish mr-2"></i>Nước Mắm Cá</span>
+                        <h4 class="font-serif font-bold text-white text-xl mb-4">Vị Bùi Bùi, Ngọt Hậu</h4>
+                        <p class="text-sm text-rose-200/80 font-light leading-relaxed mb-4">Nước mắm cá Mạnh Sánh có <strong>màu đỏ cánh gián</strong>, đặc trưng với mùi vị nhẹ hơn nước mắm tôm.</p>
+                        <p class="text-sm text-rose-200/80 font-light leading-relaxed">Đặc biệt, khi nếm thử vào miệng, giọt mắm sẽ cho ta cảm nhận độ <em>bùi bùi</em>. Điểm chung của mắm gia truyền là: <strong>Mặn nơi đầu lưỡi nhưng ngọt hậu nơi cuống họng.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: CỔNG ĐẶT HÀNG & TRA CỨU HỘ CHIẾU SỐ (DPP + IOT + FEEDBACK) -->
+    <!-- ========================================================================= -->
+    <section id="main-view-passport" class="hidden py-12 royal-damask-bg min-h-screen border-b-2 border-sc-gold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Breadcrumb Navigation -->
+            <div class="flex items-center justify-between pb-6 border-b border-rose-900/80 mb-8">
+                <div class="flex items-center gap-3 text-xs font-mono">
+                    <button onclick="switchMainView('home')" class="text-sc-gold hover:underline font-bold flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại Trang Chủ
+                    </button>
+                    <span class="text-rose-400">/</span>
+                    <span class="text-white" id="dpp-breadcrumb-text">Cổng Đặt Hàng Làng Nghề</span>
+                </div>
+                <div class="flex items-center gap-2" id="dpp-main-tabs">
+                    <button onclick="switchDppTab('order')" id="tab-btn-order" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase tracking-wider shadow">
+                        <i class="fa-solid fa-cart-shopping mr-1"></i> Đặt Mua Mắm
+                    </button>
+                    <button onclick="switchDppTab('passport')" id="tab-btn-passport" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase tracking-wider hover:text-white">
+                        <i class="fa-solid fa-magnifying-glass mr-1"></i> Tra Cứu Hộ Chiếu DPP
+                    </button>
+                </div>
+            </div>
+
+            <!-- MODULE 1: ĐẶT MUA NƯỚC MẮM MẠNH SÁNH (HOẶC QUẢN LÝ ĐƠN HÀNG CHO NGHỆ NHÂN) -->
+            <div id="dpp-tab-pane-order" class="block">
+                
+                <!-- GIAO DIỆN KHÁCH HÀNG: ĐẶT HÀNG -->
+                <div id="customer-order-view" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Danh sách chọn sản phẩm Mạnh Sánh -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <h3 class="font-serif text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bottle-droplet text-sc-gold"></i>
+                                <span>1. Chọn Loại Nước Mắm & Số Lượng</span>
+                            </h3>
+                            <span class="text-[11px] font-mono text-sc-gold-light bg-sc-red-950 px-2.5 py-1 rounded-lg border border-sc-gold/30">
+                                <i class="fa-solid fa-sliders mr-1"></i> Tùy chọn hương vị linh hoạt
+                            </span>
+                        </div>
+
+                        <!-- Item 1: Combo Song Vị Mạnh Sánh -->
+                        <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col gap-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-16 rounded-xl bg-sc-red-950 border border-amber-500 flex flex-col items-center justify-center shrink-0">
+                                        <span class="text-[8px] font-bold text-amber-300 font-mono">COMBO</span>
+                                        <i class="fa-solid fa-gift text-amber-400 text-lg mt-0.5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-white text-base">Set Song Vị Mạnh Sánh (Bộ 2 chai x 1L)</h4>
+                                        <p class="text-[11px] text-rose-200/80">Bộ quà tặng 2 chai nguyên chất • Tùy chọn vị Cá/Tôm</p>
+                                        <span id="price-display-manhsanh_combo" class="text-sm font-mono font-bold text-yellow-300 mt-1 block">200.000 đ / set 2 chai</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 self-end sm:self-center">
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_combo', -1)" class="w-8 h-8 rounded-lg bg-sc-red-950 hover:bg-sc-red-850 text-white font-bold border border-rose-800">-</button>
+                                    <span id="cart-qty-manhsanh_combo" class="font-mono text-sm font-bold w-6 text-center text-white">0</span>
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_combo', 1)" class="w-8 h-8 rounded-lg bg-sc-gold text-sc-red-950 font-bold hover:bg-amber-400">+</button>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-rose-900/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+                                <span class="text-[11px] font-mono text-rose-300">Phân loại:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button" onclick="selectProductSize('manhsanh_combo', 'Cá-Tôm')" id="size-btn-manhsanh_combo-Cá-Tôm" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 border border-sc-gold text-[11px] font-mono font-bold transition">Cá - Tôm</button>
+                                    <button type="button" onclick="selectProductSize('manhsanh_combo', 'Tôm-Tôm')" id="size-btn-manhsanh_combo-Tôm-Tôm" class="px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-200 border border-rose-900 text-[11px] font-mono hover:border-sc-gold transition">Tôm - Tôm</button>
+                                    <button type="button" onclick="selectProductSize('manhsanh_combo', 'Cá-Cá')" id="size-btn-manhsanh_combo-Cá-Cá" class="px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-200 border border-rose-900 text-[11px] font-mono hover:border-sc-gold transition">Cá - Cá</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: Hộp Đơn -->
+                        <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col gap-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-16 rounded-xl bg-sc-red-950 border border-amber-500 flex flex-col items-center justify-center shrink-0">
+                                        <span class="text-[8px] font-bold text-amber-300 font-mono">LOẠI VỪA</span>
+                                        <i class="fa-solid fa-box text-amber-400 text-lg mt-0.5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-white text-base">Mạnh Sánh Hộp Đơn (1 Lít)</h4>
+                                        <p class="text-[11px] text-rose-200/80">Kèm hộp giấy cứng cáp lịch sự • Tùy chọn vị Cá/Tôm</p>
+                                        <span id="price-display-manhsanh_hop1" class="text-sm font-mono font-bold text-yellow-300 mt-1 block">150.000 đ / hộp</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 self-end sm:self-center">
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_hop1', -1)" class="w-8 h-8 rounded-lg bg-sc-red-950 hover:bg-sc-red-850 text-white font-bold border border-rose-800">-</button>
+                                    <span id="cart-qty-manhsanh_hop1" class="font-mono text-sm font-bold w-6 text-center text-white">0</span>
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_hop1', 1)" class="w-8 h-8 rounded-lg bg-sc-gold text-sc-red-950 font-bold hover:bg-amber-400">+</button>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-rose-900/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+                                <span class="text-[11px] font-mono text-rose-300">Chọn vị:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button" onclick="selectProductSize('manhsanh_hop1', 'Vị Cá')" id="size-btn-manhsanh_hop1-Vị Cá" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 border border-sc-gold text-[11px] font-mono font-bold transition">Vị Cá (150k)</button>
+                                    <button type="button" onclick="selectProductSize('manhsanh_hop1', 'Vị Tôm')" id="size-btn-manhsanh_hop1-Vị Tôm" class="px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-200 border border-rose-900 text-[11px] font-mono hover:border-sc-gold transition">Vị Tôm (150k)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Chai Thường -->
+                        <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col gap-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-16 rounded-xl bg-sc-red-950 border border-amber-500 flex flex-col items-center justify-center shrink-0">
+                                        <span class="text-[8px] font-bold text-amber-300 font-mono">THƯỜNG</span>
+                                        <i class="fa-solid fa-bottle-droplet text-amber-400 text-lg mt-0.5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-white text-base">Mạnh Sánh Chai Lẻ (1 Lít)</h4>
+                                        <p class="text-[11px] text-rose-200/80">Không kèm hộp • Tiết kiệm hơn • Tùy chọn vị Cá/Tôm</p>
+                                        <span id="price-display-manhsanh_thuong" class="text-sm font-mono font-bold text-yellow-300 mt-1 block">100.000 đ / chai</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 self-end sm:self-center">
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_thuong', -1)" class="w-8 h-8 rounded-lg bg-sc-red-950 hover:bg-sc-red-850 text-white font-bold border border-rose-800">-</button>
+                                    <span id="cart-qty-manhsanh_thuong" class="font-mono text-sm font-bold w-6 text-center text-white">0</span>
+                                    <button type="button" onclick="updateCartItemQty('manhsanh_thuong', 1)" class="w-8 h-8 rounded-lg bg-sc-gold text-sc-red-950 font-bold hover:bg-amber-400">+</button>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-rose-900/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+                                <span class="text-[11px] font-mono text-rose-300">Chọn vị:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button" onclick="selectProductSize('manhsanh_thuong', 'Vị Cá')" id="size-btn-manhsanh_thuong-Vị Cá" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 border border-sc-gold text-[11px] font-mono font-bold transition">Vị Cá (100k)</button>
+                                    <button type="button" onclick="selectProductSize('manhsanh_thuong', 'Vị Tôm')" id="size-btn-manhsanh_thuong-Vị Tôm" class="px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-200 border border-rose-900 text-[11px] font-mono hover:border-sc-gold transition">Vị Tôm (100k)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Thông Tin Giao Hàng & Chọn Nghệ Nhân & Tổng Tiền -->
+                    <div class="lg:col-span-5 royal-gradient-card rounded-3xl p-6 sm:p-7 border-2 border-sc-gold shadow-2xl">
+                        <h3 class="font-serif text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-truck-fast text-sc-gold"></i>
+                            <span>2. Nơi Nhận Hàng & Nghệ Nhân</span>
+                        </h3>
+
+                        <form onsubmit="handleCheckoutOrder(event)" class="space-y-3.5 text-xs">
+                            <!-- CHỌN NHÀ NGHỆ NHÂN LÀM MẮM SA CHÂU -->
+                            <div class="p-3.5 rounded-2xl bg-sc-red-950 border-2 border-sc-gold/60 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-amber-200 font-mono font-bold flex items-center gap-1.5">
+                                        <i class="fa-solid fa-user-tie text-sc-gold"></i>
+                                        <span>Nghệ Nhân Phụ Trách Đơn Hàng</span>
+                                    </label>
+                                    <span class="text-[10px] text-sc-gold-light font-mono">Trực tiếp từ xưởng</span>
+                                </div>
+                                <select id="chk-artisan" class="w-full bg-sc-red-900 text-yellow-300 font-serif font-bold text-xs px-3.5 py-2.5 rounded-xl border border-sc-gold/60 focus:border-sc-gold focus:outline-none cursor-pointer">
+                                    <option value="artisan_manh" selected>👑 Nghệ Nhân Phạm Văn Mạnh - Cơ sở Nước mắm Sa Châu Truyền Thống</option>
+                                </select>
+                                <div id="artisan-badge-desc" class="text-[11px] text-rose-200/80 bg-sc-red-900/80 p-2.5 rounded-xl border border-rose-900 flex items-center gap-2 font-mono">
+                                    <i class="fa-solid fa-certificate text-sc-gold"></i>
+                                    <span>Nghệ nhân ưu tú • Mã IoT Node: <strong>Ang-ManhSanh-01</strong></span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-amber-200 font-mono mb-1">Họ và tên người nhận *</label>
+                                <input type="text" id="chk-name" required placeholder="Nguyễn Văn A" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-amber-200 font-mono mb-1">Số điện thoại *</label>
+                                    <input type="tel" id="chk-phone" required placeholder="09xxxxxxxx" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-amber-200 font-mono mb-1">Tỉnh / Thành phố *</label>
+                                    <input type="text" id="chk-city" required placeholder="Hà Nội, Nam Định..." class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-amber-200 font-mono mb-1">Địa chỉ chi tiết nhận hàng *</label>
+                                <input type="text" id="chk-address" required placeholder="Số nhà, ngõ ngách, tên đường..." class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-amber-200 font-mono mb-1">Ghi chú đóng gói cho nghệ nhân</label>
+                                <input type="text" id="chk-note" placeholder="VD: Gói xốp dày chống vỡ gửi đi xa, cần nếm thử..." class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                            </div>
+
+                            <!-- Tính toán thanh toán -->
+                            <div class="pt-3 border-t border-rose-900 space-y-2 text-xs">
+                                <div class="flex justify-between text-rose-200">
+                                    <span>Tạm tính tiền mắm:</span>
+                                    <span id="chk-subtotal" class="font-mono text-white">0 đ</span>
+                                </div>
+                                <div class="flex justify-between text-rose-200">
+                                    <span>Phí giao hàng & bọc xốp cẩn thận:</span>
+                                    <span id="chk-shipping" class="font-mono text-emerald-400">0 đ</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-rose-900">
+                                    <span>Tổng thanh toán:</span>
+                                    <span id="chk-total" class="font-mono text-yellow-300 text-base">0 đ</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-submit-order" class="w-full py-4 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-2xl flex items-center justify-center gap-2 mt-4 relative overflow-hidden">
+                                <i class="fa-solid fa-shield-check z-10"></i>
+                                <span class="z-10">Xác Nhận Đặt Mua & Cấp Mã Hộ Chiếu DPP</span>
+                                <div id="order-loading" class="hidden absolute inset-0 bg-amber-500 flex items-center justify-center z-20">
+                                    <div class="loader !w-5 !h-5 !border-2"></div>
+                                    <span class="ml-2 font-bold text-sc-red-950">ĐANG ĐỒNG BỘ...</span>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- GIAO DIỆN NGHỆ NHÂN: QUẢN LÝ ĐƠN HÀNG (SẼ HIỂN THỊ KHI ĐĂNG NHẬP VAI TRÒ NGHỆ NHÂN) -->
+                <div id="artisan-dashboard-view" class="hidden">
+                    <div class="bg-sc-red-950/80 p-6 rounded-3xl border border-sc-gold/40 shadow-2xl">
+                        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 border-b border-rose-900 pb-4">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-boxes-packing text-sc-gold"></i>
+                                    <span>Quản Lý Đơn Đặt Hàng & Xưởng Của Bạn</span>
+                                </h3>
+                                <p class="text-xs text-rose-200 mt-1 font-mono">Tự động đồng bộ với Google Sheet hệ thống.</p>
+                            </div>
+                            <div class="bg-sc-red-900 px-4 py-2 rounded-xl border border-sc-gold/60 text-center">
+                                <span class="block text-[10px] text-rose-300 font-mono uppercase tracking-widest">Đơn Cần Đóng Gói</span>
+                                <strong class="text-xl text-yellow-300 font-mono">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="text-center py-12 border-2 border-dashed border-rose-900 rounded-2xl bg-sc-red-950/50">
+                            <div class="w-16 h-16 rounded-full bg-sc-red-900 border border-sc-gold/30 flex items-center justify-center mx-auto mb-4 text-rose-300 text-2xl">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+                            <p class="text-rose-200 text-sm">Chưa có đơn hàng nào cần xử lý lúc này.</p>
+                            <p class="text-[11px] font-mono text-sc-gold mt-2">Dữ liệu đơn hàng mới sẽ tự động cập nhật khi khách hàng đặt mua trên web.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODULE 2: TRA CỨU HỘ CHIẾU SỐ (DPP) & TRẠM IOT TƯƠNG ỨNG -->
+            <div id="dpp-tab-pane-passport" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Cột trái: Form nhập mã và danh sách đơn mẫu -->
+                    <div class="lg:col-span-4 royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold/50 shadow-2xl">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-barcode text-sc-gold"></i>
+                            <h3 class="font-serif text-lg font-bold text-white">Nhập Mã Chai / Đơn Hàng</h3>
+                        </div>
+                        <p class="text-xs text-rose-200/80 mb-4 font-light">
+                            Nhập mã in trên nắp chai, mã đơn hàng hoặc nhấp vào một trong các đơn mẫu sau:
+                        </p>
+
+                        <div class="relative mb-4">
+                            <input type="text" id="dpp-search-input" value="ORD-2026-SC01-889" class="w-full bg-sc-red-950 text-white font-mono text-sm px-4 py-3 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none pl-10 uppercase">
+                            <i class="fa-solid fa-qrcode absolute left-3.5 top-3.5 text-rose-400"></i>
+                            <button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition">
+                                Tra Cứu
+                            </button>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <span class="text-[11px] font-mono text-amber-200 block mb-1">Mã Đơn Hàng Mẫu Kiểm Chứng:</span>
+                            
+                            <div onclick="selectSampleDpp(0)" id="sample-dpp-0" class="p-3 rounded-xl bg-sc-red-950 border-2 border-sc-gold cursor-pointer transition flex items-center justify-between">
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-yellow-300">ORD-2026-SC01-889</span>
+                                    <p class="text-[11px] text-rose-200">Set Combo Mạnh Sánh (Ang #01 - Cá/Tôm)</p>
+                                </div>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold font-mono">ĐÃ GIAO</span>
+                            </div>
+
+                            <div onclick="selectSampleDpp(1)" id="sample-dpp-1" class="p-3 rounded-xl bg-sc-red-950/50 hover:bg-sc-red-950 border border-rose-900 cursor-pointer transition flex items-center justify-between">
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-rose-200">ORD-2026-VIP-772</span>
+                                    <p class="text-[11px] text-rose-300">Mạnh Sánh Hộp Đơn (Ang #02 - Vị Cá)</p>
+                                </div>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold font-mono">ĐÃ GIAO</span>
+                            </div>
+                        </div>
+
+                        <!-- Merkle Hash Proof -->
+                        <div class="mt-6 pt-4 border-t border-rose-900">
+                            <span class="text-[10px] font-mono text-sc-gold-light block mb-1">Mã Băm Merkle Root Blockchain:</span>
+                            <div class="bg-sc-red-950 p-2.5 rounded-xl border border-rose-900 text-[10px] font-mono text-yellow-200/90 break-all">
+                                <span class="text-emerald-400">Hash:</span> <span id="display-dpp-hash">0x7f9a88c2f1e6b39d10e8b2a3c4f74d0e98c7721a</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cột phải: Bảng điều khiển DPP với 2 Sub-tabs (Hồ sơ, Trạm IoT) -->
+                    <div class="lg:col-span-8 royal-gradient-card rounded-3xl p-6 sm:p-8 border-2 border-sc-gold shadow-2xl relative">
+                        
+                        <!-- Header thẻ DPP với Logo -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-rose-900 gap-4">
+                            <div class="flex items-center gap-4">
+                                <img src="IMG_20261112_075425.png" alt="SaChau-Sense Logo" class="w-16 h-16 rounded-2xl object-cover border border-sc-gold/40 shadow-md shrink-0">
+                                <div>
+                                    <div class="flex items-center gap-2 text-xs font-mono text-sc-gold uppercase tracking-widest font-bold">
+                                        <i class="fa-solid fa-id-card"></i>
+                                        <span>Hộ Chiếu Số DPP • Chuẩn GS1 & OCOP</span>
+                                    </div>
+                                    <h3 id="dpp-display-title" class="font-serif text-2xl font-bold text-white mt-1">
+                                        Set Song Vị Mạnh Sánh
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <span id="dpp-display-status-badge" class="px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-mono font-bold">
+                                    <i class="fa-solid fa-truck-fast mr-1"></i> ĐÃ GIAO HÀNG
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- 2 Sub-tabs: Hồ sơ chai mắm | Trạm IoT ang sành -->
+                        <div class="flex flex-wrap items-center gap-2 mt-5 mb-6 border-b border-rose-900 pb-3">
+                            <button onclick="switchDppSubModule('profile')" id="subtab-btn-profile" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-box-open"></i> Hồ Sơ Chai Mắm & Đơn Hàng
+                            </button>
+                            <button onclick="switchDppSubModule('iot')" id="subtab-btn-iot" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-900 font-bold text-xs hover:text-white transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-chart-line text-sc-gold"></i> Trạm IoT Ang Sành Tương Ứng
+                            </button>
+                        </div>
+
+                        <!-- SUB-MODULE 1: HỒ SƠ CHAI MẮM & ĐƠN HÀNG -->
+                        <div id="submodule-profile" class="space-y-6 block">
+                            <div class="py-2 flex flex-wrap items-center gap-3 text-xs text-rose-200 font-mono bg-sc-red-950/80 p-3 rounded-xl border border-rose-900">
+                                <span>Mã Đơn / Tem: <strong id="dpp-val-code" class="text-yellow-300">ORD-2026-SC01-889</strong></span>
+                                <span>•</span>
+                                <span>Ang Chượp: <strong id="dpp-val-vat" class="text-emerald-400">Ang-ManhSanh-01</strong></span>
+                                <span>•</span>
+                                <span>Ngày xuất: <strong id="dpp-val-date" class="text-white">15/02/2026</strong></span>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div class="bg-sc-red-950/80 p-4 rounded-2xl border border-rose-900 text-xs space-y-2 text-rose-100">
+                                    <h4 class="font-mono text-sc-gold font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-anchor"></i> 1. Nguồn Gốc & Nghệ Nhân
+                                    </h4>
+                                    <p><strong>Loại cá ủ:</strong> <span id="dpp-val-fish">Cá nục than & Tôm tươi</span></p>
+                                    <p><strong>Muối hạt:</strong> <span id="dpp-val-salt">Muối biển Bạch Long lưu kho 12 tháng</span></p>
+                                    <p><strong>Nghệ nhân phụ trách:</strong> <span id="dpp-val-artisan" class="text-yellow-300 font-bold">Nghệ nhân Phạm Văn Mạnh</span></p>
+                                    <p><strong>Cơ sở sản xuất:</strong> <span id="dpp-val-facility">Cơ sở Nước mắm Sa Châu Truyền Thống Mạnh Sánh</span></p>
+                                    <p><strong>Vị trí sân phơi:</strong> <span id="dpp-val-location">Xã Giao Châu, Giao Thủy</span></p>
+                                </div>
+
+                                <div class="bg-sc-red-950/80 p-4 rounded-2xl border border-rose-900 text-xs space-y-2 text-rose-100">
+                                    <h4 class="font-mono text-sc-gold font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-sun"></i> 2. Hành Trình Phơi Nắng
+                                    </h4>
+                                    <p><strong>Thời gian ủ chượp:</strong> <span id="dpp-val-duration">24 tháng</span></p>
+                                    <p><strong>Giờ nắng hấp thụ:</strong> <span id="dpp-val-sunhours" class="text-yellow-300 font-mono font-bold">1,820 giờ nắng đỉnh</span></p>
+                                    <p><strong>Lượt cào đánh đảo:</strong> <span id="dpp-val-stircount">480 lượt</span></p>
+                                    <p><strong>Cảnh báo mưa IoT:</strong> <span class="text-emerald-400 font-semibold">100% che đậy an toàn</span></p>
+                                    <p><strong>Quy cách:</strong> Chai thủy tinh 1.000ml (1 Lít)</p>
+                                </div>
+                            </div>
+
+                            <!-- Chỉ số kiểm định chất lượng và an toàn thực phẩm mới -->
+                            <div class="pt-2">
+                                <h4 class="font-mono text-sc-gold text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-medal"></i> 3. Kiểm Định Chất Lượng & An Toàn Thực Phẩm
+                                </h4>
+                                
+                                <!-- 3 TIÊU CHÍ THÀNH PHẦN (DÀN HÀNG NGANG 3 CỘT) -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                                    <!-- 1. Sắc loại cá -->
+                                    <div class="p-4 rounded-2xl bg-sc-red-950 border border-rose-900 flex flex-col justify-between">
+                                        <span class="text-[10px] text-rose-300 font-mono flex items-center gap-1.5">
+                                            <i class="fa-solid fa-fish-fins text-cyan-400 text-xs"></i> Sắc Loại Nguyên Liệu
+                                        </span>
+                                        <div class="mt-2">
+                                            <span id="dpp-val-fishtype" class="text-base font-bold text-white block leading-tight font-serif">Cá Nục Than & Tôm 100%</span>
+                                            <span id="dpp-val-fishdesc" class="text-[11px] text-emerald-400 block mt-1 font-mono">Tươi roi rói, vảy óng ánh</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Độ đục quang học -->
+                                    <div class="p-4 rounded-2xl bg-sc-red-950 border border-rose-900 flex flex-col justify-between">
+                                        <span class="text-[10px] text-rose-300 font-mono flex items-center gap-1.5">
+                                            <i class="fa-solid fa-droplet text-amber-300 text-xs"></i> Độ Đục Quang Học
+                                        </span>
+                                        <div class="mt-2">
+                                            <span id="dpp-val-turbidity" class="text-base font-bold font-mono text-yellow-300 block leading-tight">0.82 NTU</span>
+                                            <span id="dpp-val-turbidity-desc" class="text-[11px] text-rose-200/90 block mt-1 font-mono">Trong vắt, không cặn lơ lửng</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Màu sắc cốt mắm -->
+                                    <div class="p-4 rounded-2xl bg-sc-red-950 border border-rose-900 flex flex-col justify-between">
+                                        <span class="text-[10px] text-rose-300 font-mono flex items-center gap-1.5">
+                                            <i class="fa-solid fa-palette text-sc-gold text-xs"></i> Màu Sắc Cốt Mắm
+                                        </span>
+                                        <div class="mt-2">
+                                            <span id="dpp-val-color" class="text-base font-bold text-amber-300 block leading-tight font-serif">Cánh Gián Hổ Phách</span>
+                                            <span id="dpp-val-colordesc" class="text-[11px] text-rose-200/90 block mt-1 font-mono">Sóng sánh như mật, bóng đẹp</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- KHỐI ĐÁNH GIÁ CHẤT LƯỢNG CHUNG: VIẾT TO, NỔI BẬT Ở DƯỚI CÙNG -->
+                                <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-sc-red-950 via-[#40050a] to-sc-red-950 border-2 border-sc-gold shadow-2xl relative overflow-hidden">
+                                    <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-sc-gold/20 rounded-full blur-2xl pointer-events-none"></div>
+                                    
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-2.5 h-2.5 rounded-full bg-sc-gold animate-pulse"></span>
+                                                <span class="text-xs font-mono text-sc-gold uppercase tracking-widest font-black">
+                                                    Kết Quả Đánh Giá Chất Lượng Chung
+                                                </span>
+                                            </div>
+                                            <h3 id="dpp-val-grade" class="font-serif font-black text-3xl sm:text-4xl text-yellow-300 tracking-wide gold-glow leading-tight">
+                                                THƯỢNG HẠNG
+                                            </h3>
+                                            <p id="dpp-val-gradedesc" class="text-xs sm:text-sm font-mono text-emerald-400 font-bold flex items-center gap-1.5 mt-1">
+                                                <i class="fa-solid fa-crown text-sc-gold"></i>
+                                                <span>★ Chuẩn Ngự Thiện Tiến Vua • Thỏa mãn 3 tiêu chuẩn khắt khe</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Badge huy hiệu OCOP hoàng gia -->
+                                        <div class="flex items-center gap-3 shrink-0 self-start sm:self-center bg-sc-red-900/90 px-4 py-2.5 rounded-2xl border border-sc-gold/60">
+                                            <div class="w-10 h-10 rounded-full bg-sc-gold/20 text-yellow-300 flex items-center justify-center text-xl border border-sc-gold">
+                                                <i class="fa-solid fa-award"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-[10px] text-rose-300 font-mono block">Cấp Bậc Kiểm Định</span>
+                                                <span class="text-xs font-bold text-white font-mono">TIÊU CHUẨN 5 SAO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- NÚT BẤM LỚN: PHẢN HỒI KHÁCH HÀNG & MỞ TRỰC TIẾP KHU VỰC ĐÁNH GIÁ -->
+                                <div class="mt-4">
+                                    <button type="button" onclick="toggleDppFeedbackSection()" id="btn-toggle-feedback" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-sm uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group">
+                                        <i class="fa-solid fa-comment-dots text-lg group-hover:scale-110 transition"></i>
+                                        <span>Phản Hồi & Đánh Giá Chất Lượng Của Khách Hàng</span>
+                                        <span id="btn-badge-fb-count" class="px-2.5 py-0.5 rounded-full bg-sc-red-950 text-yellow-300 font-mono text-xs font-bold border border-sc-gold">
+                                            <span id="dpp-fb-count">3</span> Đánh giá
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <!-- KHU VỰC PHẢN HỒI ĐƯỢC MỞ TRỰC TIẾP NGAY BÊN DƯỚI -->
+                                <div id="direct-feedback-section" class="mt-5 space-y-5 hidden">
+                                    <!-- Form gửi đánh giá -->
+                                    <div class="bg-sc-red-950/90 p-5 rounded-2xl border border-sc-gold/50 shadow-inner">
+                                        <h4 class="font-serif font-bold text-white text-base mb-3 flex items-center gap-2">
+                                            <i class="fa-solid fa-pen-nib text-sc-gold"></i>
+                                            <span>Gửi Cảm Nhận Về Chai Mắm Của Bạn</span>
+                                        </h4>
+                                        <form onsubmit="handleCustomerFeedback(event)" class="space-y-3 text-xs">
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div>
+                                                    <label class="block text-amber-200 font-mono mb-1">Họ tên của bạn *</label>
+                                                    <input type="text" id="fb-author" required placeholder="Chị Lan (Hà Nội)..." class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-amber-200 font-mono mb-1">Món ăn đã dùng kèm</label>
+                                                    <input type="text" id="fb-dish" placeholder="Cá nục kho tộ, thịt ba chỉ luộc..." class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 font-mono mb-1">Đánh giá sao *</label>
+                                                <select id="fb-rating" class="w-full bg-sc-red-900 text-yellow-300 font-bold px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                                                    <option value="5">⭐⭐⭐⭐⭐ 5 Sao - Nước mắm sánh đậm, thơm ngọt chuẩn Sa Châu</option>
+                                                    <option value="4">⭐⭐⭐⭐ 4 Sao - Rất thơm ngon, vừa miệng</option>
+                                                    <option value="3">⭐⭐⭐ 3 Sao - Đậm đà, cần thêm tỏi ớt</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 font-mono mb-1">Cảm nhận chi tiết *</label>
+                                                <textarea id="fb-message" required rows="2" placeholder="Nước mắm có màu cánh gián đẹp, chấm thịt luộc rất đậm đà..." class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none"></textarea>
+                                            </div>
+                                            <button type="submit" class="px-5 py-2.5 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase text-xs shadow hover:bg-amber-400 transition flex items-center justify-center gap-2">
+                                                <span>Gửi Đánh Giá Vào Sổ Cái Hộ Chiếu</span>
+                                                <div id="fb-loading" class="hidden w-4 h-4 border-2 border-sc-red-950 border-t-transparent rounded-full animate-spin"></div>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Danh sách đánh giá thực tế từ khách hàng -->
+                                    <div class="space-y-3" id="customer-feedback-list">
+                                        <div class="bg-sc-red-950/80 p-4 rounded-xl border border-rose-900 text-xs space-y-1">
+                                            <div class="flex justify-between items-center">
+                                                <strong class="text-yellow-300 font-serif">Bác Trần Minh Tuấn (Hà Nội)</strong>
+                                                <span class="text-yellow-400 font-mono">⭐⭐⭐⭐⭐</span>
+                                            </div>
+                                            <p class="text-[11px] text-amber-200/80">Món nấu: <em>Thịt kho tàu & chấm rau muống luộc</em></p>
+                                            <p class="text-rose-100 font-light">"Nước mắm rót ra bát sóng sánh đặc quánh, vị ngọt hậu sâu như mắm tiến vua các cụ xưa hay kể. Mắm tôm thơm phức không gắt. Rất an tâm!"</p>
+                                        </div>
+
+                                        <div class="bg-sc-red-950/80 p-4 rounded-xl border border-rose-900 text-xs space-y-1">
+                                            <div class="flex justify-between items-center">
+                                                <strong class="text-yellow-300 font-serif">Chị Lê Hoàng Oanh (TP. Hồ Chí Minh)</strong>
+                                                <span class="text-yellow-400 font-mono">⭐⭐⭐⭐⭐</span>
+                                            </div>
+                                            <p class="text-[11px] text-amber-200/80">Món nấu: <em>Chấm cá chiên & pha tỏi ớt</em></p>
+                                            <p class="text-rose-100 font-light">"Đúng chuẩn giọt cốt nhĩ phơi nắng miền Bắc, không bị pha ngọt lợ như mắm công nghiệp. Khắc laser mã DPP trên nắp chai nhìn rất xịn xò. Mắm Mạnh Sánh đỉnh cao."</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- SUB-MODULE 2: TRẠM IOT ANG SÀNH TƯƠNG ỨNG -->
+                        <div id="submodule-iot" class="space-y-6 hidden">
+                            <div class="flex flex-wrap items-center justify-between gap-3 bg-sc-red-950/80 p-3 rounded-2xl border border-rose-900">
+                                <div>
+                                    <span class="text-xs font-mono text-sc-gold font-bold flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                        Trạm IoT Quan Trắc: <strong id="iot-vat-title" class="text-white">Ang-ManhSanh-01</strong>
+                                    </span>
+                                    <p class="text-[11px] text-rose-200">Truy vết vi khí hậu thời gian thực của chính chiếc ang tạo nên chai mắm này</p>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <button onclick="simulateIotWeather('sunny')" id="btn-weather-sunny" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-black text-[11px]">
+                                        <i class="fa-solid fa-sun"></i> Nắng To
+                                    </button>
+                                    <button onclick="simulateIotWeather('rain')" id="btn-weather-rain" class="px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 text-[11px] hover:bg-rose-700 hover:text-white">
+                                        <i class="fa-solid fa-cloud-showers-heavy"></i> Mưa Rào
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 4 Thông số IoT then chốt -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div class="bg-sc-red-950/90 p-3.5 rounded-2xl border border-rose-900">
+                                    <span class="text-[11px] font-mono text-rose-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-temperature-half text-amber-400"></i> Nhiệt Ang Sành
+                                    </span>
+                                    <div class="flex items-baseline gap-1 mt-1">
+                                        <span class="text-2xl font-black font-mono text-white" id="iot-val-temp">42.8</span>
+                                        <span class="text-xs text-sc-gold font-mono">°C</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-sc-red-950/90 p-3.5 rounded-2xl border border-rose-900">
+                                    <span class="text-[11px] font-mono text-rose-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-sun text-yellow-300"></i> Bức Xạ Nắng
+                                    </span>
+                                    <div class="flex items-baseline gap-1 mt-1">
+                                        <span class="text-2xl font-black font-mono text-yellow-300" id="iot-val-radiation">895</span>
+                                        <span class="text-xs text-yellow-300 font-mono">W/m²</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-sc-red-950/90 p-3.5 rounded-2xl border border-rose-900">
+                                    <span class="text-[11px] font-mono text-rose-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-flask-vial text-cyan-300"></i> Độ Mặn Chượp
+                                    </span>
+                                    <div class="flex items-baseline gap-1 mt-1">
+                                        <span class="text-2xl font-black font-mono text-cyan-200" id="iot-val-salinity">25.8</span>
+                                        <span class="text-xs text-cyan-300 font-mono">°Bé</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-sc-red-950/90 p-3.5 rounded-2xl border border-rose-900">
+                                    <span class="text-[11px] font-mono text-rose-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-award text-sc-gold"></i> Đạm Dự Báo
+                                    </span>
+                                    <div class="flex items-baseline gap-1 mt-1">
+                                        <span class="text-2xl font-black font-mono text-sc-gold-light" id="iot-val-protein">40.2</span>
+                                        <span class="text-xs text-sc-gold font-mono">°N</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Đồ thị telemetry vi khí hậu -->
+                            <div class="bg-sc-red-950/90 p-4 rounded-2xl border border-rose-900">
+                                <div class="flex justify-between items-center mb-2 text-xs font-mono text-rose-200">
+                                    <span>Biến thiên nhiệt độ & bức xạ ang sành hôm nay</span>
+                                    <span class="text-emerald-400"><i class="fa-solid fa-cloud text-xs mr-1"></i> Cảm biến mưa: KHÔ RÁO</span>
+                                </div>
+                                <div class="h-56 w-full">
+                                    <canvas id="dppTelemetryChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- FOOTER TÔNG ĐỎ NAM NGƯ SANG TRỌNG -->
+    <footer class="bg-sc-red-950 border-t-2 border-sc-gold/40 text-rose-200 py-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-rose-900">
+                
+                <!-- Col 1: Brand & Logo thực tế -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <img src="IMG_20261112_075425.png" alt="SaChau-Sense Logo" class="w-14 h-14 rounded-2xl object-cover border border-sc-gold/40 shadow-md shrink-0">
+                        <div>
+                            <span class="font-cinzel font-black text-xl text-white">SACHAU<span class="text-sc-gold">-SENSE</span></span>
+                            <p class="text-[10px] text-sc-gold-light font-mono">Hộ Chiếu Số DPP & IoT Làng Nghề</p>
+                        </div>
+                    </div>
+                    <p class="text-rose-300/80 leading-relaxed font-light">
+                        Dự án khoa học công nghệ chuyển đổi số cho làng nghề nước mắm truyền thống Sa Châu (xã Giao Châu, huyện Giao Thủy, tỉnh Nam Định).
+                    </p>
+                    <div class="flex items-center gap-3 text-sc-gold">
+                        <span class="w-8 h-8 rounded-lg bg-sc-red-900 border border-sc-gold/40 flex items-center justify-center hover:bg-sc-gold hover:text-sc-red-950 cursor-pointer transition"><i class="fa-brands fa-facebook-f"></i></span>
+                        <span class="w-8 h-8 rounded-lg bg-sc-red-900 border border-sc-gold/40 flex items-center justify-center hover:bg-sc-gold hover:text-sc-red-950 cursor-pointer transition"><i class="fa-solid fa-phone"></i></span>
+                        <span class="w-8 h-8 rounded-lg bg-sc-red-900 border border-sc-gold/40 flex items-center justify-center hover:bg-sc-gold hover:text-sc-red-950 cursor-pointer transition"><i class="fa-solid fa-globe"></i></span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Truy cập nhanh -->
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-white text-sm uppercase tracking-wider text-sc-gold">Mục Lục Dự Án</h4>
+                    <ul class="space-y-2 text-rose-300/90 font-light">
+                        <li><button onclick="switchMainView('home'); scrollToSection('heritage')" class="hover:text-sc-gold">Di Sản & Câu Chuyện Tiến Vua</button></li>
+                        <li><button onclick="switchMainView('home'); scrollToSection('process')" class="hover:text-sc-gold">Quy Trình Phơi Nắng Sương</button></li>
+                        <li><button onclick="switchMainView('home'); scrollToSection('products')" class="hover:text-sc-gold">Sản Phẩm Mạnh Sánh</button></li>
+                        <li><button onclick="switchMainView('home'); scrollToSection('culinary')" class="hover:text-sc-gold">Cẩm Nang Nhận Diện Hương Vị</button></li>
+                        <li><button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="hover:text-sc-gold">Tra Cứu Hộ Chiếu Số DPP</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Cam kết chất lượng -->
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-white text-sm uppercase tracking-wider text-sc-gold">Cam Kết Chất Lượng</h4>
+                    <ul class="space-y-2 text-rose-300/90 font-light">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Cá tôm vụ mùa & Muối Bạch Long</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Không chất bảo quản, 100% thủ công</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Chăm sóc tỉ mỉ qua 3 thế hệ</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Hộ chiếu số minh bạch từng ang sành</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Thông tin liên hệ cơ sở -->
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-white text-sm uppercase tracking-wider text-sc-gold">Cơ Sở Mạnh Sánh</h4>
+                    <p class="text-rose-300/90 font-light">
+                        <i class="fa-solid fa-location-dot text-sc-gold mr-1.5"></i> Xã Giao Châu, Giao Thủy, Nam Định
+                    </p>
+                    <p class="text-rose-300/90 font-light">
+                        <i class="fa-solid fa-phone text-sc-gold mr-1.5"></i> Nghệ nhân Phạm Văn Mạnh
+                    </p>
+                    <span class="inline-block px-3 py-1 rounded bg-sc-gold/20 text-sc-gold font-mono text-[11px] border border-sc-gold/40 mt-1">
+                        OCOP Nam Định • Hữu Xạ Tự Nhiên Hương
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-rose-400 text-[11px]">
+                <p>&copy; 2026 SaChau-Sense Project. Bản quyền thuộc về Đề án Số Hóa Làng Nghề.</p>
+                <div class="flex gap-4 mt-2 sm:mt-0 font-mono">
+                    <span>Chuẩn DPP GS1</span>
+                    <span>•</span>
+                    <span>Bảo Mật Merkle Proof</span>
+                    <span>•</span>
+                    <span>IoT LoRaWAN</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- MODALS: CHI TIẾT SẢN PHẨM & TÀI KHOẢN PHÂN QUYỀN -->
+    <!-- ========================================================================= -->
+
+    <!-- 1. Modal Chi Tiết Sản Phẩm -->
+    <div id="product-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="royal-gradient-card rounded-3xl max-w-xl w-full p-6 sm:p-8 border-2 border-sc-gold shadow-2xl relative text-xs">
+            <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-sc-red-950 text-rose-300 hover:text-white flex items-center justify-center border border-rose-800">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-product-content" class="space-y-4">
+                <!-- Nội dung được nạp động qua JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal Đăng Nhập / Đăng Ký Phân Quyền -->
+    <div id="auth-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="royal-gradient-card rounded-3xl max-w-md w-full p-6 sm:p-7 border-2 border-sc-gold shadow-2xl relative text-xs">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-sc-red-950 text-rose-300 hover:text-white flex items-center justify-center border border-rose-800">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Auth Tabs -->
+            <div class="flex border-b border-rose-900 pb-2 mb-4 gap-4">
+                <button onclick="switchAuthTab('login')" id="auth-tab-btn-login" class="font-serif font-bold text-base text-sc-gold border-b-2 border-sc-gold pb-1">
+                    Đăng Nhập
+                </button>
+                <button onclick="switchAuthTab('register')" id="auth-tab-btn-register" class="font-serif font-bold text-base text-rose-300 pb-1 hover:text-white">
+                    Đăng Ký Tài Khoản
+                </button>
+            </div>
+
+            <!-- Form Đăng Nhập -->
+            <form id="auth-form-login" onsubmit="handleAuthLogin(event)" class="space-y-3.5">
+                <div>
+                    <label class="block text-amber-200 font-mono mb-1">Số điện thoại hoặc Email *</label>
+                    <input type="text" id="login-identifier" required placeholder="09xxxxxxxx hoặc email..." class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-amber-200 font-mono mb-1">Mật khẩu *</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                </div>
+                <!-- Login giả lập thành Nghệ nhân nếu gõ admin/artisan, còn lại là khách hàng -->
+                <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase text-xs tracking-wider transition shadow mt-2">
+                    Đăng Nhập Ngay
+                </button>
+            </form>
+
+            <!-- Form Đăng Ký Phân Quyền (Tích hợp nén ảnh) -->
+            <form id="auth-form-register" onsubmit="handleAuthRegister(event)" class="space-y-3 hidden relative">
+                <!-- Overlay Loading Đăng Ký -->
+                <div id="auth-loading" class="hidden absolute inset-0 bg-sc-red-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center rounded-xl">
+                    <div class="loader mb-3"></div>
+                    <span class="text-sc-gold font-bold font-mono tracking-widest text-xs">ĐANG XỬ LÝ...</span>
+                </div>
+
+                <!-- Chọn đối tượng -->
+                <div>
+                    <label class="block text-sc-gold font-mono font-bold mb-1">Bạn là đối tượng nào? *</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="setRegisterRole('customer')" id="role-btn-customer" class="py-2 px-3 rounded-xl bg-sc-gold text-sc-red-950 font-black text-center text-xs border border-sc-gold">
+                            <i class="fa-solid fa-user mr-1"></i> Khách Hàng
+                        </button>
+                        <button type="button" onclick="setRegisterRole('artisan')" id="role-btn-artisan" class="py-2 px-3 rounded-xl bg-sc-red-950 text-rose-200 font-bold text-center text-xs border border-rose-800">
+                            <i class="fa-solid fa-jar mr-1"></i> Nghệ Nhân Mắm
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Trường chung -->
+                <div>
+                    <label class="block text-amber-200 font-mono mb-0.5">Họ và tên *</label>
+                    <input type="text" id="reg-name" required placeholder="Nguyễn Văn A" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-amber-200 font-mono mb-0.5">Số điện thoại *</label>
+                    <input type="tel" id="reg-phone" required placeholder="09xxxxxxxx" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-amber-200 font-mono mb-0.5">Mật khẩu *</label>
+                    <input type="password" id="reg-pass" required placeholder="Tối thiểu 6 ký tự" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                </div>
+
+                <!-- Trường dành riêng cho NGHỆ NHÂN LÀNG NGHỀ -->
+                <div id="artisan-extra-fields" class="hidden space-y-2 pt-2 border-t border-rose-900">
+                    <span class="text-[10px] font-mono text-sc-gold block font-bold">Thông Tin Cơ Sở Sản Xuất Gia Truyền:</span>
+                    <div>
+                        <input type="text" id="reg-facility" placeholder="Tên cơ sở / Hộ làm mắm..." class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                    </div>
+                    <div>
+                        <input type="text" id="reg-address" placeholder="Địa chỉ xưởng tại Xã Giao Châu, Giao Thủy..." class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                    </div>
+                    <div>
+                        <input type="number" id="reg-vat-count" placeholder="Số lượng ang sành sở hữu..." class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-amber-200 font-mono mb-1 text-[10px]">Tải Lên Ảnh Chứng Nhận OCOP / Nghệ Nhân *</label>
+                        <!-- Ô chọn file hình ảnh (thay cho ô input chữ cũ) -->
+                        <input type="file" id="reg-ocop-img" accept="image/*" class="w-full bg-sc-red-950 text-white px-3 py-1.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sc-gold file:text-sc-red-950 hover:file:bg-amber-400">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-sc-gold to-amber-500 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black uppercase text-xs tracking-wider transition shadow mt-2">
+                    Hoàn Tất Đăng Ký
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Nơi chứa logic Canvas để tự động nén ảnh chứng nhận -->
+    <canvas id="hidden-canvas" style="display:none;"></canvas>
+
+    <!-- ========================================================================= -->
+    <!-- JAVASCRIPT LOGIC ĐIỀU KHIỂN -->
+    <!-- ========================================================================= -->
+    <script>
+        // TRẠNG THÁI TOÀN CỤC CỦA HỆ THỐNG
+        let isArtisanLoggedIn = false;
+        
+        // Bảng giá chi tiết Mạnh Sánh
+        const productSizePrices = {
+            manhsanh_combo: {
+                'Cá-Tôm': 200000,
+                'Tôm-Tôm': 200000,
+                'Cá-Cá': 200000
+            },
+            manhsanh_hop1: {
+                'Vị Cá': 150000,
+                'Vị Tôm': 150000
+            },
+            manhsanh_thuong: {
+                'Vị Cá': 100000,
+                'Vị Tôm': 100000
+            }
+        };
+
+        const selectedSizes = {
+            manhsanh_combo: 'Cá-Tôm',
+            manhsanh_hop1: 'Vị Cá',
+            manhsanh_thuong: 'Vị Cá'
+        };
+
+        const cartQuantities = {
+            manhsanh_combo: 0,
+            manhsanh_hop1: 0,
+            manhsanh_thuong: 0
+        };
+
+        const artisansDirectory = {
+            artisan_manh: {
+                name: "Nghệ Nhân Phạm Văn Mạnh",
+                facility: "Cơ sở Nước mắm Sa Châu Truyền Thống Mạnh Sánh",
+                node: "Ang-ManhSanh-01",
+                exp: "Nghệ nhân ưu tú • Mã IoT Node: Ang-ManhSanh-01"
+            }
+        };
+
+        // --- CÁC HÀM ĐIỀU HƯỚNG ---
+        function switchMainView(view) {
+            const homeView = document.getElementById('main-view-home');
+            const passportView = document.getElementById('main-view-passport');
+            if (view === 'passport-app') {
+                homeView.classList.add('hidden');
+                passportView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                    initOrUpdateChart();
+                }, 150);
+            } else {
+                passportView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+            }
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        // Logic nhấn nút Đặt hàng / Quản lý đơn tùy vai trò
+        function handlePrimaryActionClick() {
+            switchMainView('passport-app');
+            switchDppTab('order');
+        }
+
+        function switchDppTab(tab) {
+            const orderPane = document.getElementById('dpp-tab-pane-order');
+            const passportPane = document.getElementById('dpp-tab-pane-passport');
+            const btnOrder = document.getElementById('tab-btn-order');
+            const btnPassport = document.getElementById('tab-btn-passport');
+
+            // View Nghệ nhân
+            const customerView = document.getElementById('customer-order-view');
+            const artisanView = document.getElementById('artisan-dashboard-view');
+
+            if (tab === 'order') {
+                orderPane.classList.remove('hidden');
+                passportPane.classList.add('hidden');
+                
+                if (btnOrder) btnOrder.className = "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase tracking-wider shadow";
+                if (btnPassport) btnPassport.className = "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase tracking-wider hover:text-white";
+                
+                if (isArtisanLoggedIn) {
+                    if (customerView) customerView.classList.add('hidden');
+                    if (artisanView) artisanView.classList.remove('hidden');
+                } else {
+                    if (customerView) customerView.classList.remove('hidden');
+                    if (artisanView) artisanView.classList.add('hidden');
+                }
+            } else {
+                orderPane.classList.add('hidden');
+                passportPane.classList.remove('hidden');
+                if (btnPassport) btnPassport.className = "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase tracking-wider shadow";
+                if (btnOrder) btnOrder.className = "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase tracking-wider hover:text-white";
+            }
+        }
+
+        function switchDppSubModule(sub) {
+            const submodules = ['profile', 'iot'];
+            submodules.forEach(s => {
+                const pane = document.getElementById(`submodule-${s}`);
+                const btn = document.getElementById(`subtab-btn-${s}`);
+                if (pane && btn) {
+                    if (s === sub) {
+                        pane.classList.remove('hidden');
+                        btn.className = "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs shadow transition flex items-center gap-1.5";
+                    } else {
+                        pane.classList.add('hidden');
+                        btn.className = "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-900 font-bold text-xs hover:text-white transition flex items-center gap-1.5";
+                    }
+                }
+            });
+            if (sub === 'iot') {
+                setTimeout(() => {
+                    if (dppChart) dppChart.resize();
+                }, 100);
+            }
+        }
+
+        function toggleDppFeedbackSection() {
+            const sec = document.getElementById('direct-feedback-section');
+            if (sec) {
+                sec.classList.toggle('hidden');
+                if (!sec.classList.contains('hidden')) {
+                    sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        // --- CÁC HÀM GIỎ HÀNG SẢN PHẨM MẠNH SÁNH ---
+        function selectProductSize(product, size) {
+            selectedSizes[product] = size;
+            const price = productSizePrices[product][size];
+            
+            const displayEl = document.getElementById(`price-display-${product}`);
+            if (displayEl) {
+                let unitLabel = product === 'manhsanh_combo' ? 'set 2 chai' : (product === 'manhsanh_hop1' ? 'hộp' : 'chai');
+                displayEl.innerText = `${price.toLocaleString('vi-VN')} đ / ${unitLabel}`;
+            }
+
+            const sizesAvailable = Object.keys(productSizePrices[product]);
+            sizesAvailable.forEach(s => {
+                const btn = document.getElementById(`size-btn-${product}-${s}`);
+                if (btn) {
+                    if (s === size) {
+                        btn.className = "px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 border border-sc-gold text-[11px] font-mono font-bold transition";
+                    } else {
+                        btn.className = "px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-200 border border-rose-900 text-[11px] font-mono hover:border-sc-gold transition";
+                    }
+                }
+            });
+
+            recalculateOrderTotals();
+        }
+
+        function updateCartItemQty(item, delta) {
+            cartQuantities[item] = Math.max(0, cartQuantities[item] + delta);
+            const qtyEl = document.getElementById(`cart-qty-${item}`);
+            if (qtyEl) qtyEl.innerText = cartQuantities[item];
+            recalculateOrderTotals();
+        }
+
+        function quickAddToCart(item) {
+            updateCartItemQty(item, 1);
+            switchMainView('passport-app');
+            switchDppTab('order');
+        }
+
+        function recalculateOrderTotals() {
+            let subtotal = 0;
+            let totalCount = 0;
+            for (let k in cartQuantities) {
+                const currentSize = selectedSizes[k];
+                const price = productSizePrices[k][currentSize];
+                subtotal += cartQuantities[k] * price;
+                totalCount += cartQuantities[k];
+            }
+            const shipping = totalCount > 0 ? 30000 : 0;
+            const grandTotal = subtotal + shipping;
+
+            const subtotalEl = document.getElementById('chk-subtotal');
+            const shippingEl = document.getElementById('chk-shipping');
+            const totalEl = document.getElementById('chk-total');
+            const floatCountEl = document.getElementById('floating-cart-count');
+
+            if (subtotalEl) subtotalEl.innerText = subtotal.toLocaleString('vi-VN') + ' đ';
+            if (shippingEl) shippingEl.innerText = shipping.toLocaleString('vi-VN') + ' đ';
+            if (totalEl) totalEl.innerText = grandTotal.toLocaleString('vi-VN') + ' đ';
+            if (floatCountEl) floatCountEl.innerText = totalCount;
+        }
+
+        // --- ĐỒNG BỘ ĐƠN HÀNG LÊN GOOGLE SHEET ---
+        // WEBHOOK ĐƠN HÀNG
+        const orderWebhookUrl = "https://script.google.com/macros/s/AKfycbxCbEUDhUD1vgQ3kBAuGuvqH02IsynXpwt3DiIGrj0Vx35a9eSNguJniGs8Ni27AZkYQw/exec";
+
+        async function handleCheckoutOrder(e) {
+            e.preventDefault();
+            const totalCount = Object.values(cartQuantities).reduce((a, b) => a + b, 0);
+            if (totalCount === 0) {
+                alert("Quý khách vui lòng chọn ít nhất 1 sản phẩm để đặt hàng!");
+                return;
+            }
+
+            const name = document.getElementById('chk-name').value;
+            const phone = document.getElementById('chk-phone').value;
+            const city = document.getElementById('chk-city').value;
+            const address = document.getElementById('chk-address').value;
+            const note = document.getElementById('chk-note').value;
+            const artisanKey = document.getElementById('chk-artisan').value;
+            const artisanInfo = artisansDirectory[artisanKey];
+            const newOrderCode = 'ORD-2026-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Tính toán tổng tiền lại để gửi
+            let subtotal = 0;
+            let itemSummary = [];
+            const productNames = {
+                manhsanh_combo: "Set Song Vị Mạnh Sánh",
+                manhsanh_hop1: "Mạnh Sánh Hộp Đơn",
+                manhsanh_thuong: "Mạnh Sánh Chai Lẻ"
+            };
+
+            for (let k in cartQuantities) {
+                if (cartQuantities[k] > 0) {
+                    const price = productSizePrices[k][selectedSizes[k]];
+                    subtotal += cartQuantities[k] * price;
+                    itemSummary.push(`${cartQuantities[k]}x ${productNames[k]} (${selectedSizes[k]})`);
+                }
+            }
+            const shipping = 30000;
+            const grandTotal = subtotal + shipping;
+            const timestamp = new Date().toLocaleString('vi-VN');
+
+            // Hiệu ứng Loading
+            const btnSubmit = document.getElementById('btn-submit-order');
+            const loadingOverlay = document.getElementById('order-loading');
+            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+            if (btnSubmit) btnSubmit.disabled = true;
+
+            const orderData = {
+                timestamp: timestamp,
+                orderCode: newOrderCode,
+                artisanName: artisanInfo.name,
+                artisanFacility: artisanInfo.facility,
+                iotNode: artisanInfo.node,
+                customerName: name,
+                phone: phone,
+                city: city,
+                address: address,
+                items: itemSummary.join(' | '),
+                subtotal: subtotal.toLocaleString('vi-VN') + ' đ',
+                shipping: shipping.toLocaleString('vi-VN') + ' đ',
+                total: grandTotal.toLocaleString('vi-VN') + ' đ',
+                note: note || "Không có",
+                status: "Đơn Mới"
+            };
+
+            try {
+                const response = await fetch(orderWebhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+                
+                // Thành công
+                alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\n- Quý khách: ${name}\n- Mã Hộ Chiếu Số DPP: ${newOrderCode}\n- Sản phẩm: ${itemSummary.join(', ')}\n\nĐơn hàng đã được lưu và gửi trực tiếp cho ${artisanInfo.name}!`);
+
+                // Đưa mã và thông tin nghệ nhân đã chọn vào Hộ chiếu số
+                const inputSearch = document.getElementById('dpp-search-input');
+                const valCode = document.getElementById('dpp-val-code');
+                if (inputSearch) inputSearch.value = newOrderCode;
+                if (valCode) valCode.innerText = newOrderCode;
+                
+                const valArt = document.getElementById('dpp-val-artisan');
+                if (valArt) valArt.innerText = artisanInfo.name;
+                const valFac = document.getElementById('dpp-val-facility');
+                if (valFac) valFac.innerText = artisanInfo.facility;
+                const valVat = document.getElementById('dpp-val-vat');
+                if (valVat) valVat.innerText = artisanInfo.node;
+                const iotVat = document.getElementById('iot-vat-title');
+                if (iotVat) iotVat.innerText = `${artisanInfo.node}`;
+                
+                const statusBadge = document.getElementById('dpp-display-status-badge');
+                if (statusBadge) {
+                    statusBadge.innerHTML = '<i class="fa-solid fa-box mr-1"></i> ĐANG ĐÓNG GÓI XUẤT XƯỞNG';
+                    statusBadge.className = "px-3.5 py-1.5 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 text-xs font-mono font-bold";
+                }
+
+                switchDppTab('passport');
+                switchDppSubModule('profile');
+
+            } catch (error) {
+                alert("Có lỗi khi gửi đơn hàng. Vui lòng kiểm tra lại kết nối mạng!");
+                console.error(error);
+            } finally {
+                if (loadingOverlay) loadingOverlay.classList.add('hidden');
+                if (btnSubmit) btnSubmit.disabled = false;
+            }
+        }
+
+        // --- ĐỒNG BỘ ĐĂNG KÝ TÀI KHOẢN VÀ NÉN ẢNH ---
+        const authWebhookUrl = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec";
+
+        async function handleAuthRegister(e) {
+            e.preventDefault();
+            const loadingUI = document.getElementById('auth-loading');
+            if (loadingUI) loadingUI.classList.remove('hidden');
+
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            const pass = document.getElementById('reg-pass').value;
+            
+            // 1. Kiểm tra xem SĐT đã tồn tại trong LocalStorage chưa
+            let users = JSON.parse(localStorage.getItem('sachau_users') || '[]');
+            if (users.find(u => u.phone === phone)) {
+                alert("❌ Số điện thoại này đã được đăng ký!\nVui lòng sử dụng số khác hoặc chuyển sang tab Đăng Nhập.");
+                if (loadingUI) loadingUI.classList.add('hidden');
+                return;
+            }
+
+            let facility = "";
+            let address = "";
+            let vatCount = "";
+            let base64Image = "Không có ảnh";
+
+            try {
+                if (currentAuthRole === 'artisan') {
+                    facility = document.getElementById('reg-facility').value || "Cơ sở mắm Mạnh Sánh";
+                    address = document.getElementById('reg-address').value;
+                    vatCount = document.getElementById('reg-vat-count').value;
+                    
+                    const fileInput = document.getElementById('reg-ocop-img');
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        base64Image = await compressImageToTargetSize(file);
+                    } else {
+                        alert("Vui lòng tải lên Ảnh Chứng nhận OCOP / Nghệ Nhân!");
+                        loadingUI.classList.add('hidden');
+                        return;
+                    }
+                }
+
+                // Gửi Webhook lên Google Sheet (Giữ nguyên logic của bạn)
+                const data = {
+                    role: currentAuthRole,
+                    timestamp: new Date().toLocaleString('vi-VN'),
+                    name: name,
+                    phone: phone,
+                    password: pass,
+                    facility: facility,
+                    address: address,
+                    vatCount: vatCount,
+                    ocopImage: base64Image
+                };
+
+                await fetch(authWebhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(data)
+                });
+
+                // 2. Lưu tài khoản mới vào LocalStorage để Đăng nhập sau này
+                users.push({
+                    phone: phone,
+                    password: pass,
+                    name: name,
+                    role: currentAuthRole,
+                    facility: facility
+                });
+                localStorage.setItem('sachau_users', JSON.stringify(users));
+
+                closeAuthModal();
+
+                if (currentAuthRole === 'artisan') {
+                    updateUserNavProfile(name, `Nghệ Nhân (${facility})`);
+                    toggleArtisanDashboard(true);
+                    alert(`Đã gửi hồ sơ đăng ký Nghệ nhân (${name}).\nTài khoản của bạn đã có thể đăng nhập để quản lý đơn hàng!`);
+                } else {
+                    updateUserNavProfile(name, 'Khách Hàng SaChau');
+                    toggleArtisanDashboard(false);
+                    alert(`Đã đăng ký thành công tài khoản Khách hàng cho ${name}!`);
+                }
+
+            } catch (error) {
+                alert("Đăng ký không thành công. Hãy thử lại!");
+                console.error(error);
+            } finally {
+                if (loadingUI) loadingUI.classList.add('hidden');
+            }
+        }
+
+        function toggleArtisanDashboard(isArtisan) {
+            isArtisanLoggedIn = isArtisan;
+            const navBtnText = document.getElementById('nav-primary-text');
+            const navBtnTextMobile = document.getElementById('nav-primary-text-mobile');
+            const navBtnIcon = document.getElementById('nav-primary-icon');
+            
+            const floatBtnIcon = document.getElementById('floating-primary-icon');
+            const floatCount = document.getElementById('floating-cart-count');
+
+            if (isArtisan) {
+                if (navBtnText) navBtnText.innerText = "Đơn Đặt Hàng";
+                if (navBtnTextMobile) navBtnTextMobile.innerText = "Đơn";
+                if (navBtnIcon) navBtnIcon.className = "fa-solid fa-boxes-packing";
+                if (floatBtnIcon) floatBtnIcon.className = "fa-solid fa-boxes-packing text-lg sm:text-xl group-hover:rotate-12 transition";
+                if (floatCount) {
+                    floatCount.innerText = "0"; // Số đơn ảo
+                    floatCount.className = "absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] px-1 rounded-full bg-blue-600 text-white font-mono text-[10px] flex items-center justify-center font-bold shadow-sm";
+                }
+                switchMainView('home');
+            } else {
+                if (navBtnText) navBtnText.innerText = "Đặt Mua Mắm";
+                if (navBtnTextMobile) navBtnTextMobile.innerText = "Mua";
+                if (navBtnIcon) navBtnIcon.className = "fa-solid fa-cart-shopping";
+                if (floatBtnIcon) floatBtnIcon.className = "fa-solid fa-cart-shopping text-lg sm:text-xl group-hover:rotate-12 transition";
+                if (floatCount) {
+                    floatCount.className = "absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] px-1 rounded-full bg-sc-red-950 text-yellow-300 font-mono text-[10px] flex items-center justify-center font-bold border border-sc-gold shadow-sm";
+                }
+                recalculateOrderTotals();
+                switchMainView('home');
+            }
+        }
+
+        // Hàm nén ảnh giảm dung lượng trước khi gửi lên Sheet
+        function compressImageToTargetSize(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (event) {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = function () {
+                        const canvas = document.getElementById('hidden-canvas');
+                        const ctx = canvas.getContext('2d');
+                        const MAX_WIDTH = 400; // Giới hạn kích thước siêu nhỏ
+                        
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > MAX_WIDTH) {
+                            height = Math.round(height * MAX_WIDTH / width);
+                            width = MAX_WIDTH;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Nén ảnh ra chuẩn JPEG, giảm chất lượng còn 50%
+                        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.5);
+                        resolve(compressedBase64);
+                    }
+                    img.onerror = error => reject(error);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // --- CÁC HÀM XỬ LÝ KHÁC (ĐĂNG NHẬP, MODAL, HỘ CHIẾU MẪU) ---
+        function handleAuthLogin(e) {
+            e.preventDefault();
+            const id = document.getElementById('login-identifier').value;
+            const pass = document.getElementById('login-password').value;
+            
+            // Lấy danh sách user từ LocalStorage
+            let users = JSON.parse(localStorage.getItem('sachau_users') || '[]');
+            
+            // Tìm user có trùng SĐT và Mật khẩu
+            const user = users.find(u => u.phone === id && u.password === pass);
+
+            if (user) {
+                closeAuthModal();
+                if (user.role === 'artisan') {
+                    updateUserNavProfile(user.name, `Nghệ Nhân (${user.facility})`);
+                    toggleArtisanDashboard(true);
+                    alert(`Đăng nhập thành công!\nChào mừng Nghệ nhân ${user.name} quay trở lại Không gian quản trị.`);
+                } else {
+                    updateUserNavProfile(user.name, 'Khách Hàng SaChau');
+                    toggleArtisanDashboard(false);
+                    alert(`Xin chào quý khách ${user.name}! Bạn đã đăng nhập thành công.`);
+                }
+            } else {
+                alert("❌ Đăng nhập thất bại!\nTài khoản (Số điện thoại) hoặc Mật khẩu không chính xác. Vui lòng kiểm tra lại.");
+            }
+        }
+
+        async function handleAuthRegister(e) {
+            e.preventDefault();
+            const loadingUI = document.getElementById('auth-loading');
+            if (loadingUI) loadingUI.classList.remove('hidden');
+
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            const pass = document.getElementById('reg-pass').value;
+            
+            // 1. Kiểm tra xem SĐT đã tồn tại trong LocalStorage chưa
+            let users = JSON.parse(localStorage.getItem('sachau_users') || '[]');
+            if (users.find(u => u.phone === phone)) {
+                alert("❌ Số điện thoại này đã được đăng ký!\nVui lòng sử dụng số khác hoặc chuyển sang tab Đăng Nhập.");
+                if (loadingUI) loadingUI.classList.add('hidden');
+                return;
+            }
+
+            let facility = "";
+            let address = "";
+            let vatCount = "";
+            let base64Image = "Không có ảnh";
+
+            try {
+                if (currentAuthRole === 'artisan') {
+                    facility = document.getElementById('reg-facility').value || "Cơ sở mắm Mạnh Sánh";
+                    address = document.getElementById('reg-address').value;
+                    vatCount = document.getElementById('reg-vat-count').value;
+                    
+                    const fileInput = document.getElementById('reg-ocop-img');
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        base64Image = await compressImageToTargetSize(file);
+                    } else {
+                        alert("Vui lòng tải lên Ảnh Chứng nhận OCOP / Nghệ Nhân!");
+                        loadingUI.classList.add('hidden');
+                        return;
+                    }
+                }
+
+                // Gửi Webhook lên Google Sheet (Giữ nguyên logic của bạn)
+                const data = {
+                    role: currentAuthRole,
+                    timestamp: new Date().toLocaleString('vi-VN'),
+                    name: name,
+                    phone: phone,
+                    password: pass,
+                    facility: facility,
+                    address: address,
+                    vatCount: vatCount,
+                    ocopImage: base64Image
+                };
+
+                await fetch(authWebhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(data)
+                });
+
+                // 2. Lưu tài khoản mới vào LocalStorage để Đăng nhập sau này
+                users.push({
+                    phone: phone,
+                    password: pass,
+                    name: name,
+                    role: currentAuthRole,
+                    facility: facility
+                });
+                localStorage.setItem('sachau_users', JSON.stringify(users));
+
+                closeAuthModal();
+
+                if (currentAuthRole === 'artisan') {
+                    updateUserNavProfile(name, `Nghệ Nhân (${facility})`);
+                    toggleArtisanDashboard(true);
+                    alert(`Đã gửi hồ sơ đăng ký Nghệ nhân (${name}).\nTài khoản của bạn đã có thể đăng nhập để quản lý đơn hàng!`);
+                } else {
+                    updateUserNavProfile(name, 'Khách Hàng SaChau');
+                    toggleArtisanDashboard(false);
+                    alert(`Đã đăng ký thành công tài khoản Khách hàng cho ${name}!`);
+                }
+
+            } catch (error) {
+                alert("Đăng ký không thành công. Hãy thử lại!");
+                console.error(error);
+            } finally {
+                if (loadingUI) loadingUI.classList.add('hidden');
+            }
+        }
+
+        function updateUserNavProfile(name, roleLabel) {
+            const container = document.getElementById('auth-nav-container');
+            if (container) {
+                container.innerHTML = `
+                    <div class="px-3 py-1.5 rounded-xl bg-sc-red-950 border border-sc-gold text-xs flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <div>
+                            <strong class="text-white block text-[11px] leading-tight font-serif">${name}</strong>
+                            <span class="text-[9px] text-sc-gold font-mono">${roleLabel}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            const mobileActions = document.getElementById('mobile-auth-actions');
+            if (mobileActions) {
+                mobileActions.innerHTML = `
+                    <div class="w-full py-2 text-center text-rose-200 text-xs font-bold border border-rose-900 rounded-xl bg-sc-red-950">
+                        Đang đăng nhập: ${name}
+                    </div>
+                `;
+            }
+        }
+
+        function selectSampleDpp(index) {
+            const samplePassports = [
+                {
+                    code: 'ORD-2026-SC01-889',
+                    title: 'Set Song Vị Mạnh Sánh',
+                    vat: 'Ang-ManhSanh-01',
+                    mfg: '15/02/2026',
+                    fish: 'Cá Nục Than & Tôm tươi',
+                    duration: '24 tháng',
+                    sunhours: '1,820 giờ nắng đỉnh',
+                    protein: '40.2 gN/L',
+                    fishtype: 'Cá Nục & Tôm 100%',
+                    fishdesc: 'Tươi roi rói, vảy óng ánh',
+                    turbidity: '0.82 NTU',
+                    turbidityDesc: 'Trong suốt, không cặn lơ lửng',
+                    color: 'Cánh Gián Hổ Phách',
+                    colorDesc: 'Sóng sánh như mật',
+                    grade: 'THƯỢNG HẠNG',
+                    gradeDesc: '★ Chuẩn Ngự Thiện Tiến Vua',
+                    hash: '0x7f9a88c2f1e6b39d10e8b2a3c4f74d0e98c7721a',
+                    temp: '42.8', rad: '895', sal: '25.8',
+                    status: 'ĐÃ GIAO HÀNG', statusClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
+                },
+                {
+                    code: 'ORD-2026-VIP-772',
+                    title: 'Mạnh Sánh Hộp Đơn',
+                    vat: 'Ang-ManhSanh-01',
+                    mfg: '10/01/2026',
+                    fish: 'Cá nục than béo múp',
+                    duration: '18 tháng',
+                    sunhours: '1,450 giờ nắng đỉnh',
+                    protein: '38.0 gN/L',
+                    fishtype: 'Cá Nục Than',
+                    fishdesc: 'Chọn lọc cá tươi dày thịt',
+                    turbidity: '1.05 NTU',
+                    turbidityDesc: 'Độ trong cao',
+                    color: 'Nâu Vàng Hổ Phách',
+                    colorDesc: 'Sáng trong, mùi thơm dịu',
+                    grade: 'TUYỆT HẢO',
+                    gradeDesc: '★ Chuẩn OCOP Nam Định',
+                    hash: '0x3c8b11e9a2d5e78a66f0c11d23e4b55a88c991b2',
+                    temp: '39.5', rad: '780', sal: '25.2',
+                    status: 'ĐÃ GIAO HÀNG', statusClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
+                }
+            ];
+
+            const data = samplePassports[index];
+            const elNames = ['dpp-search-input', 'dpp-val-code', 'dpp-display-title', 'dpp-val-vat', 'dpp-val-date', 'dpp-val-fish', 'dpp-val-duration', 'dpp-val-sunhours', 'dpp-val-fishtype', 'dpp-val-fishdesc', 'dpp-val-turbidity', 'dpp-val-turbidity-desc', 'dpp-val-color', 'dpp-val-colordesc', 'dpp-val-grade', 'dpp-val-gradedesc', 'display-dpp-hash', 'iot-vat-title', 'iot-val-temp', 'iot-val-radiation', 'iot-val-salinity', 'iot-val-protein'];
+            const elVals = [data.code, data.code, data.title, data.vat, data.mfg, data.fish, data.duration, data.sunhours, data.fishtype, data.fishdesc, data.turbidity, data.turbidityDesc, data.color, data.colorDesc, data.grade, data.gradeDesc, data.hash, data.vat, data.temp, data.rad, data.sal, data.protein.replace(' gN/L', '°N')];
+            
+            for(let i=0; i<elNames.length; i++) {
+                const dom = document.getElementById(elNames[i]);
+                if (dom) {
+                    if (elNames[i] === 'dpp-search-input') dom.value = elVals[i];
+                    else dom.innerText = elVals[i];
+                }
+            }
+
+            const badge = document.getElementById('dpp-display-status-badge');
+            if (badge) {
+                badge.innerHTML = `<i class="fa-solid fa-truck-fast mr-1"></i> ${data.status}`;
+                badge.className = `px-3.5 py-1.5 rounded-full ${data.statusClass} text-xs font-mono font-bold border`;
+            }
+
+            [0, 1].forEach(i => {
+                const el = document.getElementById(`sample-dpp-${i}`);
+                if(el) {
+                    if (i === index) el.className = "p-3 rounded-xl bg-sc-red-950 border-2 border-sc-gold cursor-pointer transition flex items-center justify-between";
+                    else el.className = "p-3 rounded-xl bg-sc-red-950/50 hover:bg-sc-red-950 border border-rose-900 cursor-pointer transition flex items-center justify-between";
+                }
+            });
+        }
+
+        function performDppLookup() {
+            const query = document.getElementById('dpp-search-input').value.trim();
+            if (!query) {
+                alert("Vui lòng nhập mã chai hoặc mã đơn hàng!");
+                return;
+            }
+            alert(`Đã tìm thấy thông tin Hộ Chiếu Số DPP cho mã: ${query}`);
+            const codeEl = document.getElementById('dpp-val-code');
+            if(codeEl) codeEl.innerText = query;
+        }
+
+        function simulateIotWeather(mode) {
+            const tempEl = document.getElementById('iot-val-temp');
+            const radEl = document.getElementById('iot-val-radiation');
+            const btnSunny = document.getElementById('btn-weather-sunny');
+            const btnRain = document.getElementById('btn-weather-rain');
+
+            if (mode === 'rain') {
+                if(tempEl) tempEl.innerText = "28.5";
+                if(radEl) radEl.innerText = "140";
+                if(btnRain) btnRain.className = "px-2.5 py-1 rounded-lg bg-rose-600 text-white font-black text-[11px]";
+                if(btnSunny) btnSunny.className = "px-2.5 py-1 rounded-lg bg-sc-red-950 text-rose-300 border border-rose-800 text-[11px]";
+                alert("⚠️ CẢNH BÁO MƯA BẤT CHỢT:\nHệ thống tự động điều khiển nắp che ang sành Mạnh Sánh!");
+            } else {
+                if(tempEl) tempEl.innerText = "42.8";
+                if(radEl) radEl.innerText = "895";
+                if(btnSunny) btnSunny.className = "px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-black text-[11px]";
+                if(btnRain) btnRain.className = "px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 text-[11px] hover:bg-rose-700 hover:text-white";
+                alert("☀️ THỜI TIẾT NẮNG TO:\nBức xạ lý tưởng để phơi mắm Mạnh Sánh.");
+            }
+        }
+
+        function handleCustomerFeedback(e) {
+            e.preventDefault();
+            const author = document.getElementById('fb-author').value;
+            const dish = document.getElementById('fb-dish').value;
+            const rating = document.getElementById('fb-rating').value;
+            const msg = document.getElementById('fb-message').value;
+
+            const list = document.getElementById('customer-feedback-list');
+            const starText = "⭐".repeat(parseInt(rating));
+            const newFeedback = document.createElement('div');
+            newFeedback.className = "bg-sc-red-950/80 p-4 rounded-xl border border-sc-gold/60 text-xs space-y-1";
+            newFeedback.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <strong class="text-yellow-300 font-serif">${author} (Khách Vừa Đánh Giá)</strong>
+                    <span class="text-yellow-400 font-mono">${starText}</span>
+                </div>
+                ${dish ? `<p class="text-[11px] text-amber-200/80">Món nấu: <em>${dish}</em></p>` : ''}
+                <p class="text-rose-100 font-light">"${msg}"</p>
+            `;
+            if(list) list.prepend(newFeedback);
+
+            const countEl = document.getElementById('dpp-fb-count');
+            if(countEl) {
+                let count = parseInt(countEl.innerText) + 1;
+                countEl.innerText = count;
+            }
+
+            alert("Cảm ơn bạn đã đóng góp phản hồi! Đánh giá đã được bảo chứng và lưu trữ vào sổ cái hộ chiếu số.");
+            document.getElementById('fb-message').value = '';
+        }
+
+        let dppChart = null;
+        function initOrUpdateChart() {
+            const ctx = document.getElementById('dppTelemetryChart');
+            if (!ctx) return;
+            if (dppChart) {
+                dppChart.resize();
+                return;
+            }
+            dppChart = new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['07:00', '09:00', '11:00', '13:00', '15:00', '17:00'],
+                    datasets: [
+                        {
+                            label: 'Nhiệt độ ang sành (°C)',
+                            data: [31.5, 36.2, 41.8, 43.4, 42.1, 37.0],
+                            borderColor: '#F59E0B',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 2.5,
+                            tension: 0.35,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Bức xạ mặt trời (W/m²)',
+                            data: [350, 680, 890, 940, 780, 410],
+                            borderColor: '#38BDF8',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [4, 4],
+                            tension: 0.35,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: { color: '#FDE68A', font: { family: 'Space Grotesk' } },
+                            grid: { color: 'rgba(255, 255, 255, 0.07)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#7dd3fc', font: { family: 'Space Grotesk' } }
+                        },
+                        x: {
+                            ticks: { color: '#fca5a5', font: { family: 'Space Grotesk' } },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#ffffff', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        const productDetailsData = {
+            manhsanh_combo: {
+                title: "Set Song Vị Mạnh Sánh (Bộ 2 chai x 1L)",
+                tagline: "Bộ quà tặng 2 chai nguyên chất Mạnh Sánh",
+                content: `
+                    <div class="space-y-3">
+                        <p><strong>Điểm nổi bật:</strong> Mua 1 set được thưởng thức cả 2 vị truyền thống hoặc tùy chọn hương vị yêu thích.</p>
+                        <p><strong>Tuỳ chọn:</strong> Cá-Tôm, Tôm-Tôm, Cá-Cá.</p>
+                        <p><strong>Chất lượng:</strong> 100% nguyên chất, không phụ gia, an toàn sức khỏe.</p>
+                    </div>
+                `
+            },
+            manhsanh_hop1: {
+                title: "Mạnh Sánh Hộp Đơn (1 Lít)",
+                tagline: "Kèm hộp giấy cứng cáp lịch sự",
+                content: `
+                    <div class="space-y-3">
+                        <p><strong>Điểm nổi bật:</strong> Kèm theo hộp giấy sang trọng, phù hợp làm quà biếu tặng.</p>
+                        <p><strong>Tuỳ chọn:</strong> Vị Cá hoặc Vị Tôm.</p>
+                        <p><strong>Chất lượng:</strong> Được ủ chượp truyền thống, mang hương vị mặn mòi của biển quê hương.</p>
+                    </div>
+                `
+            },
+            manhsanh_thuong: {
+                title: "Mạnh Sánh Chai Lẻ (1 Lít)",
+                tagline: "Không kèm hộp • Tiết kiệm hơn",
+                content: `
+                    <div class="space-y-3">
+                        <p><strong>Điểm nổi bật:</strong> Phù hợp để sử dụng hàng ngày cho bữa cơm gia đình.</p>
+                        <p><strong>Tuỳ chọn:</strong> Vị Cá hoặc Vị Tôm.</p>
+                        <p><strong>Dung tích:</strong> Chai nhựa 1 Lít tiện lợi.</p>
+                    </div>
+                `
+            }
+        };
+
+        function openProductDetailModal(key) {
+            const data = productDetailsData[key];
+            const container = document.getElementById('modal-product-content');
+            container.innerHTML = `
+                <div class="border-b border-rose-900 pb-3">
+                    <span class="text-[10px] font-mono text-sc-gold uppercase font-bold tracking-widest">${data.tagline}</span>
+                    <h3 class="font-serif text-xl font-bold text-white mt-1">${data.title}</h3>
+                </div>
+                ${data.content}
+                <div class="pt-3 border-t border-rose-900 flex justify-end gap-3">
+                    <button onclick="closeProductDetailModal()" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-300 font-bold hover:text-white">Đóng</button>
+                    <button onclick="closeProductDetailModal(); quickAddToCart('${key}')" class="px-5 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase shadow hover:bg-amber-400">
+                        Chọn Mua Ngay
+                    </button>
+                </div>
+            `;
+            const modal = document.getElementById('product-modal');
+            if(modal) modal.classList.remove('hidden');
+        }
+
+        function closeProductDetailModal() {
+            const modal = document.getElementById('product-modal');
+            if(modal) modal.classList.add('hidden');
+        }
+
+        // Khởi tạo ban đầu
+        window.addEventListener('DOMContentLoaded', () => {
+            recalculateOrderTotals();
+            
+            // Khởi tạo tài khoản mẫu (Nghệ nhân Phạm Văn Mạnh) nếu chưa có dữ liệu
+            if (!localStorage.getItem('sachau_users')) {
+                const defaultUsers = [
+                    {
+                        phone: '0988888888',
+                        password: '123456',
+                        name: 'Phạm Văn Mạnh',
+                        role: 'artisan',
+                        facility: 'Cơ sở Nước mắm Sa Châu Truyền Thống Mạnh Sánh'
+                    }
+                ];
+                localStorage.setItem('sachau_users', JSON.stringify(defaultUsers));
+            }
+        });
+    </script>
+</body>
+</html>
