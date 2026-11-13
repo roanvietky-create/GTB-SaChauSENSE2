@@ -1365,7 +1365,8 @@
                     <label class="block text-amber-200 font-mono mb-1">Mật khẩu *</label>
                     <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold focus:outline-none">
                 </div>
-                <!-- Login giả lập thành Nghệ nhân nếu gõ admin/artisan, còn lại là khách hàng -->
+                <!-- Dòng chữ báo lỗi hiển thị khi nhập sai -->
+                <p id="login-error-msg" class="hidden text-rose-400 font-mono text-[11px] bg-rose-900/30 p-2 rounded-lg border border-rose-800 text-center"></p>
                 <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase text-xs tracking-wider transition shadow mt-2">
                     Đăng Nhập Ngay
                 </button>
@@ -1441,6 +1442,7 @@
     <script>
         // TRẠNG THÁI TOÀN CỤC CỦA HỆ THỐNG
         let isArtisanLoggedIn = false;
+        let currentAuthRole = 'customer'; // Thêm biến lưu vai trò đang đăng ký
         
         // Bảng giá chi tiết Mạnh Sánh
         const productSizePrices = {
@@ -1479,6 +1481,59 @@
                 exp: "Nghệ nhân ưu tú • Mã IoT Node: Ang-ManhSanh-01"
             }
         };
+
+        // --- CÁC HÀM ĐIỀU KHIỂN CỬA SỔ ĐĂNG NHẬP / ĐĂNG KÝ BỊ MẤT ---
+        function openAuthModal(mode) {
+            switchAuthTab(mode);
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('auth-form-login');
+            const regForm = document.getElementById('auth-form-register');
+            const btnLogin = document.getElementById('auth-tab-btn-login');
+            const btnReg = document.getElementById('auth-tab-btn-register');
+            const errorMsg = document.getElementById('login-error-msg');
+
+            // Ẩn thông báo lỗi nếu đang hiện khi chuyển tab
+            if(errorMsg) {
+                errorMsg.classList.add('hidden');
+                errorMsg.innerText = '';
+            }
+
+            if (tab === 'login') {
+                if(loginForm) loginForm.classList.remove('hidden');
+                if(regForm) regForm.classList.add('hidden');
+                if(btnLogin) btnLogin.className = "font-serif font-bold text-base text-sc-gold border-b-2 border-sc-gold pb-1";
+                if(btnReg) btnReg.className = "font-serif font-bold text-base text-rose-300 pb-1 hover:text-white";
+            } else {
+                if(loginForm) loginForm.classList.add('hidden');
+                if(regForm) regForm.classList.remove('hidden');
+                if(btnReg) btnReg.className = "font-serif font-bold text-base text-sc-gold border-b-2 border-sc-gold pb-1";
+                if(btnLogin) btnLogin.className = "font-serif font-bold text-base text-rose-300 pb-1 hover:text-white";
+            }
+        }
+
+        function setRegisterRole(role) {
+            currentAuthRole = role;
+            const extraFields = document.getElementById('artisan-extra-fields');
+            const btnCust = document.getElementById('role-btn-customer');
+            const btnArt = document.getElementById('role-btn-artisan');
+
+            if (role === 'artisan') {
+                if(extraFields) extraFields.classList.remove('hidden');
+                if(btnArt) btnArt.className = "py-2 px-3 rounded-xl bg-sc-gold text-sc-red-950 font-black text-center text-xs border border-sc-gold";
+                if(btnCust) btnCust.className = "py-2 px-3 rounded-xl bg-sc-red-950 text-rose-200 font-bold text-center text-xs border border-rose-800";
+            } else {
+                if(extraFields) extraFields.classList.add('hidden');
+                if(btnCust) btnCust.className = "py-2 px-3 rounded-xl bg-sc-gold text-sc-red-950 font-black text-center text-xs border border-sc-gold";
+                if(btnArt) btnArt.className = "py-2 px-3 rounded-xl bg-sc-red-950 text-rose-200 font-bold text-center text-xs border border-rose-800";
+            }
+        }
 
         // --- CÁC HÀM ĐIỀU HƯỚNG ---
         function switchMainView(view) {
@@ -1751,95 +1806,6 @@
         // --- ĐỒNG BỘ ĐĂNG KÝ TÀI KHOẢN VÀ NÉN ẢNH ---
         const authWebhookUrl = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec";
 
-        async function handleAuthRegister(e) {
-            e.preventDefault();
-            const loadingUI = document.getElementById('auth-loading');
-            if (loadingUI) loadingUI.classList.remove('hidden');
-
-            const name = document.getElementById('reg-name').value;
-            const phone = document.getElementById('reg-phone').value;
-            const pass = document.getElementById('reg-pass').value;
-            
-            // 1. Kiểm tra xem SĐT đã tồn tại trong LocalStorage chưa
-            let users = JSON.parse(localStorage.getItem('sachau_users') || '[]');
-            if (users.find(u => u.phone === phone)) {
-                alert("❌ Số điện thoại này đã được đăng ký!\nVui lòng sử dụng số khác hoặc chuyển sang tab Đăng Nhập.");
-                if (loadingUI) loadingUI.classList.add('hidden');
-                return;
-            }
-
-            let facility = "";
-            let address = "";
-            let vatCount = "";
-            let base64Image = "Không có ảnh";
-
-            try {
-                if (currentAuthRole === 'artisan') {
-                    facility = document.getElementById('reg-facility').value || "Cơ sở mắm Mạnh Sánh";
-                    address = document.getElementById('reg-address').value;
-                    vatCount = document.getElementById('reg-vat-count').value;
-                    
-                    const fileInput = document.getElementById('reg-ocop-img');
-                    if (fileInput && fileInput.files.length > 0) {
-                        const file = fileInput.files[0];
-                        base64Image = await compressImageToTargetSize(file);
-                    } else {
-                        alert("Vui lòng tải lên Ảnh Chứng nhận OCOP / Nghệ Nhân!");
-                        loadingUI.classList.add('hidden');
-                        return;
-                    }
-                }
-
-                // Gửi Webhook lên Google Sheet (Giữ nguyên logic của bạn)
-                const data = {
-                    role: currentAuthRole,
-                    timestamp: new Date().toLocaleString('vi-VN'),
-                    name: name,
-                    phone: phone,
-                    password: pass,
-                    facility: facility,
-                    address: address,
-                    vatCount: vatCount,
-                    ocopImage: base64Image
-                };
-
-                await fetch(authWebhookUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(data)
-                });
-
-                // 2. Lưu tài khoản mới vào LocalStorage để Đăng nhập sau này
-                users.push({
-                    phone: phone,
-                    password: pass,
-                    name: name,
-                    role: currentAuthRole,
-                    facility: facility
-                });
-                localStorage.setItem('sachau_users', JSON.stringify(users));
-
-                closeAuthModal();
-
-                if (currentAuthRole === 'artisan') {
-                    updateUserNavProfile(name, `Nghệ Nhân (${facility})`);
-                    toggleArtisanDashboard(true);
-                    alert(`Đã gửi hồ sơ đăng ký Nghệ nhân (${name}).\nTài khoản của bạn đã có thể đăng nhập để quản lý đơn hàng!`);
-                } else {
-                    updateUserNavProfile(name, 'Khách Hàng SaChau');
-                    toggleArtisanDashboard(false);
-                    alert(`Đã đăng ký thành công tài khoản Khách hàng cho ${name}!`);
-                }
-
-            } catch (error) {
-                alert("Đăng ký không thành công. Hãy thử lại!");
-                console.error(error);
-            } finally {
-                if (loadingUI) loadingUI.classList.add('hidden');
-            }
-        }
-
         function toggleArtisanDashboard(isArtisan) {
             isArtisanLoggedIn = isArtisan;
             const navBtnText = document.getElementById('nav-primary-text');
@@ -1910,7 +1876,14 @@
             e.preventDefault();
             const id = document.getElementById('login-identifier').value;
             const pass = document.getElementById('login-password').value;
+            const errorMsg = document.getElementById('login-error-msg');
             
+            // Xóa thông báo lỗi trước đó nếu có
+            if (errorMsg) {
+                errorMsg.classList.add('hidden');
+                errorMsg.innerText = '';
+            }
+
             // Lấy danh sách user từ LocalStorage
             let users = JSON.parse(localStorage.getItem('sachau_users') || '[]');
             
@@ -1919,6 +1892,10 @@
 
             if (user) {
                 closeAuthModal();
+                // Dọn sạch form
+                document.getElementById('login-identifier').value = '';
+                document.getElementById('login-password').value = '';
+
                 if (user.role === 'artisan') {
                     updateUserNavProfile(user.name, `Nghệ Nhân (${user.facility})`);
                     toggleArtisanDashboard(true);
@@ -1929,7 +1906,13 @@
                     alert(`Xin chào quý khách ${user.name}! Bạn đã đăng nhập thành công.`);
                 }
             } else {
-                alert("❌ Đăng nhập thất bại!\nTài khoản (Số điện thoại) hoặc Mật khẩu không chính xác. Vui lòng kiểm tra lại.");
+                // Hiển thị chữ báo lỗi trên UI thay vì popup alert
+                if (errorMsg) {
+                    errorMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Bạn đã nhập sai thông tin đăng nhập. Vui lòng thử lại!';
+                    errorMsg.classList.remove('hidden');
+                } else {
+                    alert("❌ Bạn đã nhập sai thông tin đăng nhập.");
+                }
             }
         }
 
@@ -1967,7 +1950,7 @@
                         base64Image = await compressImageToTargetSize(file);
                     } else {
                         alert("Vui lòng tải lên Ảnh Chứng nhận OCOP / Nghệ Nhân!");
-                        loadingUI.classList.add('hidden');
+                        if (loadingUI) loadingUI.classList.add('hidden');
                         return;
                     }
                 }
