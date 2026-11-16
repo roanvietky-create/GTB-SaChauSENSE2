@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaChau-Sense: IoT & Hộ Chiếu Số Nước Mắm Sa Châu</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
@@ -28,6 +35,7 @@
             }
         }
     </script>
+
     <style>
         body { background-color: #2b0306 !important; color: #fff1f2; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         .royal-damask-bg { background-color: #43060a; background-image: radial-gradient(#6f0c15 1.5px, transparent 1.5px), radial-gradient(#8e141f 1.5px, #43060a 1.5px); background-size: 36px 36px; background-position: 0 0, 18px 18px; }
@@ -40,6 +48,20 @@
     </style>
 </head>
 <body class="selection:bg-sc-gold selection:text-sc-red-950">
+
+    <!-- Top Banner -->
+    <div class="bg-sc-red-950 border-b border-sc-gold/20 py-1.5 px-4 text-[11px] font-mono text-amber-200/90">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Dự án Cấp Tỉnh: SaChau-Sense - Hữu Xạ Tự Nhiên Hương</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-location-dot text-sc-gold mr-1"></i> Xã Giao Châu, Giao Thủy, Nam Định</span>
+                <span class="hidden sm:inline"><i class="fa-solid fa-award text-sc-gold mr-1"></i> Chứng Nhận OCOP 3 Sao</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <header class="sticky top-0 z-40 bg-sc-red-900/95 backdrop-blur-md border-b-2 border-sc-gold/40 shadow-2xl">
@@ -55,20 +77,23 @@
                     </div>
                 </a>
                 <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold text-rose-100">
-                    <button onclick="switchMainView('home')" class="hover:text-sc-gold transition">Trang Chủ</button>
+                    <button onclick="switchMainView('home'); scrollToSection('hero')" class="hover:text-sc-gold transition">Trang Chủ</button>
+                    <button onclick="switchMainView('home'); scrollToSection('heritage')" class="hover:text-sc-gold transition">Di Sản Sa Châu</button>
+                    <button onclick="switchMainView('home'); scrollToSection('process')" class="hover:text-sc-gold transition">Quy Trình 5 Bước</button>
                     <button onclick="switchMainView('home'); scrollToSection('products')" class="hover:text-sc-gold transition">Sản Phẩm Mắm</button>
+                    <button onclick="switchMainView('home'); scrollToSection('kitchen')" class="hover:text-sc-gold transition flex items-center gap-1"><i class="fa-solid fa-utensils text-sc-gold text-xs"></i> Vào Bếp</button>
                     <button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="hover:text-amber-300 transition flex items-center gap-1.5 text-sc-gold-light bg-sc-red-950 px-3.5 py-1.5 rounded-xl border border-sc-gold/50 shadow">
                         <i class="fa-solid fa-id-card-clip text-sc-gold"></i><span>Hộ Chiếu Số DPP</span>
                     </button>
                 </nav>
                 <div class="flex items-center gap-2.5">
                     <div id="auth-nav-container">
-                        <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5">
+                        <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
                             <i class="fa-regular fa-user text-sc-gold"></i>
                             <span class="hidden sm:inline">Tài Khoản</span>
                         </button>
                     </div>
-                    <button id="nav-primary-btn" onclick="handlePrimaryActionClick()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5">
+                    <button id="nav-primary-btn" onclick="handlePrimaryActionClick()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5 cursor-pointer">
                         <i id="nav-primary-icon" class="fa-solid fa-cart-shopping"></i>
                         <span id="nav-primary-text" class="hidden md:inline">Đặt Mua Mắm</span>
                         <span id="nav-primary-text-mobile" class="md:hidden">Mua</span>
@@ -79,154 +104,184 @@
     </header>
 
     <!-- Floating Cart Button -->
-    <div id="floating-cart-wrapper" class="fixed bottom-6 right-6 z-50">
-        <button onclick="handlePrimaryActionClick()" class="relative w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-r from-sc-gold to-amber-500 text-sc-red-950 flex items-center justify-center shadow-xl border-2 border-yellow-200 transition-all hover:scale-110 group">
-            <i class="fa-solid fa-cart-shopping text-lg sm:text-xl group-hover:rotate-12 transition"></i>
+    <div id="floating-cart-wrapper" class="fixed bottom-6 right-6 z-40">
+        <button onclick="handlePrimaryActionClick()" class="relative w-13 h-13 p-3.5 rounded-full bg-gradient-to-r from-sc-gold to-amber-500 text-sc-red-950 flex items-center justify-center shadow-xl border-2 border-yellow-200 transition-all hover:scale-110 group cursor-pointer">
+            <i class="fa-solid fa-cart-shopping text-xl group-hover:rotate-12 transition"></i>
             <span id="floating-cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] px-1 rounded-full bg-sc-red-950 text-yellow-300 font-mono text-[10px] flex items-center justify-center font-bold border border-sc-gold">1</span>
         </button>
     </div>
 
-    <!-- ================= VIEW 1: TRANG CHỦ MẶC ĐỊNH (KHÁCH HÀNG) ================= -->
+    <!-- ================= VIEW 1: TRANG CHỦ MẶC ĐỊNH ================= -->
     <main id="main-view-home" class="block">
+        <!-- Hero Section -->
         <section id="hero" class="relative royal-damask-bg pt-16 pb-24 overflow-hidden border-b-2 border-sc-gold/30">
             <div class="max-w-7xl mx-auto px-4 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sc-red-950/90 border border-sc-gold/40 text-sc-gold-light text-xs font-mono mb-6">
+                    <i class="fa-solid fa-sun text-sc-gold animate-spin"></i> Tinh Hoa Nghề Mắm Phơi Nắng Đánh Đảo Hàng Trăm Năm
+                </div>
                 <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                     Cơ Sở Nước Mắm Truyền Thống <br><span class="bg-gradient-to-r from-yellow-200 via-sc-gold-light to-sc-gold bg-clip-text text-transparent gold-glow">Mạnh Sánh</span>
                 </h1>
                 <p class="text-rose-100/90 text-base sm:text-lg max-w-2xl mx-auto mt-6 mb-8 font-light leading-relaxed">
-                    Hữu Xạ Tự Nhiên Hương - Kế thừa bí quyết ủ chượp cá mộc phơi nắng từ làng nghề Sa Châu. Gìn giữ 100% hương vị mắm tự nhiên, không hóa chất.
+                    Hữu Xạ Tự Nhiên Hương - Kế thừa bí quyết ủ chượp cá mộc phơi nắng từ làng nghề Sa Châu. Gìn giữ 100% hương vị mắm tự nhiên, không hóa chất, tích hợp công nghệ IoT và Hộ chiếu số minh bạch.
                 </p>
-                <div class="flex justify-center gap-4">
-                    <button onclick="handlePrimaryActionClick()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-sm uppercase shadow-2xl transition hover:scale-105 flex items-center gap-2">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="handlePrimaryActionClick()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-sm uppercase shadow-2xl transition hover:scale-105 flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-cart-shopping"></i> Đặt Mua Mắm Ngay
+                    </button>
+                    <button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="px-7 py-4 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-sc-gold-light border border-sc-gold/60 font-bold text-sm uppercase transition flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-satellite-dish text-emerald-400"></i> Xem Trạm IoT & Tra Cứu DPP
                     </button>
                 </div>
             </div>
         </section>
 
-        <section id="products" class="py-24 bg-sc-red-900 border-b-2 border-sc-gold/30">
+        <!-- Heritage Section: Di Sản Sa Châu -->
+        <section id="heritage" class="py-20 bg-sc-red-950 border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-6 space-y-5">
+                        <span class="px-3.5 py-1 rounded-full bg-sc-red-900 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Di Sản Làng Nghề Giao Châu</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-snug">"Giọt Ngọc Trong Cát" & Chứng Nhận OCOP 3 Sao</h2>
+                        <p class="text-rose-100/85 text-sm leading-relaxed">
+                            Khác biệt với phương pháp ủ thùng gỗ kín, nước mắm Sa Châu (Giao Thủy, Nam Định) được ủ trong các dãy **ang sành phơi trực tiếp dưới ánh nắng mặt trời** và sương đêm. Quá trình đánh đảo liên tục giúp chượp cá hấp thụ nhiệt năng tự nhiên, khử mùi tanh và kết tinh thành giọt mắm màu cánh gián sánh đượm.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="royal-gradient-card p-4 rounded-2xl">
+                                <span class="text-sc-gold font-mono text-2xl font-black">12 - 24</span>
+                                <p class="text-xs text-rose-200 mt-1">Tháng ủ chượp phơi nắng sương tự nhiên</p>
+                            </div>
+                            <div class="royal-gradient-card p-4 rounded-2xl">
+                                <span class="text-emerald-400 font-mono text-2xl font-black">OCOP 3★</span>
+                                <p class="text-xs text-rose-200 mt-1">Chứng nhận chất lượng cấp Tỉnh Nam Định</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+                        <div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64">
+                            <img src="DSC_0055.JPG" alt="Phơi mắm ang sành" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64">
+                            <img src="1000002833.jpg" alt="Câu chuyện làng nghề" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section: Quy Trình 5 Bước -->
+        <section id="process" class="py-20 royal-damask-bg border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Chuẩn Mực Thủ Công</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Quy Trình 5 Bước Làm Mắm Sa Châu</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                    <div class="royal-gradient-card p-5 rounded-2xl relative">
+                        <span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 01</span>
+                        <h4 class="font-serif font-bold text-white text-base mt-1">Chọn Cá & Muối</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Cá nục, cá cơm tươi từ biển và muối hạt Bạch Long lưu kho trên 1 năm cho hết vị chát.</p>
+                    </div>
+                    <div class="royal-gradient-card p-5 rounded-2xl relative">
+                        <span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 02</span>
+                        <h4 class="font-serif font-bold text-white text-base mt-1">Vào Chượp Ang Sành</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Trộn cá và muối theo tỷ lệ vàng (85% cá : 15% muối) rồi đưa vào các ang sành truyền thống.</p>
+                    </div>
+                    <div class="royal-gradient-card p-5 rounded-2xl relative">
+                        <span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 03</span>
+                        <h4 class="font-serif font-bold text-white text-base mt-1">Phơi Nắng & Đánh Đảo</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Mở nắp ang đón bức xạ mặt trời ban ngày, cào đảo đều tay và theo dõi nhiệt độ bằng IoT.</p>
+                    </div>
+                    <div class="royal-gradient-card p-5 rounded-2xl relative">
+                        <span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 04</span>
+                        <h4 class="font-serif font-bold text-white text-base mt-1">Kéo Rút Giỏ Tre</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Sau 12-24 tháng, lọc cốt mắm qua hệ thống giỏ tre và lớp trấu truyền thống trong vắt.</p>
+                    </div>
+                    <div class="royal-gradient-card p-5 rounded-2xl relative">
+                        <span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 05</span>
+                        <h4 class="font-serif font-bold text-white text-base mt-1">Đóng Chai & Dán QR</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Đóng chai tiêu chuẩn 1 Lít, cấp mã QR Hộ chiếu số DPP minh bạch từng ang mắm.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-20 bg-sc-red-900 border-b-2 border-sc-gold/30">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="text-center mb-12">
                     <span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold">Danh mục chính</span>
                     <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-4">Các Dòng Sản Phẩm Mạnh Sánh</h2>
+                    <p class="text-rose-200/80 text-sm mt-2">Quy cách đóng chai 1 Lít tiêu chuẩn. Nếm vào mặn nơi đầu lưỡi nhưng ngọt hậu nơi cuống họng.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    <div class="royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold flex flex-col justify-between hover:shadow-2xl transition">
-                        <div>
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-[10px] border border-sc-gold/40">BỘ QUÀ TẶNG</span>
-                                <span class="text-sc-gold text-xs font-mono"><i class="fa-solid fa-gift mr-1"></i> Song Vị</span>
-                            </div>
-                            <div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-5 overflow-hidden bg-black flex items-center justify-center relative">
-                                <img src="DSC_0112.JPG" alt="Set Song Vị" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition">
-                            </div>
-                            <h3 class="font-serif font-bold text-white text-lg">Set Song Vị Mạnh Sánh (Bộ 2 chai x 1L)</h3>
-                            <p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">Kết hợp tùy chọn giữa Mắm Tôm (màu mật ong, mùi vị khó quên) và Mắm Cá (màu cánh gián, vị bùi bùi). Rất hợp làm quà biếu.</p>
-                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">200.000 đ / set 2 chai</span>
-                        </div>
-                        <div class="pt-5 border-t border-rose-900/80 mt-4 text-center">
-                            <button onclick="handlePrimaryActionClick()" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1 shadow">
-                                <i class="fa-solid fa-cart-plus"></i> Chọn Mua Ngay
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="royal-gradient-card rounded-3xl p-6 border border-sc-gold/40 flex flex-col justify-between hover:border-sc-gold transition">
-                        <div>
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-rose-300 font-mono font-black text-[10px] border border-rose-900">LOẠI VỪA</span>
-                                <span class="text-rose-200 text-xs font-mono"><i class="fa-solid fa-box mr-1"></i> Kèm Hộp Đơn</span>
-                            </div>
-                            <div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-5 overflow-hidden bg-black flex items-center justify-center relative">
-                                <img src="DSC_0032.JPG" alt="Hộp Đơn" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
-                            </div>
-                            <h3 class="font-serif font-bold text-white text-lg">Mạnh Sánh Hộp Đơn (1 Lít)</h3>
-                            <p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">Sản phẩm đóng chai 1.000ml kèm hộp giấy cứng cáp. Lựa chọn Mắm Cá đậm đà hoặc Mắm Tôm thơm nức nở bóp nem tuyệt vời.</p>
-                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">150.000 đ / hộp</span>
-                        </div>
-                        <div class="pt-5 border-t border-rose-900/80 mt-4 text-center">
-                            <button onclick="handlePrimaryActionClick()" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1 shadow">
-                                <i class="fa-solid fa-cart-plus"></i> Chọn Mua Ngay
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="royal-gradient-card rounded-3xl p-6 border border-sc-gold/40 flex flex-col justify-between hover:border-sc-gold transition">
-                        <div>
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-cyan-300 font-mono font-black text-[10px] border border-cyan-900">LOẠI THƯỜNG</span>
-                                <span class="text-cyan-200 text-xs font-mono"><i class="fa-solid fa-piggy-bank mr-1"></i> Tiết Kiệm</span>
-                            </div>
-                            <div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-5 overflow-hidden bg-black flex items-center justify-center relative">
-                                <img src="DSC_0025.JPG" alt="Chai Lẻ" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
-                            </div>
-                            <h3 class="font-serif font-bold text-white text-lg">Mạnh Sánh Chai Lẻ (1 Lít)</h3>
-                            <p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">Dòng nước mắm gia truyền chai lẻ không hộp, tiết kiệm hơn. Là sự lựa chọn số 1 của các bà nội trợ cho mâm cơm hàng ngày.</p>
-                            <span class="block text-base font-mono font-bold text-yellow-300 mt-3">100.000 đ / chai</span>
-                        </div>
-                        <div class="pt-5 border-t border-rose-900/80 mt-4 text-center">
-                            <button onclick="handlePrimaryActionClick()" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1 shadow">
-                                <i class="fa-solid fa-cart-plus"></i> Chọn Mua Ngay
-                            </button>
-                        </div>
-                    </div>
+                <!-- Danh sách sản phẩm (Render động từ kho của Mạnh Sánh để Nghệ nhân sửa được) -->
+                <div id="main-product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- JS render -->
                 </div>
+            </div>
+        </section>
 
-                <div id="dynamic-product-section" class="hidden">
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="h-px bg-rose-900 flex-1"></div>
-                        <span class="text-sc-gold font-mono text-xs uppercase tracking-widest font-bold"><i class="fa-solid fa-star"></i> Mới Ra Lò Từ Nghệ Nhân</span>
-                        <div class="h-px bg-rose-900 flex-1"></div>
+        <!-- Kitchen Section: Vào Bếp -->
+        <section id="kitchen" class="py-20 bg-sc-red-950 border-b-2 border-sc-gold/30">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="px-4 py-1.5 rounded-full bg-sc-red-900 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Ẩm Thực Gia Truyền</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Góc Vào Bếp Cùng Mắm Mạnh Sánh</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="royal-gradient-card p-6 rounded-2xl">
+                        <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-Bowl-food mr-1"></i> Món Chấm Tinh Tế</span>
+                        <h4 class="font-serif font-bold text-white text-lg mt-1">Nước Chấm Nem Giao Thủy</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Pha cốt mắm cá Mạnh Sánh cùng tỏi ớt băm, chút đường và cốt chanh tươi giúp dậy mùi thơm nồng đặc trưng.</p>
                     </div>
-                    <div id="dynamic-product-list" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+                    <div class="royal-gradient-card p-6 rounded-2xl">
+                        <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-fire-burner mr-1"></i> Món Kho Đậm Đà</span>
+                        <h4 class="font-serif font-bold text-white text-lg mt-1">Thịt Ba Chỉ Kho Mắm Ruốc Tôm</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Mắm tôm Mạnh Sánh ủ sành màu mật ong khi chưng cùng thịt ba chỉ và sả ớt tạo nên vị bùi ngậy khó quên.</p>
+                    </div>
+                    <div class="royal-gradient-card p-6 rounded-2xl">
+                        <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-leaf mr-1"></i> Bí Quyết Giữ Vị</span>
+                        <h4 class="font-serif font-bold text-white text-lg mt-1">Nêm Mắm Khi Tắt Bếp</h4>
+                        <p class="text-xs text-rose-200/80 mt-2">Với nước mắm truyền thống giàu đạm amin tự nhiên, hãy nêm sau cùng trước khi bắc nồi xuống để giữ trọn hương thơm.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- ================= VIEW 2: HỘ CHIẾU & QUẢN TRỊ ================= -->
+    <!-- ================= VIEW 2: CỔNG ĐẶT HÀNG, HỘ CHIẾU DPP & TRẠM IOT ================= -->
     <section id="main-view-passport" class="hidden py-12 royal-damask-bg min-h-screen border-b-2 border-sc-gold/30">
         <div class="max-w-7xl mx-auto px-4">
             
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-rose-900/80 mb-8 gap-4">
                 <div class="flex items-center gap-3 text-xs font-mono">
-                    <button onclick="switchMainView('home')" class="text-sc-gold hover:underline font-bold"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                    <button onclick="switchMainView('home')" class="text-sc-gold hover:underline font-bold cursor-pointer"><i class="fa-solid fa-arrow-left"></i> Quay lại Trang Chủ</button>
                     <span class="text-rose-400">/</span>
                     <span class="text-white" id="dpp-breadcrumb-text">Cổng Đặt Hàng & Tra Cứu Hộ Chiếu</span>
                 </div>
                 
+                <!-- Thanh chuyển tab Khách hàng -->
                 <div class="flex items-center gap-2" id="customer-tabs-container">
-                    <button onclick="switchDppTab('order')" id="tab-btn-order" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow">Đặt Mua Mắm</button>
-                    <button onclick="switchDppTab('passport')" id="tab-btn-passport" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white">Tra Hộ Chiếu DPP</button>
+                    <button onclick="switchDppTab('order')" id="tab-btn-order" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow cursor-pointer">Đặt Mua Mắm</button>
+                    <button onclick="switchDppTab('passport')" id="tab-btn-passport" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white cursor-pointer">Tra Hộ Chiếu DPP & IoT</button>
                 </div>
             </div>
 
-            <!-- Giao diện Khách hàng đặt mua -->
+            <!-- 2.1 GIAO DIỆN KHÁCH HÀNG -->
             <div id="customer-order-wrapper" class="block">
+                <!-- TAB ĐẶT MUA HÀNG -->
                 <div id="dpp-tab-pane-order" class="block">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <!-- Cột Trái: Chọn sản phẩm -->
                         <div class="lg:col-span-7 space-y-4">
-                            <h3 class="font-serif text-xl font-bold text-white mb-6">1. Chọn Nước Mắm Mạnh Sánh</h3>
-                            <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col gap-3">
-                                <div class="flex flex-col sm:flex-row justify-between gap-4">
-                                    <div class="flex gap-4 items-center">
-                                        <img src="DSC_0112.JPG" class="w-16 h-16 rounded-lg object-cover border border-sc-gold">
-                                        <div>
-                                            <h4 class="font-serif font-bold text-white text-base">Set Quà Tặng Song Vị (2x 1L)</h4>
-                                            <p class="text-[11px] text-rose-200">Kèm hộp lịch sự, dung tích lớn</p>
-                                            <span class="text-sm font-mono font-bold text-yellow-300">200.000 đ</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <button onclick="updateCart('set2', -1)" class="w-8 h-8 rounded bg-sc-red-950 text-white font-bold border border-rose-800">-</button>
-                                        <span id="cart-qty-set2" class="font-mono text-sm w-4 text-center text-white">1</span>
-                                        <button onclick="updateCart('set2', 1)" class="w-8 h-8 rounded bg-sc-gold text-sc-red-950 font-bold">+</button>
-                                    </div>
-                                </div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-4">1. Chọn Nước Mắm Mạnh Sánh</h3>
+                            <div id="cart-items-container" class="space-y-4">
+                                <!-- Render động từ danh sách sản phẩm -->
                             </div>
                         </div>
 
+                        <!-- Cột Phải: Form Nhận Hàng -->
                         <div class="lg:col-span-5 royal-gradient-card rounded-3xl p-6 sm:p-7 border-2 border-sc-gold shadow-2xl">
                             <h3 class="font-serif text-lg font-bold text-white mb-4">2. Thông Tin Nhận Hàng</h3>
                             <form onsubmit="handleCheckoutOrder(event)" class="space-y-4 text-xs">
@@ -241,8 +296,17 @@
                                 <input type="text" id="chk-name" required placeholder="Họ và tên người nhận *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
                                 <input type="tel" id="chk-phone" required placeholder="Số điện thoại *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
                                 <input type="text" id="chk-address" required placeholder="Địa chỉ chi tiết nhận hàng *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
-                                
-                                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-xs uppercase shadow transition hover:scale-105">
+                                <textarea id="chk-note" placeholder="Ghi chú đóng gói cho Nghệ nhân Mạnh..." rows="2" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"></textarea>
+
+                                <div class="pt-3 border-t border-rose-900 space-y-2 font-mono text-sm">
+                                    <div class="flex justify-between text-rose-200"><span>Tiền hàng:</span> <span id="chk-subtotal">200.000 đ</span></div>
+                                    <div class="flex justify-between text-rose-200"><span>Phí bọc xốp:</span> <span class="text-emerald-400">30.000 đ</span></div>
+                                    <div class="flex justify-between font-bold text-white pt-2 border-t border-rose-900 text-base">
+                                        <span>Tổng cộng:</span> <span id="chk-total" class="text-yellow-300">230.000 đ</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-xs uppercase shadow transition hover:scale-105 cursor-pointer">
                                     Xác Nhận Đặt Mua & Khởi Tạo Mã DPP
                                 </button>
                             </form>
@@ -250,78 +314,145 @@
                     </div>
                 </div>
 
-                <!-- Khu vực tra cứu DPP & Trạm IoT -->
+                <!-- TAB TRA CỨU HỘ CHIẾU SỐ DPP & TRẠM QUAN TRẮC IOT -->
                 <div id="dpp-tab-pane-passport" class="hidden">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                        <div class="lg:col-span-4 bg-sc-red-900/90 rounded-3xl p-6 border-2 border-sc-gold/40 shadow-2xl">
-                            <div class="flex items-center gap-2 mb-4">
+                        <div class="lg:col-span-4 bg-sc-red-900/90 rounded-3xl p-6 border-2 border-sc-gold/40 shadow-2xl space-y-4">
+                            <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-qrcode text-sc-gold text-xl"></i>
                                 <h3 class="font-serif text-lg font-bold text-white">Tra Cứu Hộ Chiếu (DPP)</h3>
                             </div>
-                            <div class="relative mb-4">
-                                <input type="text" id="dpp-search-input" class="w-full bg-sc-red-950 text-white font-mono text-sm px-4 py-3 rounded-xl border border-rose-900 focus:border-sc-gold pl-10 uppercase" placeholder="Nhập ANG-MANHSANH-01" value="ANG-MANHSANH-01">
+                            <div class="relative">
+                                <input type="text" id="dpp-search-input" class="w-full bg-sc-red-950 text-white font-mono text-sm px-4 py-3 rounded-xl border border-rose-900 focus:border-sc-gold pl-10 uppercase" placeholder="Nhập mã Ang" value="ANG-MANHSANH-01">
                                 <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-rose-400"></i>
-                                <button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition">Tìm</button>
+                                <button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition cursor-pointer">Tìm</button>
+                            </div>
+                            <div class="text-[11px] text-rose-200/80 font-mono space-y-1 bg-sc-red-950/60 p-3 rounded-xl border border-rose-900">
+                                <p class="text-sc-gold font-bold">Mã Trạm IoT Đang Hoạt Động:</p>
+                                <button onclick="document.getElementById('dpp-search-input').value='ANG-MANHSANH-01'; performDppLookup('ANG-MANHSANH-01')" class="underline text-emerald-400 hover:text-emerald-300 block cursor-pointer">• ANG-MANHSANH-01 (Google Sheet Live)</button>
+                            </div>
+                            <div id="dpp-scan-alert" class="hidden p-3 bg-emerald-900/40 border border-emerald-500 rounded-xl text-emerald-400 text-[11px] font-mono">
+                                <i class="fa-solid fa-check-circle mr-1"></i> Đã nhận diện truy cập từ Quét Mã QR!
                             </div>
                         </div>
 
-                        <div class="lg:col-span-8 royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold shadow-2xl relative space-y-6">
+                        <div class="lg:col-span-8 royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold shadow-2xl relative space-y-5">
                             <div class="flex items-center gap-4 border-b border-rose-900 pb-4">
-                                <img src="IMG_20261112_075425.png" class="w-16 h-16 rounded-xl border border-sc-gold/50">
+                                <img src="IMG_20261112_075425.png" class="w-16 h-16 rounded-xl border border-sc-gold/50 object-cover">
                                 <div>
                                     <span class="text-xs font-mono text-sc-gold uppercase font-bold tracking-widest">Digital Product Passport</span>
                                     <h3 id="dpp-display-title" class="font-serif text-2xl font-bold text-white mt-1">Hồ Sơ Nước Mắm Gia Truyền Mạnh Sánh</h3>
                                 </div>
                             </div>
 
-                            <div id="dpp-real-data" class="space-y-4">
-                                <div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800">
-                                    <h4 class="font-mono text-sc-gold font-bold mb-2">1. Định Danh Lô Hàng / Ang Mắm</h4>
-                                    <ul class="text-xs text-rose-100 space-y-2 font-mono">
-                                        <li>Mã truy xuất: <strong id="dpp-res-id" class="text-white text-sm">ANG-MANHSANH-01</strong></li>
-                                        <li>Ngày ủ chượp: <span class="text-emerald-400">Ủ chượp 12 - 24 tháng tiêu chuẩn</span></li>
-                                        <li>Loại nguyên liệu: <span>85% Cá/Tôm tươi + 15% Muối Bạch Long</span></li>
-                                    </ul>
+                            <div id="dpp-real-data" class="space-y-5">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800">
+                                        <h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">1. Định Danh Lô Hàng / Ang Mắm</h4>
+                                        <ul class="text-xs text-rose-100 space-y-1.5 font-mono">
+                                            <li>Mã truy xuất: <strong id="dpp-res-id" class="text-white">ANG-MANHSANH-01</strong></li>
+                                            <li>Ngày ủ chượp: <span id="dpp-res-date" class="text-emerald-400">Ủ chượp 12 - 24 tháng tiêu chuẩn</span></li>
+                                            <li>Nguyên liệu: <span id="dpp-res-fish">85% Cá/Tôm tươi + 15% Muối Bạch Long</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800">
+                                        <h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">2. Thông Tin Cơ Sở Nghệ Nhân</h4>
+                                        <ul class="text-xs text-rose-100 space-y-1.5 font-mono">
+                                            <li>Nghệ nhân: <strong id="dpp-res-artisan" class="text-yellow-300">Nghệ nhân Phạm Văn Mạnh (Mạnh Sánh)</strong></li>
+                                            <li>Quy trình: <span id="dpp-res-process">Đêm phơi sương, ngày phơi nắng, ủ chum sành</span></li>
+                                            <li>Chứng nhận: <span class="text-emerald-400">OCOP 3 Sao Nam Định</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
-                                <div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800">
-                                    <h4 class="font-mono text-sc-gold font-bold mb-2">2. Thông Tin Cơ Sở Nghệ Nhân</h4>
-                                    <ul class="text-xs text-rose-100 space-y-2 font-mono">
-                                        <li>Nghệ nhân: <strong class="text-yellow-300">Nghệ nhân Phạm Văn Mạnh (Cơ sở Mạnh Sánh)</strong></li>
-                                        <li>Quy trình: <span>Đêm phơi sương, ngày phơi nắng, ủ chum sành</span></li>
-                                    </ul>
+                                <!-- ================= 3. TRẠM QUAN TRẮC IOT (REALTIME + BIỂU ĐỒ NGÀY/THÁNG/NĂM) ================= -->
+                                <div class="bg-sc-red-950 p-5 rounded-2xl border-2 border-sc-gold shadow-inner">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-rose-900">
+                                        <div>
+                                            <h4 class="font-mono text-sc-gold font-bold flex items-center gap-2 text-sm">
+                                                <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i>
+                                                3. Trạm Quan Trắc IoT (<span id="iot-station-label">ANG-MANHSANH-01</span>)
+                                            </h4>
+                                            <p id="iot-timestamp" class="text-[11px] text-emerald-300 font-mono mt-1">Đang đồng bộ trực tiếp từ Google Sheet...</p>
+                                        </div>
+
+                                        <!-- Nút chuyển đổi giữa REALTIME và BIỂU ĐỒ -->
+                                        <div class="flex items-center gap-2 bg-sc-red-900 p-1 rounded-xl border border-sc-gold/40 self-start sm:self-auto">
+                                            <button onclick="switchIotSubTab('realtime')" id="btn-iot-realtime" class="px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer">
+                                                <i class="fa-solid fa-gauge-high mr-1"></i>Realtime
+                                            </button>
+                                            <button onclick="switchIotSubTab('chart')" id="btn-iot-chart" class="px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer">
+                                                <i class="fa-solid fa-chart-line mr-1"></i>Biểu Đồ
+                                            </button>
+                                            <button onclick="fetchIotSheetLive(true)" title="Làm mới ngay" class="px-2.5 py-1.5 rounded-lg bg-sc-red-950 text-sc-gold hover:bg-sc-red-800 text-xs border border-sc-gold/30 cursor-pointer">
+                                                <i class="fa-solid fa-rotate"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- SUB-TAB 1: REALTIME -->
+                                    <div id="iot-pane-realtime" class="block pt-4">
+                                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
+                                            <div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center">
+                                                <span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Lõi Ang</span>
+                                                <strong id="iot-temp-ang" class="text-yellow-300 text-lg">-- °C</strong>
+                                            </div>
+                                            <div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center">
+                                                <span class="text-rose-300 block text-[11px] mb-1">Độ Mặn (Baumé)</span>
+                                                <strong id="iot-salinity" class="text-cyan-300 text-lg">-- °Bé</strong>
+                                            </div>
+                                            <div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center">
+                                                <span class="text-rose-300 block text-[11px] mb-1">Độ Đục Nước</span>
+                                                <strong id="iot-turbidity" class="text-emerald-300 text-lg">-- NTU</strong>
+                                            </div>
+                                            <div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center">
+                                                <span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Không Khí</span>
+                                                <strong id="iot-temp-air" class="text-amber-400 text-lg">-- °C</strong>
+                                            </div>
+                                            <div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center col-span-2 sm:col-span-2">
+                                                <span class="text-rose-300 block text-[11px] mb-1">Độ Ẩm Không Khí</span>
+                                                <strong id="iot-humi-air" class="text-blue-300 text-lg">-- %</strong>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 flex items-center justify-between text-[10px] font-mono text-rose-300/80 px-1">
+                                            <span><i class="fa-solid fa-table text-emerald-400 mr-1"></i> Nguồn: Google Sheet NODE_1 (Tự động cập nhật mỗi 5 giây)</span>
+                                            <span id="iot-row-count">Số bản ghi: --</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- SUB-TAB 2: BIỂU ĐỒ (NGÀY / THÁNG / NĂM) -->
+                                    <div id="iot-pane-chart" class="hidden pt-4 space-y-4">
+                                        <div class="flex flex-wrap items-center justify-between gap-2">
+                                            <!-- Bộ lọc Thời gian: Theo Ngày / Tháng / Năm -->
+                                            <div class="flex items-center gap-1.5 font-mono text-xs">
+                                                <span class="text-rose-300 mr-1">Khung thời gian:</span>
+                                                <button onclick="setChartPeriod('day')" id="period-btn-day" class="px-3 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer">Theo Ngày</button>
+                                                <button onclick="setChartPeriod('month')" id="period-btn-month" class="px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Tháng</button>
+                                                <button onclick="setChartPeriod('year')" id="period-btn-year" class="px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Năm</button>
+                                            </div>
+
+                                            <!-- Bộ lọc Thông số hiển thị -->
+                                            <select id="chart-metric-select" onchange="renderIotChart()" class="bg-sc-red-900 text-yellow-300 font-mono text-xs px-3 py-1.5 rounded-lg border border-sc-gold/50">
+                                                <option value="all">Tất cả thông số chính</option>
+                                                <option value="tempAng">Nhiệt Độ Lõi Ang (°C)</option>
+                                                <option value="salinity">Độ Mặn (°Bé)</option>
+                                                <option value="turbidity">Độ Đục Nước (NTU)</option>
+                                                <option value="airTemp">Nhiệt Độ Không Khí (°C)</option>
+                                                <option value="airHumi">Độ Ẩm Không Khí (%)</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="bg-black/50 p-3 rounded-xl border border-rose-900/80 h-72 relative">
+                                            <canvas id="iot-history-chart"></canvas>
+                                        </div>
+                                        <p id="chart-summary-note" class="text-[10px] font-mono text-rose-300 text-center">Biểu đồ được tổng hợp trực tiếp từ dữ liệu thời gian thực trên Google Sheet.</p>
+                                    </div>
                                 </div>
 
-                                <!-- TRẠM CẢM BIẾN IOT THỜI GIAN THỰC (LIÊN KẾT GOOGLE SHEET) -->
-                                <div class="bg-sc-red-950 p-4 rounded-xl border-2 border-sc-gold">
-                                    <div class="flex justify-between items-center mb-3">
-                                        <h4 class="font-mono text-sc-gold font-bold flex items-center gap-2">
-                                            <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i> 3. Trạm Quan Trắc IoT (Ang: ANG-MANHSANH-01)
-                                        </h4>
-                                        <span id="iot-timestamp" class="text-[10px] text-rose-300 font-mono">Đang kết nối Sheet...</span>
-                                    </div>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
-                                        <div class="bg-black/40 p-3 rounded-lg border border-rose-900 text-center">
-                                            <span class="text-rose-300 block text-[10px]">Nhiệt Độ Lõi Ang</span>
-                                            <strong id="iot-temp-ang" class="text-yellow-300 text-base">-- °C</strong>
-                                        </div>
-                                        <div class="bg-black/40 p-3 rounded-lg border border-rose-900 text-center">
-                                            <span class="text-rose-300 block text-[10px]">Độ Mặn (Baumé)</span>
-                                            <strong id="iot-salinity" class="text-cyan-300 text-base">-- °Bé</strong>
-                                        </div>
-                                        <div class="bg-black/40 p-3 rounded-lg border border-rose-900 text-center">
-                                            <span class="text-rose-300 block text-[10px]">Độ Đục Nước</span>
-                                            <strong id="iot-turbidity" class="text-emerald-300 text-base">-- NTU</strong>
-                                        </div>
-                                        <div class="bg-black/40 p-3 rounded-lg border border-rose-900 text-center">
-                                            <span class="text-rose-300 block text-[10px]">Nhiệt Độ Không Khí</span>
-                                            <strong id="iot-temp-air" class="text-amber-400 text-base">-- °C</strong>
-                                        </div>
-                                        <div class="bg-black/40 p-3 rounded-lg border border-rose-900 text-center col-span-2 sm:col-span-2">
-                                            <span class="text-rose-300 block text-[10px]">Độ Ẩm Không Khí</span>
-                                            <strong id="iot-humi-air" class="text-blue-300 text-base">-- %</strong>
-                                        </div>
-                                    </div>
+                                <div class="p-4 bg-emerald-900/30 border border-emerald-500/50 rounded-xl text-center">
+                                    <h2 class="font-serif text-xl text-emerald-400 font-bold">CHỨNG NHẬN OCOP 3 SAO - AN TOÀN VỆ SINH THỰC PHẨM</h2>
+                                    <p class="text-[10px] text-emerald-200/80 font-mono mt-0.5">Hộ chiếu số được bảo chứng bởi cơ sở Nước Mắm Mạnh Sánh - Làng nghề Sa Châu</p>
                                 </div>
                             </div>
                         </div>
@@ -329,76 +460,1096 @@
                 </div>
             </div>
 
-            <!-- Giao diện Nghệ nhân -->
+            <!-- 2.2 GIAO DIỆN QUẢN TRỊ NGHỆ NHÂN (CHỈ HIỆN KHI ĐĂNG NHẬP NGHỆ NHÂN) -->
             <div id="artisan-dashboard-wrapper" class="hidden">
-                <div class="bg-sc-red-950/80 rounded-3xl border border-sc-gold/40 shadow-2xl overflow-hidden p-6">
-                    <h3 class="font-serif text-2xl font-bold text-white flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-shop text-sc-gold"></i> Không Gian Quản Trị Nghệ Nhân
-                    </h3>
+                <div class="bg-sc-red-950/90 rounded-3xl border-2 border-sc-gold shadow-2xl overflow-hidden">
+                    <div class="bg-sc-red-900 p-6 border-b border-sc-gold/40 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-shop text-sc-gold"></i> Quản Lý Cửa Hàng & Xưởng Nghệ Nhân
+                            </h3>
+                            <p class="text-xs text-rose-200 mt-1 font-mono">Chủ cơ sở: <strong id="dash-artisan-name" class="text-yellow-300">Phạm Văn Mạnh (Mạnh Sánh)</strong></p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="switchArtisanTab('products')" id="art-tab-products" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-bold text-xs shadow transition cursor-pointer"><i class="fa-solid fa-boxes-stacked mr-1"></i> Quản Lý & Sửa Sản Phẩm</button>
+                            <button onclick="switchArtisanTab('vats')" id="art-tab-vats" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer"><i class="fa-solid fa-qrcode mr-1"></i> Tạo Ang Mắm & Mã QR</button>
+                            <button onclick="logoutUser()" class="px-3 py-2 rounded-xl bg-rose-900/80 text-white text-xs font-bold hover:bg-rose-800 cursor-pointer"><i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất</button>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8">
+                        <!-- TAB 1: QUẢN LÝ, ĐĂNG MỚI & CHỈNH SỬA SẢN PHẨM MẠNH SÁNH -->
+                        <div id="art-pane-products" class="block space-y-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                <!-- Form Đăng / Chỉnh Sửa Sản Phẩm -->
+                                <div class="lg:col-span-5 royal-gradient-card p-6 rounded-2xl">
+                                    <h4 id="prod-form-title" class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2">
+                                        <i class="fa-solid fa-pen-to-square"></i> Đăng Hoặc Sửa Sản Phẩm
+                                    </h4>
+                                    <form onsubmit="handleSaveProduct(event)" class="space-y-3.5 text-xs font-mono">
+                                        <input type="hidden" id="prod-edit-id" value="">
+                                        <div>
+                                            <label class="block text-amber-200 mb-1">Tên Sản Phẩm *</label>
+                                            <input type="text" id="prod-name" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900 focus:border-sc-gold" placeholder="VD: Set Song Vị Mạnh Sánh">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Giá Bán (VNĐ) *</label>
+                                                <input type="number" id="prod-price" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="200000">
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Phân loại / Nhãn *</label>
+                                                <input type="text" id="prod-type" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="BỘ QUÀ TẶNG">
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Dung Tích *</label>
+                                                <select id="prod-volume" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900">
+                                                    <option value="500 ml">500 ml</option>
+                                                    <option value="1 Lít" selected>1 Lít</option>
+                                                    <option value="Bộ 2 chai x 1L">Bộ 2 chai x 1L</option>
+                                                    <option value="2 Lít">2 Lít</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Hạn Sử Dụng *</label>
+                                                <select id="prod-expiry" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900">
+                                                    <option value="12 tháng">12 tháng (từ NSX)</option>
+                                                    <option value="24 tháng" selected>24 tháng (từ NSX)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Hương Vị *</label>
+                                                <input type="text" id="prod-flavor" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="Đậm đà, hậu ngọt">
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Đặc Trưng Mùi *</label>
+                                                <select id="prod-smell" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900">
+                                                    <option value="Đậm mùi truyền thống (Mắm chuẩn)">Đậm mùi truyền thống</option>
+                                                    <option value="Thơm dịu (Không hôi)">Thơm dịu (Không hôi)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-amber-200 mb-1">Mô tả sản phẩm *</label>
+                                            <textarea id="prod-desc" rows="2" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-amber-200 mb-1">Đổi Ảnh Sản Phẩm (Để trống nếu giữ ảnh cũ)</label>
+                                            <input type="file" id="prod-img" accept="image/*" class="w-full bg-sc-red-950 text-white px-3 py-1.5 rounded-xl border border-rose-900 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-sc-gold file:text-sc-red-950">
+                                        </div>
+                                        <div class="flex gap-2 pt-2">
+                                            <button type="submit" id="prod-submit-btn" class="flex-1 py-3 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase hover:bg-amber-400 transition cursor-pointer">
+                                                Lưu Sản Phẩm
+                                            </button>
+                                            <button type="button" onclick="resetProductForm()" id="prod-cancel-btn" class="hidden px-4 py-3 rounded-xl bg-sc-red-900 text-rose-200 border border-rose-700 font-bold cursor-pointer">
+                                                Hủy
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Danh sách Sản phẩm hiện có của Mạnh Sánh -->
+                                <div class="lg:col-span-7 space-y-4">
+                                    <h4 class="font-serif text-lg font-bold text-white border-b border-rose-900 pb-2">
+                                        Danh Sách Sản Phẩm Cửa Hàng Mạnh Sánh (Bấm "Sửa" để cập nhật)
+                                    </h4>
+                                    <div id="artisan-product-manage-list" class="space-y-3">
+                                        <!-- Render by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2: TẠO ANG VÀ LẤY MÃ QR -->
+                        <div id="art-pane-vats" class="hidden space-y-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div class="royal-gradient-card p-6 rounded-2xl">
+                                    <h4 class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2">
+                                        <i class="fa-solid fa-plus-circle"></i> Khởi Tạo Ang Mắm Mới & Phát Hành QR
+                                    </h4>
+                                    <form onsubmit="handleCreateVat(event)" class="space-y-4 text-xs font-mono">
+                                        <div>
+                                            <label class="block text-amber-200 mb-1">Mã Định Danh Ang *</label>
+                                            <input type="text" id="vat-id" required class="w-full bg-sc-red-950 text-white px-3 py-2.5 rounded-xl border border-rose-900" value="ANG-MANHSANH-02">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Loại Cá Nguyên Liệu *</label>
+                                                <select id="vat-fish" class="w-full bg-sc-red-950 text-white px-3 py-2.5 rounded-xl border border-rose-900">
+                                                    <option value="Cá Nục Than">Cá Nục Than</option>
+                                                    <option value="Cá Cơm">Cá Cơm</option>
+                                                    <option value="Tôm Chà">Tôm Chà (Mắm Tôm)</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 mb-1">Ngày Bắt Đầu Ủ *</label>
+                                                <input type="date" id="vat-date" required class="w-full bg-sc-red-950 text-white px-3 py-2.5 rounded-xl border border-rose-900">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-amber-200 mb-1">Quy trình xử lý</label>
+                                            <input type="text" id="vat-process" value="Đánh đảo sành, phơi nắng sương 100% tự nhiên" class="w-full bg-sc-red-950 text-white px-3 py-2.5 rounded-xl border border-rose-900">
+                                        </div>
+                                        <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase tracking-wider hover:bg-amber-400 transition shadow-lg cursor-pointer">
+                                            Lưu Trữ & Phát Hành Mã QR Hộ Chiếu
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="bg-sc-red-950/80 p-6 rounded-2xl border-2 border-dashed border-sc-gold/50 flex flex-col items-center justify-center text-center">
+                                    <div id="qr-empty-state" class="text-rose-300 space-y-3">
+                                        <i class="fa-solid fa-qrcode text-5xl opacity-50"></i>
+                                        <p class="font-mono text-sm">Mã QR Hộ chiếu số DPP sẽ xuất hiện tại đây.</p>
+                                    </div>
+                                    <div id="qr-result-state" class="hidden w-full flex flex-col items-center">
+                                        <h5 class="text-sc-gold font-bold font-mono mb-2 uppercase text-sm">Tem Hộ Chiếu Số DPP</h5>
+                                        <div id="qrcode-container" class="bg-white p-3 rounded-xl shadow-2xl mb-4"></div>
+                                        <span id="qr-vat-display" class="font-bold text-white text-lg font-serif">ANG-XXX</span>
+                                        <button onclick="testScanQR()" class="mt-3 px-4 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs shadow cursor-pointer"><i class="fa-solid fa-mobile-screen mr-1"></i> Quét Thử Mã Này</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg font-bold text-white mb-4 border-b border-rose-900 pb-2">Danh Sách Ang Mắm Đã Khởi Tạo</h4>
+                                <div id="artisan-vat-list" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Script điều khiển và đồng bộ IoT Sheet -->
-    <script>
-        const webhookOrderUrl = "https://script.google.com/macros/s/AKfycbxCbEUDhUD1vgQ3kBAuGuvqH02IsynXpwt3DiIGrj0Vx35a9eSNguJniGs8Ni27AZkYQw/exec";
-        const iotSheetWebAppUrl = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec"; // Dán link Web App của bạn vào đây
+    <!-- Canvas ẩn dùng để nén ảnh -->
+    <canvas id="hidden-canvas" style="display:none;"></canvas>
 
-        async function fetchIotSensorData() {
-            try {
-                // Gọi tới Google Apps Script Web App đọc dữ liệu cảm biến
-                const response = await fetch("https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec"); 
-                const result = await response.json();
+    <!-- ================= MODAL ĐĂNG NHẬP & ĐĂNG KÝ (ĐÃ KHÔI PHỤC ĐẦY ĐỦ) ================= -->
+    <div id="auth-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="royal-gradient-card rounded-3xl max-w-md w-full p-6 sm:p-7 border-2 border-sc-gold shadow-2xl relative text-xs">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-sc-red-950 text-rose-300 hover:text-white flex items-center border border-rose-800 justify-center cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h2 class="font-serif text-xl font-bold text-sc-gold mb-2">Tài Khoản SaChau-Sense</h2>
+            
+            <!-- Thông báo lỗi khi nhập sai -->
+            <div id="login-error" class="hidden bg-rose-900/70 text-rose-100 border border-rose-500 p-2.5 rounded-xl mb-3 text-[11px] font-mono text-center">
+                <i class="fa-solid fa-circle-exclamation text-yellow-300 mr-1"></i> Bạn đã nhập sai thông tin đăng nhập!
+            </div>
+
+            <!-- Chuyển Tab Đăng Nhập / Đăng Ký -->
+            <div class="flex border-b border-rose-900 mb-4 text-center">
+                <button id="tab-login" onclick="switchLoginReg('login')" class="flex-1 py-2.5 font-bold text-sc-gold border-b-2 border-sc-gold cursor-pointer">Đăng Nhập</button>
+                <button id="tab-register" onclick="switchLoginReg('register')" class="flex-1 py-2.5 font-bold text-rose-300 border-b-2 border-transparent hover:text-white cursor-pointer">Đăng Ký Mới</button>
+            </div>
+
+            <!-- FORM ĐĂNG NHẬP -->
+            <form id="form-login" onsubmit="handleAuthLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-amber-200 font-mono mb-1">Số điện thoại đăng nhập *</label>
+                    <input type="text" id="login-identifier" required placeholder="Nhập SĐT (Nghệ nhân: 0988888888)" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold" value="0988888888">
+                </div>
+                <div>
+                    <label class="block text-amber-200 font-mono mb-1">Mật khẩu *</label>
+                    <input type="password" id="login-password" required placeholder="Nhập mật khẩu (Mặc định: 123456)" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 focus:border-sc-gold" value="123456">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase tracking-wider shadow cursor-pointer">
+                    Đăng Nhập Ngay
+                </button>
+                <div class="p-2.5 rounded-xl bg-sc-red-950/80 border border-rose-900 text-[10px] font-mono text-rose-200 text-center">
+                    Tài khoản Nghệ nhân Mạnh Sánh: SĐT <strong>0988888888</strong> | MK: <strong>123456</strong>
+                </div>
+            </form>
+
+            <!-- FORM ĐĂNG KÝ -->
+            <form id="form-register" onsubmit="handleAuthRegister(event)" class="space-y-3.5 hidden">
+                <div>
+                    <label class="block text-amber-200 font-mono mb-1">Vai trò đăng ký *</label>
+                    <select id="reg-role" onchange="toggleOcopUpload()" class="w-full bg-sc-red-950 text-yellow-300 font-bold px-3.5 py-2.5 rounded-xl border border-sc-gold/50">
+                        <option value="customer">Khách Mua Hàng</option>
+                        <option value="artisan">Nghệ Nhân Làm Mắm</option>
+                    </select>
+                </div>
+                <input type="text" id="reg-name" required placeholder="Họ và tên của bạn *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
+                <input type="tel" id="reg-phone" required placeholder="Số điện thoại đăng ký *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
+                <input type="password" id="reg-pass" required placeholder="Tạo mật khẩu *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
                 
-                if (result.result === "success") {
-                    const d = result.data;
-                    document.getElementById('iot-temp-ang').innerText = (d.tempAng || "32.5") + " °C";
-                    document.getElementById('iot-salinity').innerText = (d.salinity || "26") + " °Bé";
-                    document.getElementById('iot-turbidity').innerText = (d.turbidity || "1.2") + " NTU";
-                    document.getElementById('iot-temp-air').innerText = (d.airTemp || "29.0") + " °C";
-                    document.getElementById('iot-humi-air').innerText = (d.airHumi || "78") + " %";
-                    document.getElementById('iot-timestamp').innerText = "Cập nhật: " + (d.timestamp || new Date().toLocaleTimeString());
+                <div id="reg-artisan-fields" class="hidden space-y-3 pt-2 border-t border-rose-900">
+                    <input type="text" id="reg-facility" placeholder="Tên cơ sở sản xuất mắm *" class="w-full bg-sc-red-950 text-white px-3.5 py-2 rounded-xl border border-rose-900">
+                    <div>
+                        <label class="block text-amber-200 font-mono mb-1">Ảnh Chứng Nhận OCOP (Bắt buộc với Nghệ nhân)</label>
+                        <input type="file" id="reg-ocop-img" accept="image/*" class="w-full bg-sc-red-950 text-white px-3 py-1.5 rounded-xl border border-rose-900 text-[10px]">
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-register-submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase cursor-pointer">
+                    Hoàn Tất Đăng Ký
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sc-red-950 border-t border-sc-gold/30 py-10 text-center text-xs text-rose-300/80 font-mono">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="text-sc-gold font-bold uppercase">Dự Án SaChau-Sense - Cơ Sở Nước Mắm Truyền Thống Mạnh Sánh</p>
+            <p>Địa chỉ: Làng nghề Sa Châu, Xã Giao Châu, Huyện Giao Thủy, Tỉnh Nam Định</p>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ĐIỀU KHIỂN TOÀN HỆ THỐNG ================= -->
+    <script>
+        // --- 1. CẤU HÌNH GOOGLE SHEET & WEBHOOK ---
+        const IOT_SHEET_ID = "1SeC3UHfVmW-FfKZ77vDx9b9sDrIkrxoLq6vTHGe9Vr0";
+        const WEBHOOK_ORDER_URL = "https://script.google.com/macros/s/AKfycbxCbEUDhUD1vgQ3kBAuGuvqH02IsynXpwt3DiIGrj0Vx35a9eSNguJniGs8Ni27AZkYQw/exec";
+        const WEBHOOK_AUTH_URL = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec";
+
+        let isArtisanLoggedIn = false;
+        let currentQRUrl = "";
+
+        // --- 2. KHO SẢN PHẨM MẶC ĐỊNH CỦA CƠ SỞ MẠNH SÁNH ---
+        const defaultManhSanhProducts = [
+            {
+                id: "ms_set2",
+                name: "Set Song Vị Mạnh Sánh (Bộ 2 chai x 1L)",
+                price: 200000,
+                type: "BỘ QUÀ TẶNG",
+                volume: "Bộ 2 chai x 1L",
+                expiry: "24 tháng",
+                flavor: "1 Mắm Cá + 1 Mắm Tôm đậm hậu",
+                smell: "Đậm mùi truyền thống (Mắm chuẩn)",
+                desc: "Kết hợp tùy chọn giữa Mắm Tôm (màu mật ong, mùi vị khó quên) và Mắm Cá (màu cánh gián, vị bùi bùi). Rất hợp làm quà biếu.",
+                img: "DSC_0112.JPG"
+            },
+            {
+                id: "ms_hopdon",
+                name: "Mạnh Sánh Hộp Đơn (1 Lít)",
+                price: 150000,
+                type: "LOẠI VỪA - KÈM HỘP",
+                volume: "1 Lít",
+                expiry: "24 tháng",
+                flavor: "Ngọt hậu sâu, sánh đượm",
+                smell: "Đậm mùi truyền thống (Mắm chuẩn)",
+                desc: "Sản phẩm đóng chai 1.000ml kèm hộp giấy cứng cáp. Lựa chọn Mắm Cá đậm đà hoặc Mắm Tôm thơm nức nở bóp nem tuyệt vời.",
+                img: "DSC_0032.JPG"
+            },
+            {
+                id: "ms_chaile",
+                name: "Mạnh Sánh Chai Lẻ (1 Lít)",
+                price: 100000,
+                type: "LOẠI THƯỜNG - TIẾT KIỆM",
+                volume: "1 Lít",
+                expiry: "24 tháng",
+                flavor: "Mặn dịu đầu lưỡi, ngọt hậu",
+                smell: "Thơm dịu (Không hôi)",
+                desc: "Dòng nước mắm gia truyền chai lẻ không hộp, tiết kiệm hơn. Là sự lựa chọn số 1 của các bà nội trợ cho mâm cơm hàng ngày.",
+                img: "DSC_0025.JPG"
+            }
+        ];
+
+        function getProducts() {
+            const saved = localStorage.getItem('sc_manhsanh_products_v2');
+            if (!saved) {
+                localStorage.setItem('sc_manhsanh_products_v2', JSON.stringify(defaultManhSanhProducts));
+                return defaultManhSanhProducts;
+            }
+            return JSON.parse(saved);
+        }
+
+        let cartQty = { ms_set2: 1, ms_hopdon: 0, ms_chaile: 0 };
+
+        function renderAllProducts() {
+            const products = getProducts();
+            const mainGrid = document.getElementById('main-product-grid');
+            const cartContainer = document.getElementById('cart-items-container');
+            const manageList = document.getElementById('artisan-product-manage-list');
+
+            // Đảm bảo cartQty có đủ khóa
+            products.forEach(p => {
+                if (typeof cartQty[p.id] === 'undefined') cartQty[p.id] = 0;
+            });
+
+            // 1. Render ngoài Trang Chủ
+            mainGrid.innerHTML = products.map(p => `
+                <div class="royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold/60 flex flex-col justify-between hover:shadow-2xl transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-[10px] border border-sc-gold/40">${p.type}</span>
+                            <span class="text-amber-200 text-xs font-mono">${p.volume}</span>
+                        </div>
+                        <div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-4 overflow-hidden bg-black flex items-center justify-center">
+                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition">
+                        </div>
+                        <h3 class="font-serif font-bold text-white text-lg">${p.name}</h3>
+                        <p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">${p.desc}</p>
+                        <div class="mt-3 p-2.5 bg-sc-red-950/70 rounded-xl border border-rose-900/60 text-[10px] font-mono text-rose-200 space-y-1">
+                            <div><i class="fa-solid fa-clock text-sc-gold mr-1"></i> HSD: ${p.expiry} kể từ NSX</div>
+                            <div><i class="fa-solid fa-utensils text-amber-300 mr-1"></i> Vị: ${p.flavor}</div>
+                            <div class="text-emerald-400"><i class="fa-solid fa-wind mr-1"></i> Mùi: ${p.smell}</div>
+                        </div>
+                        <span class="block text-base font-mono font-bold text-yellow-300 mt-3">${Number(p.price).toLocaleString('vi-VN')} đ</span>
+                    </div>
+                    <div class="pt-4 border-t border-rose-900/80 mt-4">
+                        <button onclick="handlePrimaryActionClick('${p.id}')" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1.5 shadow cursor-pointer">
+                            <i class="fa-solid ${isArtisanLoggedIn ? 'fa-pen-to-square' : 'fa-cart-plus'}"></i>
+                            <span>${isArtisanLoggedIn ? 'Quản Lý / Sửa Sản Phẩm' : 'Chọn Mua Ngay'}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // 2. Render trong Giỏ Hàng Khách
+            cartContainer.innerHTML = products.map(p => `
+                <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col sm:flex-row justify-between gap-4 items-center">
+                    <div class="flex gap-4 items-center w-full">
+                        <img src="${p.img}" class="w-16 h-16 rounded-lg object-cover border border-sc-gold shrink-0">
+                        <div>
+                            <h4 class="font-serif font-bold text-white text-base">${p.name}</h4>
+                            <p class="text-[11px] text-rose-200 font-mono">${p.volume} | ${p.flavor}</p>
+                            <span class="text-sm font-mono font-bold text-yellow-300">${Number(p.price).toLocaleString('vi-VN')} đ</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 self-end sm:self-center">
+                        <button onclick="updateCart('${p.id}', -1)" class="w-8 h-8 rounded bg-sc-red-950 text-white font-bold border border-rose-800 cursor-pointer">-</button>
+                        <span id="cart-qty-${p.id}" class="font-mono text-sm w-5 text-center text-white">${cartQty[p.id] || 0}</span>
+                        <button onclick="updateCart('${p.id}', 1)" class="w-8 h-8 rounded bg-sc-gold text-sc-red-950 font-bold cursor-pointer">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // 3. Render trong Quản Lý Cửa Hàng của Nghệ Nhân
+            if (manageList) {
+                manageList.innerHTML = products.map(p => `
+                    <div class="bg-sc-red-950 p-4 rounded-2xl border border-rose-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3.5 w-full">
+                            <img src="${p.img}" class="w-14 h-14 rounded-xl object-cover border border-sc-gold shrink-0">
+                            <div class="text-xs font-mono">
+                                <strong class="text-white text-sm font-serif block">${p.name}</strong>
+                                <span class="text-yellow-300 font-bold">${Number(p.price).toLocaleString('vi-VN')} đ</span>
+                                <span class="text-rose-300"> • ${p.volume} • HSD: ${p.expiry}</span>
+                                <p class="text-[10px] text-emerald-400 mt-0.5">${p.smell}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                            <button onclick="editProduct('${p.id}')" class="px-3 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-bold text-xs cursor-pointer">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </button>
+                            <button onclick="deleteProduct('${p.id}')" class="px-3 py-1.5 rounded-lg bg-rose-900 text-rose-200 hover:bg-rose-700 font-bold text-xs cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            recalculateCart();
+        }
+
+        function updateCart(id, delta) {
+            cartQty[id] = Math.max(0, (cartQty[id] || 0) + delta);
+            const qtyEl = document.getElementById(`cart-qty-${id}`);
+            if (qtyEl) qtyEl.innerText = cartQty[id];
+            recalculateCart();
+        }
+
+        function recalculateCart() {
+            const products = getProducts();
+            let subtotal = 0, count = 0;
+            products.forEach(p => {
+                const q = cartQty[p.id] || 0;
+                subtotal += q * Number(p.price);
+                count += q;
+            });
+            const shipping = count > 0 ? 30000 : 0;
+            document.getElementById('chk-subtotal').innerText = subtotal.toLocaleString('vi-VN') + ' đ';
+            document.getElementById('chk-total').innerText = (subtotal + shipping).toLocaleString('vi-VN') + ' đ';
+            document.getElementById('floating-cart-count').innerText = count;
+        }
+
+        async function handleCheckoutOrder(e) {
+            e.preventDefault();
+            const products = getProducts();
+            let itemsSummary = [];
+            let subtotal = 0;
+            products.forEach(p => {
+                const q = cartQty[p.id] || 0;
+                if (q > 0) {
+                    itemsSummary.push(`${p.name} (x${q})`);
+                    subtotal += q * Number(p.price);
                 }
-            } catch (error) {
-                console.log("Sử dụng dữ liệu mẫu IoT trực tiếp:", error);
-                // Dữ liệu mẫu minh họa nếu chưa deploy Web App
-                document.getElementById('iot-temp-ang').innerText = "33.2 °C";
-                document.getElementById('iot-salinity').innerText = "26.5 °Bé";
-                document.getElementById('iot-turbidity').innerText = "0.95 NTU";
-                document.getElementById('iot-temp-air').innerText = "30.1 °C";
-                document.getElementById('iot-humi-air').innerText = "75 %";
-                document.getElementById('iot-timestamp').innerText = "Cập nhật thời gian thực";
+            });
+            if (itemsSummary.length === 0) return alert("Vui lòng chọn ít nhất 1 sản phẩm!");
+
+            const name = document.getElementById('chk-name').value;
+            const phone = document.getElementById('chk-phone').value;
+            const address = document.getElementById('chk-address').value;
+            const note = document.getElementById('chk-note').value;
+            const orderCode = 'ANG-MANHSANH-01';
+
+            const payload = {
+                timestamp: new Date().toLocaleString('vi-VN'),
+                orderCode: orderCode,
+                artisanName: "Nghệ Nhân Phạm Văn Mạnh",
+                artisanFacility: "Cơ sở Mạnh Sánh",
+                iotNode: "ANG-MANHSANH-01",
+                customerName: name,
+                phone: phone,
+                city: "Nam Định",
+                address: address,
+                items: itemsSummary.join(", "),
+                subtotal: subtotal,
+                shipping: 30000,
+                total: subtotal + 30000,
+                note: note,
+                status: "Mới đặt hàng"
+            };
+
+            try {
+                fetch(WEBHOOK_ORDER_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) { console.log(err); }
+
+            alert(`🎉 ĐẶT MUA THÀNH CÔNG TỪ CƠ SỞ MẠNH SÁNH!\nKhách hàng: ${name}\nMã Trạm IoT & DPP: ${orderCode}\nHệ thống sẽ chuyển sang trang Hộ Chiếu Số & Trạm IoT Thời Gian Thực!`);
+            document.getElementById('dpp-search-input').value = orderCode;
+            switchDppTab('passport');
+            performDppLookup(orderCode);
+        }
+
+        // --- 3. QUẢN LÝ & SỬA SẢN PHẨM CỦA NGHỆ NHÂN ---
+        function editProduct(id) {
+            const products = getProducts();
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            document.getElementById('prod-edit-id').value = p.id;
+            document.getElementById('prod-name').value = p.name;
+            document.getElementById('prod-price').value = p.price;
+            document.getElementById('prod-type').value = p.type;
+            document.getElementById('prod-volume').value = p.volume;
+            document.getElementById('prod-expiry').value = p.expiry;
+            document.getElementById('prod-flavor').value = p.flavor;
+            document.getElementById('prod-smell').value = p.smell;
+            document.getElementById('prod-desc').value = p.desc;
+            document.getElementById('prod-form-title').innerHTML = `<i class="fa-solid fa-pen text-yellow-300"></i> Đang Chỉnh Sửa: ${p.name}`;
+            document.getElementById('prod-submit-btn').innerText = "Cập Nhật Sản Phẩm";
+            document.getElementById('prod-cancel-btn').classList.remove('hidden');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+
+        function resetProductForm() {
+            document.getElementById('prod-edit-id').value = "";
+            document.getElementById('prod-name').value = "";
+            document.getElementById('prod-price').value = "";
+            document.getElementById('prod-type').value = "";
+            document.getElementById('prod-flavor').value = "";
+            document.getElementById('prod-desc').value = "";
+            document.getElementById('prod-img').value = "";
+            document.getElementById('prod-form-title').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Đăng Hoặc Sửa Sản Phẩm`;
+            document.getElementById('prod-submit-btn').innerText = "Lưu Sản Phẩm";
+            document.getElementById('prod-cancel-btn').classList.add('hidden');
+        }
+
+        function deleteProduct(id) {
+            if (!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi cửa hàng?")) return;
+            let products = getProducts().filter(p => p.id !== id);
+            localStorage.setItem('sc_manhsanh_products_v2', JSON.stringify(products));
+            renderAllProducts();
+        }
+
+        function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = e => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.getElementById('hidden-canvas');
+                        const ctx = canvas.getContext('2d');
+                        const MAX = 360;
+                        let w = img.width, h = img.height;
+                        if (w > MAX) { h *= MAX / w; w = MAX; }
+                        canvas.width = w; canvas.height = h;
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL("image/jpeg", 0.72));
+                    }
+                }
+            });
+        }
+
+        async function handleSaveProduct(e) {
+            e.preventDefault();
+            let products = getProducts();
+            const editId = document.getElementById('prod-edit-id').value;
+            const fileInput = document.getElementById('prod-img');
+
+            let imgData = "DSC_0112.JPG";
+            if (fileInput.files && fileInput.files[0]) {
+                imgData = await compressImage(fileInput.files[0]);
+            } else if (editId) {
+                const existing = products.find(p => p.id === editId);
+                if (existing) imgData = existing.img;
+            }
+
+            const prodObj = {
+                id: editId || ('ms_' + Date.now()),
+                name: document.getElementById('prod-name').value,
+                price: Number(document.getElementById('prod-price').value),
+                type: document.getElementById('prod-type').value,
+                volume: document.getElementById('prod-volume').value,
+                expiry: document.getElementById('prod-expiry').value,
+                flavor: document.getElementById('prod-flavor').value,
+                smell: document.getElementById('prod-smell').value,
+                desc: document.getElementById('prod-desc').value,
+                img: imgData
+            };
+
+            if (editId) {
+                products = products.map(p => p.id === editId ? prodObj : p);
+                alert("✅ Đã cập nhật thông tin sản phẩm thành công!");
+            } else {
+                products.push(prodObj);
+                alert("✅ Đã đăng bán sản phẩm mới lên Cửa hàng Mạnh Sánh!");
+            }
+
+            localStorage.setItem('sc_manhsanh_products_v2', JSON.stringify(products));
+            resetProductForm();
+            renderAllProducts();
+        }
+
+        // --- 4. HỆ THỐNG ĐỒNG BỘ TRỰC TIẾP GOOGLE SHEET IOT (REALTIME + BIỂU ĐỒ NGÀY/THÁNG/NĂM) ---
+        let rawSensorRows = [];
+        let currentChartPeriod = 'day';
+        let iotChartInstance = null;
+
+        function parseSheetDate(val) {
+            if (!val) return new Date();
+            if (val instanceof Date) return val;
+            const str = String(val).trim();
+            // Định dạng Date(yyyy,m,d,h,m,s) từ Google gviz
+            const gvizMatch = str.match(/Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)/);
+            if (gvizMatch) {
+                return new Date(
+                    Number(gvizMatch[1]),
+                    Number(gvizMatch[2]),
+                    Number(gvizMatch[3]),
+                    Number(gvizMatch[4] || 0),
+                    Number(gvizMatch[5] || 0),
+                    Number(gvizMatch[6] || 0)
+                );
+            }
+            // Định dạng dd/MM/yyyy HH:mm:ss
+            const vnMatch = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})(?:\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/);
+            if (vnMatch) {
+                return new Date(
+                    Number(vnMatch[3]),
+                    Number(vnMatch[2]) - 1,
+                    Number(vnMatch[1]),
+                    Number(vnMatch[4] || 0),
+                    Number(vnMatch[5] || 0),
+                    Number(vnMatch[6] || 0)
+                );
+            }
+            const parsed = new Date(str);
+            return isNaN(parsed.getTime()) ? new Date() : parsed;
+        }
+
+        // Đọc trực tiếp từ Google Sheet bằng JSONP (Không bị chặn CORS, luôn lấy dữ liệu thực mới nhất)
+        function fetchIotSheetLive(showNotice = false) {
+            window.google = window.google || {};
+            window.google.visualization = window.google.visualization || {};
+            window.google.visualization.Query = window.google.visualization.Query || {};
+
+            window.google.visualization.Query.setResponse = function(response) {
+                try {
+                    if (!response || !response.table || !response.table.rows) return;
+                    const rows = response.table.rows;
+                    const parsedList = [];
+
+                    rows.forEach(r => {
+                        const c = r.c;
+                        if (!c) return;
+                        const rawTime = c[0] ? (c[0].f || c[0].v) : null;
+                        const airTemp = c[1] && c[1].v !== null ? parseFloat(c[1].v) : null;
+                        const airHumi = c[2] && c[2].v !== null ? parseFloat(c[2].v) : null;
+                        const turbidity = c[3] && c[3].v !== null ? parseFloat(c[3].v) : null;
+                        const salinity = c[4] && c[4].v !== null ? parseFloat(c[4].v) : null;
+                        const tempAng = c[5] && c[5].v !== null ? parseFloat(c[5].v) : null;
+
+                        // Bỏ qua dòng tiêu đề nếu không có số
+                        if (airTemp === null && tempAng === null && salinity === null) return;
+
+                        parsedList.push({
+                            rawTime: rawTime || new Date().toLocaleString('vi-VN'),
+                            dateObj: parseSheetDate(c[0] ? (c[0].v || c[0].f) : null),
+                            airTemp: isNaN(airTemp) ? 0 : airTemp,
+                            airHumi: isNaN(airHumi) ? 0 : airHumi,
+                            turbidity: isNaN(turbidity) ? 0 : turbidity,
+                            salinity: isNaN(salinity) ? 0 : salinity,
+                            tempAng: isNaN(tempAng) ? 0 : tempAng
+                        });
+                    });
+
+                    if (parsedList.length > 0) {
+                        rawSensorRows = parsedList;
+                        const latest = parsedList[parsedList.length - 1];
+
+                        document.getElementById('iot-temp-ang').innerText = latest.tempAng + " °C";
+                        document.getElementById('iot-salinity').innerText = latest.salinity + " °Bé";
+                        document.getElementById('iot-turbidity').innerText = latest.turbidity + " NTU";
+                        document.getElementById('iot-temp-air').innerText = latest.airTemp + " °C";
+                        document.getElementById('iot-humi-air').innerText = latest.airHumi + " %";
+                        document.getElementById('iot-timestamp').innerText = "Đồng bộ lúc: " + latest.rawTime;
+                        document.getElementById('iot-row-count').innerText = `Tổng bản ghi Sheet: ${parsedList.length} dòng`;
+
+                        if (!document.getElementById('iot-pane-chart').classList.contains('hidden')) {
+                            renderIotChart();
+                        }
+                        if (showNotice) alert("✅ Đã đồng bộ dữ liệu mới nhất từ Google Sheet!");
+                    }
+                } catch (err) {
+                    console.error("Lỗi phân tích dữ liệu Sheet:", err);
+                }
+            };
+
+            const oldScript = document.getElementById('gviz-iot-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'gviz-iot-script';
+            script.src = `https://docs.google.com/spreadsheets/d/${IOT_SHEET_ID}/gviz/tq?tqx=out:json&_=${Date.now()}`;
+            document.body.appendChild(script);
+        }
+
+        function switchIotSubTab(subTab) {
+            const realtimePane = document.getElementById('iot-pane-realtime');
+            const chartPane = document.getElementById('iot-pane-chart');
+            const btnRealtime = document.getElementById('btn-iot-realtime');
+            const btnChart = document.getElementById('btn-iot-chart');
+
+            if (subTab === 'realtime') {
+                realtimePane.classList.remove('hidden');
+                chartPane.classList.add('hidden');
+                btnRealtime.className = "px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer";
+                btnChart.className = "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer";
+            } else {
+                realtimePane.classList.add('hidden');
+                chartPane.classList.remove('hidden');
+                btnChart.className = "px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer";
+                btnRealtime.className = "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer";
+                renderIotChart();
             }
         }
 
+        function setChartPeriod(period) {
+            currentChartPeriod = period;
+            ['day', 'month', 'year'].forEach(p => {
+                const btn = document.getElementById(`period-btn-${p}`);
+                if (p === period) {
+                    btn.className = "px-3 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer";
+                } else {
+                    btn.className = "px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer";
+                }
+            });
+            renderIotChart();
+        }
+
+        function aggregateDataByPeriod(rows, period) {
+            if (!rows || rows.length === 0) return { labels: [], tempAng: [], salinity: [], turbidity: [], airTemp: [], airHumi: [] };
+
+            const groups = {};
+            rows.forEach(r => {
+                const d = r.dateObj;
+                let key = "";
+                if (period === 'day') {
+                    // Nhóm theo Ngày/Giờ hoặc từng mốc đo trong ngày
+                    const dd = String(d.getDate()).padStart(2, '0');
+                    const mm = String(d.getMonth() + 1).padStart(2, '0');
+                    const hh = String(d.getHours()).padStart(2, '0');
+                    const min = String(d.getMinutes()).padStart(2, '0');
+                    key = `${dd}/${mm} ${hh}:${min}`;
+                } else if (period === 'month') {
+                    const mm = String(d.getMonth() + 1).padStart(2, '0');
+                    const yyyy = d.getFullYear();
+                    key = `Tháng ${mm}/${yyyy}`;
+                } else {
+                    key = `Năm ${d.getFullYear()}`;
+                }
+
+                if (!groups[key]) {
+                    groups[key] = { count: 0, tempAng: 0, salinity: 0, turbidity: 0, airTemp: 0, airHumi: 0 };
+                }
+                groups[key].count++;
+                groups[key].tempAng += r.tempAng;
+                groups[key].salinity += r.salinity;
+                groups[key].turbidity += r.turbidity;
+                groups[key].airTemp += r.airTemp;
+                groups[key].airHumi += r.airHumi;
+            });
+
+            const labels = Object.keys(groups).slice(-24);
+            const result = { labels: [], tempAng: [], salinity: [], turbidity: [], airTemp: [], airHumi: [] };
+
+            labels.forEach(k => {
+                const g = groups[k];
+                result.labels.push(k);
+                result.tempAng.push(+(g.tempAng / g.count).toFixed(2));
+                result.salinity.push(+(g.salinity / g.count).toFixed(2));
+                result.turbidity.push(+(g.turbidity / g.count).toFixed(2));
+                result.airTemp.push(+(g.airTemp / g.count).toFixed(2));
+                result.airHumi.push(+(g.airHumi / g.count).toFixed(2));
+            });
+
+            return result;
+        }
+
+        function renderIotChart() {
+            const canvas = document.getElementById('iot-history-chart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const metric = document.getElementById('chart-metric-select').value;
+            const agg = aggregateDataByPeriod(rawSensorRows, currentChartPeriod);
+
+            if (iotChartInstance) iotChartInstance.destroy();
+
+            const allDatasets = [
+                { key: 'tempAng', label: 'Nhiệt độ Lõi Ang (°C)', data: agg.tempAng, borderColor: '#FDE047', backgroundColor: 'rgba(253, 224, 71, 0.15)', tension: 0.35 },
+                { key: 'salinity', label: 'Độ Mặn (°Bé)', data: agg.salinity, borderColor: '#67E8F9', backgroundColor: 'rgba(103, 232, 249, 0.15)', tension: 0.35 },
+                { key: 'turbidity', label: 'Độ Đục (NTU)', data: agg.turbidity, borderColor: '#6EE7B7', backgroundColor: 'rgba(110, 231, 183, 0.15)', tension: 0.35 },
+                { key: 'airTemp', label: 'Nhiệt độ KK (°C)', data: agg.airTemp, borderColor: '#FB923C', backgroundColor: 'rgba(251, 146, 60, 0.15)', tension: 0.35 },
+                { key: 'airHumi', label: 'Độ Ẩm KK (%)', data: agg.airHumi, borderColor: '#93C5FD', backgroundColor: 'rgba(147, 197, 253, 0.15)', tension: 0.35 }
+            ];
+
+            const datasets = metric === 'all' ? allDatasets : allDatasets.filter(d => d.key === metric);
+
+            iotChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: { labels: agg.labels, datasets: datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#fff1f2', font: { family: 'Space Grotesk', size: 11 } } }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#fecdd3', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                        y: { ticks: { color: '#fecdd3', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.08)' } }
+                    }
+                }
+            });
+        }
+
+        // --- 5. ĐIỀU HƯỚNG & ĐĂNG NHẬP / ĐĂNG KÝ ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
         function switchMainView(view) {
-            document.getElementById('main-view-home').classList.toggle('hidden', view === 'passport-app');
-            document.getElementById('main-view-passport').classList.toggle('hidden', view !== 'passport-app');
+            const homeView = document.getElementById('main-view-home');
+            const passportView = document.getElementById('main-view-passport');
+            const cartWrapper = document.getElementById('floating-cart-wrapper');
+
+            if (view === 'passport-app') {
+                homeView.classList.add('hidden');
+                passportView.classList.remove('hidden');
+                cartWrapper.classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                passportView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+                if (!isArtisanLoggedIn) cartWrapper.classList.remove('hidden');
+            }
         }
 
         function switchDppTab(tab) {
-            document.getElementById('dpp-tab-pane-order').classList.toggle('hidden', tab !== 'order');
-            document.getElementById('dpp-tab-pane-passport').classList.toggle('hidden', tab !== 'passport');
-            if(tab === 'passport') { fetchIotSensorData(); }
+            const orderPane = document.getElementById('dpp-tab-pane-order');
+            const passportPane = document.getElementById('dpp-tab-pane-passport');
+            const btnOrder = document.getElementById('tab-btn-order');
+            const btnPass = document.getElementById('tab-btn-passport');
+
+            if (tab === 'order') {
+                orderPane.classList.remove('hidden');
+                passportPane.classList.add('hidden');
+                btnOrder.className = "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow cursor-pointer";
+                btnPass.className = "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white cursor-pointer";
+            } else {
+                orderPane.classList.add('hidden');
+                passportPane.classList.remove('hidden');
+                btnPass.className = "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow cursor-pointer";
+                btnOrder.className = "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white cursor-pointer";
+                fetchIotSheetLive();
+            }
         }
 
-        function handlePrimaryActionClick() {
+        function switchArtisanTab(tab) {
+            ['products', 'vats'].forEach(t => {
+                document.getElementById(`art-pane-${t}`).classList.toggle('hidden', t !== tab);
+                document.getElementById(`art-tab-${t}`).className = t === tab
+                    ? "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-bold text-xs shadow transition cursor-pointer"
+                    : "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer";
+            });
+        }
+
+        function handlePrimaryActionClick(prodId = null) {
             switchMainView('passport-app');
-            switchDppTab('order');
+            if (isArtisanLoggedIn) {
+                switchArtisanTab('products');
+                if (prodId) editProduct(prodId);
+            } else {
+                switchDppTab('order');
+            }
         }
 
-        function performDppLookup() {
-            const query = document.getElementById('dpp-search-input').value.trim().toUpperCase();
-            if(query.includes("MANHSANH")) {
-                fetchIotSensorData();
-                alert("Đã tải dữ liệu trạm IoT cho mã: " + query);
+        function openAuthModal(mode = 'login') {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+            switchLoginReg(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchLoginReg(mode) {
+            document.getElementById('login-error').classList.add('hidden');
+            const isLogin = mode === 'login';
+            document.getElementById('form-login').classList.toggle('hidden', !isLogin);
+            document.getElementById('form-register').classList.toggle('hidden', isLogin);
+            document.getElementById('tab-login').className = isLogin
+                ? "flex-1 py-2.5 font-bold text-sc-gold border-b-2 border-sc-gold cursor-pointer"
+                : "flex-1 py-2.5 font-bold text-rose-300 border-b-2 border-transparent hover:text-white cursor-pointer";
+            document.getElementById('tab-register').className = !isLogin
+                ? "flex-1 py-2.5 font-bold text-sc-gold border-b-2 border-sc-gold cursor-pointer"
+                : "flex-1 py-2.5 font-bold text-rose-300 border-b-2 border-transparent hover:text-white cursor-pointer";
+        }
+
+        function toggleOcopUpload() {
+            const role = document.getElementById('reg-role').value;
+            document.getElementById('reg-artisan-fields').classList.toggle('hidden', role !== 'artisan');
+        }
+
+        async function handleAuthRegister(e) {
+            e.preventDefault();
+            const role = document.getElementById('reg-role').value;
+            const name = document.getElementById('reg-name').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const pass = document.getElementById('reg-pass').value;
+            const facility = document.getElementById('reg-facility').value.trim() || "Cơ sở Sa Châu";
+
+            let users = JSON.parse(localStorage.getItem('sc_users') || '[]');
+            if (users.some(u => u.phone === phone)) {
+                return alert("Số điện thoại này đã được đăng ký!");
+            }
+
+            let ocopBase64 = "";
+            if (role === 'artisan') {
+                const fileInput = document.getElementById('reg-ocop-img');
+                if (!fileInput.files || !fileInput.files[0]) {
+                    return alert("Nghệ nhân bắt buộc phải tải lên ảnh Chứng nhận OCOP!");
+                }
+                ocopBase64 = await compressImage(fileInput.files[0]);
+            }
+
+            const newUser = { phone, pass, name, role, facility };
+            users.push(newUser);
+            localStorage.setItem('sc_users', JSON.stringify(users));
+
+            try {
+                fetch(WEBHOOK_AUTH_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({
+                        timestamp: new Date().toLocaleString('vi-VN'),
+                        role, name, phone, password: pass,
+                        facility, address: "Giao Châu, Giao Thủy, Nam Định",
+                        vatCount: 10, ocopImage: ocopBase64
+                    })
+                });
+            } catch (err) { console.log(err); }
+
+            alert("🎉 Đăng ký tài khoản thành công! Hệ thống chuyển sang khung Đăng Nhập.");
+            switchLoginReg('login');
+            document.getElementById('login-identifier').value = phone;
+            document.getElementById('login-password').value = pass;
+        }
+
+        function handleAuthLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('login-identifier').value.trim();
+            const pass = document.getElementById('login-password').value;
+
+            if ((phone === '0988888888' || phone.toLowerCase() === 'artisan') && pass === '123456') {
+                closeAuthModal();
+                activateArtisanMode("Phạm Văn Mạnh");
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('sc_users') || '[]');
+            const found = users.find(u => u.phone === phone && u.pass === pass);
+
+            if (found) {
+                closeAuthModal();
+                if (found.role === 'artisan') {
+                    activateArtisanMode(found.name);
+                } else {
+                    document.getElementById('auth-nav-container').innerHTML = `
+                        <div class="px-3 py-1.5 rounded-xl bg-sc-red-950 border border-sc-gold text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-user-check text-emerald-400"></i>
+                            <strong class="text-white text-[11px]">${found.name}</strong>
+                        </div>`;
+                    alert(`Xin chào khách hàng ${found.name}!`);
+                }
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function activateArtisanMode(name) {
+            isArtisanLoggedIn = true;
+            document.getElementById('customer-order-wrapper').classList.add('hidden');
+            document.getElementById('customer-tabs-container').classList.add('hidden');
+            document.getElementById('floating-cart-wrapper').classList.add('hidden');
+
+            const artDash = document.getElementById('artisan-dashboard-wrapper');
+            artDash.classList.remove('hidden');
+            artDash.classList.add('block');
+
+            document.getElementById('nav-primary-text').innerText = "Quản Lý Cửa Hàng";
+            document.getElementById('nav-primary-text-mobile').innerText = "Quản Lý";
+            document.getElementById('nav-primary-icon').className = "fa-solid fa-shop";
+
+            document.getElementById('auth-nav-container').innerHTML = `
+                <div class="px-3 py-1.5 rounded-xl bg-sc-red-950 border border-sc-gold text-xs flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <div><strong class="text-white block text-[11px]">Nghệ Nhân ${name}</strong><span class="text-[9px] text-sc-gold">Mạnh Sánh</span></div>
+                </div>`;
+
+            renderAllProducts();
+            loadArtisanVats();
+            switchMainView('passport-app');
+        }
+
+        function logoutUser() {
+            isArtisanLoggedIn = false;
+            document.getElementById('artisan-dashboard-wrapper').classList.add('hidden');
+            document.getElementById('artisan-dashboard-wrapper').classList.remove('block');
+            document.getElementById('customer-order-wrapper').classList.remove('hidden');
+            document.getElementById('customer-tabs-container').classList.remove('hidden');
+
+            document.getElementById('nav-primary-text').innerText = "Đặt Mua Mắm";
+            document.getElementById('nav-primary-text-mobile').innerText = "Mua";
+            document.getElementById('nav-primary-icon').className = "fa-solid fa-cart-shopping";
+
+            document.getElementById('auth-nav-container').innerHTML = `
+                <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-regular fa-user text-sc-gold"></i>
+                    <span class="hidden sm:inline">Tài Khoản</span>
+                </button>`;
+
+            renderAllProducts();
+            switchMainView('home');
+        }
+
+        // --- 6. TẠO ANG MẮM & MÃ QR ---
+        function handleCreateVat(e) {
+            e.preventDefault();
+            const vatId = document.getElementById('vat-id').value.trim().toUpperCase();
+            const fish = document.getElementById('vat-fish').value;
+            const date = document.getElementById('vat-date').value;
+            const process = document.getElementById('vat-process').value;
+
+            let vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
+            vats.push({ id: vatId, fish, date, process, artisan: "Nghệ nhân Phạm Văn Mạnh (Mạnh Sánh)" });
+            localStorage.setItem('sc_vats', JSON.stringify(vats));
+
+            document.getElementById('qr-empty-state').classList.add('hidden');
+            document.getElementById('qr-result-state').classList.remove('hidden');
+            document.getElementById('qr-vat-display').innerText = vatId;
+
+            const container = document.getElementById('qrcode-container');
+            container.innerHTML = "";
+            const baseUrl = window.location.href.split('?')[0].split('#')[0];
+            currentQRUrl = `${baseUrl}?dpp=${vatId}`;
+
+            new QRCode(container, {
+                text: currentQRUrl,
+                width: 150, height: 150,
+                colorDark: "#54090f", colorLight: "#ffffff"
+            });
+
+            loadArtisanVats();
+        }
+
+        function loadArtisanVats() {
+            let vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
+            const listEl = document.getElementById('artisan-vat-list');
+            if (!listEl) return;
+            if (vats.length === 0) {
+                listEl.innerHTML = `<div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 text-xs font-mono text-emerald-400">Trạm mặc định: ANG-MANHSANH-01 (Đang kết nối Google Sheet)</div>`;
+                return;
+            }
+            listEl.innerHTML = vats.map(v => `
+                <div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 flex justify-between items-center text-xs font-mono">
+                    <div>
+                        <strong class="text-sc-gold block">${v.id}</strong>
+                        <span class="text-rose-200 text-[10px]">${v.fish} • Ủ: ${v.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function testScanQR() {
+            if (currentQRUrl) window.location.href = currentQRUrl;
+        }
+
+        function performDppLookup(codeParam = null) {
+            const query = (codeParam || document.getElementById('dpp-search-input').value).trim().toUpperCase();
+            if (!query) return alert("Vui lòng nhập mã DPP!");
+
+            document.getElementById('dpp-res-id').innerText = query;
+            document.getElementById('iot-station-label').innerText = query;
+
+            const vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
+            const foundVat = vats.find(v => v.id === query);
+            if (foundVat) {
+                document.getElementById('dpp-res-date').innerText = foundVat.date;
+                document.getElementById('dpp-res-fish').innerText = foundVat.fish;
+                document.getElementById('dpp-res-artisan').innerText = foundVat.artisan;
+                document.getElementById('dpp-res-process').innerText = foundVat.process;
+            }
+
+            fetchIotSheetLive();
+        }
+
+        function checkUrlForQRScan() {
+            const dppCode = new URLSearchParams(window.location.search).get('dpp');
+            if (dppCode) {
+                switchMainView('passport-app');
+                switchDppTab('passport');
+                document.getElementById('dpp-search-input').value = dppCode;
+                document.getElementById('dpp-scan-alert').classList.remove('hidden');
+                performDppLookup(dppCode);
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            fetchIotSensorData();
+            renderAllProducts();
+            fetchIotSheetLive();
+            // Tự động làm mới dữ liệu từ Google Sheet mỗi 5 giây
+            setInterval(() => {
+                fetchIotSheetLive(false);
+            }, 5000);
+            checkUrlForQRScan();
         });
     </script>
 </body>
