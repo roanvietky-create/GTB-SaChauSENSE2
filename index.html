@@ -27,20 +27,30 @@ body { background-color: #2b0306 !important; color: #fff1f2; font-family: 'Plus 
 </style></head><body class="selection:bg-sc-gold selection:text-sc-red-950"><div class="bg-sc-red-950 border-b border-sc-gold/20 py-1.5 px-4 text-[11px] font-mono text-amber-200/90"><div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span><span>Dự án Cấp Tỉnh: SaChau-Sense - Hữu Xạ Tự Nhiên Hương</span></div><div class="flex items-center gap-4"><span><i class="fa-solid fa-location-dot text-sc-gold mr-1"></i> Xã Giao Châu, Giao Thủy, Nam Định</span><span class="hidden sm:inline"><i class="fa-solid fa-award text-sc-gold mr-1"></i> Chứng Nhận OCOP 3 Sao</span></div></div></div><header class="sticky top-0 z-50 bg-sc-red-900/95 backdrop-blur-md border-b-2 border-sc-gold/40 shadow-2xl"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-20"><a href="#hero" onclick="switchMainView('home')" class="flex items-center gap-3.5 group cursor-pointer"><img src="IMG_20261112_075425.png" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=150&q=80'" class="w-14 h-14 rounded-2xl object-cover border border-sc-gold/40 shadow-md shrink-0"><div><div class="flex items-center gap-1.5"><span class="font-cinzel font-black text-2xl tracking-wide text-white">SACHAU<span class="text-sc-gold">-SENSE</span></span></div><p class="text-[10px] text-amber-200/90 tracking-widest uppercase font-mono font-medium">IoT & Hộ Chiếu Số Làng Nghề</p></div></a><nav class="hidden xl:flex items-center gap-5 text-sm font-semibold text-rose-100"><button onclick="switchMainView('home'); scrollToSection('hero')" class="hover:text-sc-gold transition cursor-pointer">Trang Chủ</button><button onclick="switchMainView('home'); scrollToSection('heritage')" class="hover:text-sc-gold transition cursor-pointer">Di Sản</button><button onclick="switchMainView('home'); scrollToSection('process')" class="hover:text-sc-gold transition cursor-pointer">Quy Trình</button><button onclick="switchMainView('home'); scrollToSection('products')" class="hover:text-sc-gold transition cursor-pointer">Sản Phẩm</button><button onclick="switchMainView('home'); scrollToSection('kitchen')" class="hover:text-sc-gold transition flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-utensils text-sc-gold text-xs"></i> Vào Bếp</button><button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="hover:text-amber-300 transition flex items-center gap-1.5 text-sc-gold-light bg-sc-red-950 px-3.5 py-1.5 rounded-xl border border-sc-gold/50 shadow cursor-pointer"><i class="fa-solid fa-id-card-clip text-sc-gold"></i><span>Hộ Chiếu Số DPP</span></button></nav><div class="flex items-center gap-2.5"><div id="auth-nav-container"><button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-amber-200 border border-sc-gold/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"><i class="fa-regular fa-user text-sc-gold"></i><span class="hidden sm:inline">Tài Khoản</span></button></div><button id="nav-primary-btn" onclick="handlePrimaryActionClick()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sc-gold via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-sc-red-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5 cursor-pointer"><i id="nav-primary-icon" class="fa-solid fa-cart-shopping"></i><span id="nav-primary-text" class="hidden md:inline">Đặt Mua Mắm</span><span id="nav-primary-text-mobile" class="md:hidden">Mua</span></button><button onclick="toggleMobileMenu()" class="xl:hidden w-10 h-10 rounded-xl bg-sc-red-950 text-sc-gold border border-sc-gold/50 flex items-center justify-center text-lg cursor-pointer"><i class="fa-solid fa-bars" id="mobile-menu-icon"></i></button></div></div></div><div id="mobile-menu-drawer" class="hidden xl:hidden bg-sc-red-950/98 border-t border-rose-900 px-4 py-5 space-y-3 font-mono text-sm"><button onclick="toggleMobileMenu(); switchMainView('home'); scrollToSection('hero')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-sc-red-900 text-rose-100"><i class="fa-solid fa-house text-sc-gold mr-2"></i> Trang Chủ</button><button onclick="toggleMobileMenu(); switchMainView('home'); scrollToSection('heritage')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-sc-red-900 text-rose-100"><i class="fa-solid fa-landmark text-sc-gold mr-2"></i> Di Sản Làng Nghề Sa Châu</button><button onclick="toggleMobileMenu(); switchMainView('home'); scrollToSection('process')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-sc-red-900 text-rose-100"><i class="fa-solid fa-gears text-sc-gold mr-2"></i> Quy Trình 5 Bước</button><button onclick="toggleMobileMenu(); switchMainView('home'); scrollToSection('products')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-sc-red-900 text-rose-100"><i class="fa-solid fa-bottle-water text-sc-gold mr-2"></i> Sản Phẩm Mạnh Sánh</button><button onclick="toggleMobileMenu(); switchMainView('home'); scrollToSection('kitchen')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-sc-red-900 text-rose-100"><i class="fa-solid fa-utensils text-sc-gold mr-2"></i> Góc Vào Bếp</button><button onclick="toggleMobileMenu(); switchMainView('passport-app'); switchDppTab('passport')" class="block w-full text-left py-2.5 px-3 rounded-xl bg-sc-red-900 text-sc-gold font-bold border border-sc-gold/50"><i class="fa-solid fa-satellite-dish mr-2"></i> Tra Hộ Chiếu DPP & Trạm IoT</button></div></header><div id="floating-cart-wrapper" class="fixed bottom-6 right-6 z-40"><button onclick="handlePrimaryActionClick()" class="relative w-13 h-13 p-3.5 rounded-full bg-gradient-to-r from-sc-gold to-amber-500 text-sc-red-950 flex items-center justify-center shadow-xl border-2 border-yellow-200 transition-all hover:scale-110 group cursor-pointer"><i class="fa-solid fa-cart-shopping text-xl group-hover:rotate-12 transition"></i><span id="floating-cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] px-1 rounded-full bg-sc-red-950 text-yellow-300 font-mono text-[10px] flex items-center justify-center font-bold border border-sc-gold">1</span></button></div><main id="main-view-home" class="block"><section id="hero" class="relative royal-damask-bg pt-16 pb-24 overflow-hidden border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4 text-center"><div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sc-red-950/90 border border-sc-gold/40 text-sc-gold-light text-xs font-mono mb-6"><i class="fa-solid fa-sun text-sc-gold animate-spin"></i> Tinh Hoa Nghề Mắm Phơi Nắng Đánh Đảo Hàng Trăm Năm
 </div><h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
 Cơ Sở Nước Mắm Truyền Thống <br><span class="bg-gradient-to-r from-yellow-200 via-sc-gold-light to-sc-gold bg-clip-text text-transparent gold-glow">Mạnh Sánh</span></h1><p class="text-rose-100/90 text-base sm:text-lg max-w-2xl mx-auto mt-6 mb-8 font-light leading-relaxed">
-Hữu Xạ Tự Nhiên Hương - Kế thừa bí quyết ủ chượp cá mộc phơi nắng từ làng nghề Sa Châu. Gìn giữ 100% hương vị mắm tự nhiên, không hóa chất, tích hợp công nghệ IoT và Hộ chiếu số minh bạch.
-</p><div class="flex flex-wrap justify-center gap-4"><button onclick="handlePrimaryActionClick()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-sm uppercase shadow-2xl transition hover:scale-105 flex items-center gap-2 cursor-pointer"><i class="fa-solid fa-cart-shopping"></i> Đặt Mua Mắm Ngay
-</button><button onclick="switchMainView('passport-app'); switchDppTab('passport')" class="px-7 py-4 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 text-sc-gold-light border border-sc-gold/60 font-bold text-sm uppercase transition flex items-center gap-2 cursor-pointer"><i class="fa-solid fa-satellite-dish text-emerald-400"></i> Xem Trạm IoT & Tra Cứu DPP
+Hữu Xạ Tự Nhiên Hương - Kế thừa bí quyết ủ chượp cá mộc phơi nắng từ làng nghề Sa Châu. Đặt trước ang mắm đang ủ (theo dõi IoT Realtime) hoặc đặt mua mắm thành phẩm (theo dõi Biểu đồ 3 giai đoạn).
+</p><div class="flex flex-wrap justify-center gap-4"><button onclick="handlePrimaryActionClick(null, 'preorder')" class="px-7 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs sm:text-sm uppercase shadow-2xl transition hover:scale-105 flex items-center gap-2 cursor-pointer border border-emerald-300"><i class="fa-solid fa-satellite-dish animate-pulse"></i> Đặt Hàng Trước (Theo Dõi IoT Realtime)
+</button><button onclick="handlePrimaryActionClick(null, 'ready')" class="px-7 py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-xs sm:text-sm uppercase shadow-2xl transition hover:scale-105 flex items-center gap-2 cursor-pointer"><i class="fa-solid fa-bottle-droplet"></i> Mua Đóng Sẵn Thành Phẩm (Xem Biểu Đồ)
 </button></div></div></section><section id="heritage" class="py-20 bg-sc-red-950 border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"><div class="lg:col-span-6 space-y-5"><span class="px-3.5 py-1 rounded-full bg-sc-red-900 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Di Sản Làng Nghề Giao Châu</span><h2 class="font-serif text-3xl sm:text-4xl font-bold text-white leading-snug">"Giọt Ngọc Trong Cát" & Chứng Nhận OCOP 3 Sao</h2><p class="text-rose-100/85 text-sm leading-relaxed">
 Khác biệt với phương pháp ủ thùng gỗ kín, nước mắm Sa Châu (Giao Thủy, Nam Định) được ủ trong các dãy <strong>ang sành phơi trực tiếp dưới ánh nắng mặt trời</strong> và sương đêm. Quá trình đánh đảo liên tục giúp chượp cá hấp thụ nhiệt năng tự nhiên, khử mùi tanh và kết tinh thành giọt mắm màu cánh gián sánh đượm.
-</p><div class="grid grid-cols-2 gap-4 pt-2"><div class="royal-gradient-card p-4 rounded-2xl"><span class="text-sc-gold font-mono text-2xl font-black">12 - 24</span><p class="text-xs text-rose-200 mt-1">Tháng ủ chượp phơi nắng sương tự nhiên</p></div><div class="royal-gradient-card p-4 rounded-2xl"><span class="text-emerald-400 font-mono text-2xl font-black">OCOP 3★</span><p class="text-xs text-rose-200 mt-1">Chứng nhận chất lượng cấp Tỉnh Nam Định</p></div></div></div><div class="lg:col-span-6 grid grid-cols-2 gap-4"><div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64"><img src="DSC_0055.JPG" alt="Phơi mắm ang sành" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64"><img src="1000002833.jpg" alt="Câu chuyện làng nghề" onerror="this.src='https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div></div></div></section><section id="process" class="py-20 royal-damask-bg border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Chuẩn Mực Thủ Công</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Quy Trình 5 Bước Làm Mắm Sa Châu</h2></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5"><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 01</span><h4 class="font-serif font-bold text-white text-base mt-1">Chọn Cá & Muối</h4><p class="text-xs text-rose-200/80 mt-2">Cá nục, cá cơm tươi từ biển và muối hạt Bạch Long lưu kho trên 1 năm cho hết vị chát.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 02</span><h4 class="font-serif font-bold text-white text-base mt-1">Vào Chượp Ang Sành</h4><p class="text-xs text-rose-200/80 mt-2">Trộn cá và muối theo tỷ lệ vàng (85% cá : 15% muối) rồi đưa vào các ang sành truyền thống.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 03</span><h4 class="font-serif font-bold text-white text-base mt-1">Phơi Nắng & Đánh Đảo</h4><p class="text-xs text-rose-200/80 mt-2">Mở nắp ang đón bức xạ mặt trời ban ngày, cào đảo đều tay và theo dõi nhiệt độ bằng IoT.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 04</span><h4 class="font-serif font-bold text-white text-base mt-1">Kéo Rút Giỏ Tre</h4><p class="text-xs text-rose-200/80 mt-2">Sau 12-24 tháng, lọc cốt mắm qua hệ thống giỏ tre và lớp trấu truyền thống trong vắt.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 05</span><h4 class="font-serif font-bold text-white text-base mt-1">Đóng Chai & Dán QR</h4><p class="text-xs text-rose-200/80 mt-2">Đóng chai tiêu chuẩn 1 Lít, cấp mã QR Hộ chiếu số DPP minh bạch từng ang mắm.</p></div></div></div></section><section id="products" class="py-20 bg-sc-red-900 border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold">Danh mục chính</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-4">Các Dòng Sản Phẩm Mạnh Sánh</h2><p class="text-rose-200/80 text-sm mt-2">Quy cách đóng chai 1 Lít tiêu chuẩn. Nếm vào mặn nơi đầu lưỡi nhưng ngọt hậu nơi cuống họng.</p></div><div id="main-product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div></div></section><section id="kitchen" class="py-20 bg-sc-red-950 border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-900 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Ẩm Thực Gia Truyền</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Góc Vào Bếp Cùng Mắm Mạnh Sánh</h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-bowl-food mr-1"></i> Món Chấm Tinh Tế</span><h4 class="font-serif font-bold text-white text-lg mt-1">Nước Chấm Nem Giao Thủy</h4><p class="text-xs text-rose-200/80 mt-2">Pha cốt mắm cá Mạnh Sánh cùng tỏi ớt băm, chút đường và cốt chanh tươi giúp dậy mùi thơm nồng đặc trưng.</p></div><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-fire-burner mr-1"></i> Món Kho Đậm Đà</span><h4 class="font-serif font-bold text-white text-lg mt-1">Thịt Ba Chỉ Kho Mắm Ruốc Tôm</h4><p class="text-xs text-rose-200/80 mt-2">Mắm tôm Mạnh Sánh ủ sành màu mật ong khi chưng cùng thịt ba chỉ và sả ớt tạo nên vị bùi ngậy khó quên.</p></div><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-leaf mr-1"></i> Bí Quyết Giữ Vị</span><h4 class="font-serif font-bold text-white text-lg mt-1">Nêm Mắm Khi Tắt Bếp</h4><p class="text-xs text-rose-200/80 mt-2">Với nước mắm truyền thống giàu đạm amin tự nhiên, hãy nêm sau cùng trước khi bắc nồi xuống để giữ trọn hương thơm.</p></div></div></div></section></main><section id="main-view-passport" class="hidden py-12 royal-damask-bg min-h-screen border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-rose-900/80 mb-8 gap-4"><div class="flex items-center gap-3 text-xs font-mono"><button onclick="switchMainView('home')" class="text-sc-gold hover:underline font-bold cursor-pointer"><i class="fa-solid fa-arrow-left"></i> Quay lại Trang Chủ</button><span class="text-rose-400">/</span><span class="text-white" id="dpp-breadcrumb-text">Cổng Đặt Hàng & Tra Cứu Hộ Chiếu</span></div><div class="flex items-center gap-2" id="customer-tabs-container"><button onclick="switchDppTab('order')" id="tab-btn-order" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow cursor-pointer">Đặt Mua Mắm</button><button onclick="switchDppTab('passport')" id="tab-btn-passport" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white cursor-pointer">Tra Hộ Chiếu DPP & IoT</button></div></div><div id="customer-order-wrapper" class="block"><div id="dpp-tab-pane-order" class="block"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div class="lg:col-span-7 space-y-4"><h3 class="font-serif text-xl font-bold text-white mb-4">1. Chọn Nước Mắm Mạnh Sánh</h3><div id="cart-items-container" class="space-y-4"></div></div><div class="lg:col-span-5 royal-gradient-card rounded-3xl p-6 sm:p-7 border-2 border-sc-gold shadow-2xl"><h3 class="font-serif text-lg font-bold text-white mb-4">2. Thông Tin Nhận Hàng</h3><form onsubmit="handleCheckoutOrder(event)" class="space-y-4 text-xs"><div class="p-3.5 rounded-2xl bg-sc-red-950 border border-sc-gold/60"><label class="text-amber-200 font-mono font-bold block mb-2">Người Phụ Trách Đơn *</label><select class="w-full bg-sc-red-900 text-yellow-300 font-serif font-bold text-xs px-3 py-2 rounded-xl border border-sc-gold/60 focus:outline-none pointer-events-none appearance-none"><option selected>👑 Nghệ Nhân Phạm Văn Mạnh - Cơ sở Mạnh Sánh</option></select><p class="text-[10px] text-rose-300 mt-2 font-mono"><i class="fa-solid fa-satellite-dish text-emerald-400"></i> Mã Trạm IoT: <strong>ANG-MANHSANH-01</strong></p></div><input type="text" id="chk-name" required placeholder="Họ và tên người nhận *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="tel" id="chk-phone" required placeholder="Số điện thoại *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="text" id="chk-address" required placeholder="Địa chỉ chi tiết nhận hàng *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><textarea id="chk-note" placeholder="Ghi chú đóng gói cho Nghệ nhân Mạnh..." rows="2" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"></textarea><div class="pt-3 border-t border-rose-900 space-y-2 font-mono text-sm"><div class="flex justify-between text-rose-200"><span>Tiền hàng:</span><span id="chk-subtotal">200.000 đ</span></div><div class="flex justify-between text-rose-200"><span>Phí bọc xốp:</span><span class="text-emerald-400">30.000 đ</span></div><div class="flex justify-between font-bold text-white pt-2 border-t border-rose-900 text-base"><span>Tổng cộng:</span><span id="chk-total" class="text-yellow-300">230.000 đ</span></div></div><button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-xs uppercase shadow transition hover:scale-105 cursor-pointer">
-Xác Nhận Đặt Mua & Khởi Tạo Mã DPP
-</button></form></div></div></div><div id="dpp-tab-pane-passport" class="hidden"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div class="lg:col-span-4 bg-sc-red-900/90 rounded-3xl p-6 border-2 border-sc-gold/40 shadow-2xl space-y-4"><div class="flex items-center gap-2"><i class="fa-solid fa-qrcode text-sc-gold text-xl"></i><h3 class="font-serif text-lg font-bold text-white">Tra Cứu Hộ Chiếu (DPP)</h3></div><div class="relative"><input type="text" id="dpp-search-input" class="w-full bg-sc-red-950 text-white font-mono text-sm px-4 py-3 rounded-xl border border-rose-900 focus:border-sc-gold pl-10 uppercase" placeholder="Nhập mã Ang" value="ANG-MANHSANH-01"><i class="fa-solid fa-search absolute left-3.5 top-3.5 text-rose-400"></i><button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition cursor-pointer">Tìm</button></div><div class="text-[11px] text-rose-200/80 font-mono space-y-1 bg-sc-red-950/60 p-3 rounded-xl border border-rose-900"><p class="text-sc-gold font-bold">Mã Trạm IoT Đang Hoạt Động:</p><button onclick="document.getElementById('dpp-search-input').value='ANG-MANHSANH-01'; performDppLookup('ANG-MANHSANH-01')" class="underline text-emerald-400 hover:text-emerald-300 block cursor-pointer">• ANG-MANHSANH-01 (Google Sheet Live)</button></div><div id="dpp-scan-alert" class="hidden p-3 bg-emerald-900/40 border border-emerald-500 rounded-xl text-emerald-400 text-[11px] font-mono"><i class="fa-solid fa-check-circle mr-1"></i> Đã nhận diện truy cập từ Quét Mã QR!
-</div></div><div class="lg:col-span-8 royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold shadow-2xl relative space-y-5"><div class="flex items-center gap-4 border-b border-rose-900 pb-4"><img src="IMG_20261112_075425.png" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=150&q=80'" class="w-16 h-16 rounded-xl border border-sc-gold/50 object-cover"><div><span class="text-xs font-mono text-sc-gold uppercase font-bold tracking-widest">Digital Product Passport</span><h3 id="dpp-display-title" class="font-serif text-2xl font-bold text-white mt-1">Hồ Sơ Nước Mắm Gia Truyền Mạnh Sánh</h3></div></div><div id="dpp-real-data" class="space-y-5"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800"><h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">1. Định Danh Lô Hàng / Ang Mắm</h4><ul class="text-xs text-rose-100 space-y-1.5 font-mono"><li>Mã truy xuất: <strong id="dpp-res-id" class="text-white">ANG-MANHSANH-01</strong></li><li>Ngày ủ chượp: <span id="dpp-res-date" class="text-emerald-400">Ủ chượp 12 - 24 tháng tiêu chuẩn</span></li><li>Nguyên liệu: <span id="dpp-res-fish">85% Cá/Tôm tươi + 15% Muối Bạch Long</span></li></ul></div><div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800"><h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">2. Thông Tin Cơ Sở Nghệ Nhân</h4><ul class="text-xs text-rose-100 space-y-1.5 font-mono"><li>Nghệ nhân: <strong id="dpp-res-artisan" class="text-yellow-300">Nghệ nhân Phạm Văn Mạnh (Mạnh Sánh)</strong></li><li>Quy trình: <span id="dpp-res-process">Đêm phơi sương, ngày phơi nắng, ủ chum sành</span></li><li>Chứng nhận: <span class="text-emerald-400">OCOP 3 Sao Nam Định</span></li></ul></div></div><div class="bg-sc-red-950 p-5 rounded-2xl border-2 border-sc-gold shadow-inner"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-rose-900"><div><h4 class="font-mono text-sc-gold font-bold flex items-center gap-2 text-sm"><i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i>
-3. Trạm Quan Trắc IoT (<span id="iot-station-label">ANG-MANHSANH-01</span>)
-</h4><p id="iot-timestamp" class="text-[11px] text-emerald-300 font-mono mt-1">Đang đồng bộ trực tiếp từ Google Sheet...</p></div><div class="flex items-center gap-2 bg-sc-red-900 p-1 rounded-xl border border-sc-gold/40 self-start sm:self-auto"><button onclick="switchIotSubTab('realtime')" id="btn-iot-realtime" class="px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer"><i class="fa-solid fa-gauge-high mr-1"></i>Realtime
-</button><button onclick="switchIotSubTab('chart')" id="btn-iot-chart" class="px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer"><i class="fa-solid fa-chart-line mr-1"></i>Biểu Đồ
-</button><button onclick="fetchIotSheetLive(true)" title="Làm mới ngay" class="px-2.5 py-1.5 rounded-lg bg-sc-red-950 text-sc-gold hover:bg-sc-red-800 text-xs border border-sc-gold/30 cursor-pointer"><i class="fa-solid fa-rotate"></i></button></div></div><div id="iot-pane-realtime" class="block pt-4"><div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono"><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Lõi Ang</span><strong id="iot-temp-ang" class="text-yellow-300 text-lg">-- °C</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Độ Mặn (Baumé)</span><strong id="iot-salinity" class="text-cyan-300 text-lg">-- °Bé</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Độ Đục Nước</span><strong id="iot-turbidity" class="text-emerald-300 text-lg">-- NTU</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Không Khí</span><strong id="iot-temp-air" class="text-amber-400 text-lg">-- °C</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center col-span-2 sm:col-span-2"><span class="text-rose-300 block text-[11px] mb-1">Độ Ẩm Không Khí</span><strong id="iot-humi-air" class="text-blue-300 text-lg">-- %</strong></div></div><div class="mt-3 flex items-center justify-between text-[10px] font-mono text-rose-300/80 px-1"><span><i class="fa-solid fa-table text-emerald-400 mr-1"></i> Nguồn: Google Sheet NODE_1 (Tự động cập nhật mỗi 5 giây)</span><span id="iot-row-count">Số bản ghi: --</span></div></div><div id="iot-pane-chart" class="hidden pt-4 space-y-4"><div class="flex flex-wrap items-center justify-between gap-2"><div class="flex items-center gap-1.5 font-mono text-xs"><span class="text-rose-300 mr-1">Khung thời gian:</span><button onclick="setChartPeriod('day')" id="period-btn-day" class="px-3 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer">Theo Ngày</button><button onclick="setChartPeriod('month')" id="period-btn-month" class="px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Tháng</button><button onclick="setChartPeriod('year')" id="period-btn-year" class="px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Năm</button></div><select id="chart-metric-select" onchange="renderIotChart()" class="bg-sc-red-900 text-yellow-300 font-mono text-xs px-3 py-1.5 rounded-lg border border-sc-gold/50"><option value="all">Tất cả thông số chính</option><option value="tempAng">Nhiệt Độ Lõi Ang (°C)</option><option value="salinity">Độ Mặn (°Bé)</option><option value="turbidity">Độ Đục Nước (NTU)</option><option value="airTemp">Nhiệt Độ Không Khí (°C)</option><option value="airHumi">Độ Ẩm Không Khí (%)</option></select></div><div class="bg-black/50 p-3 rounded-xl border border-rose-900/80 h-72 relative"><canvas id="iot-history-chart"></canvas></div></div></div></div></div></div></div></div><div id="artisan-dashboard-wrapper" class="hidden"><div class="bg-sc-red-950/90 rounded-3xl border-2 border-sc-gold shadow-2xl overflow-hidden"><div class="bg-sc-red-900 p-6 border-b border-sc-gold/40 flex flex-col sm:flex-row justify-between items-center gap-4"><div><h3 class="font-serif text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-shop text-sc-gold"></i> Quản Lý Cửa Hàng & Xưởng Nghệ Nhân
-</h3><p class="text-xs text-rose-200 mt-1 font-mono">Chủ cơ sở: <strong id="dash-artisan-name" class="text-yellow-300">Phạm Văn Mạnh (Mạnh Sánh)</strong></p></div><div class="flex flex-wrap gap-2"><button onclick="switchArtisanTab('products')" id="art-tab-products" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-bold text-xs shadow transition cursor-pointer"><i class="fa-solid fa-boxes-stacked mr-1"></i> Quản Lý Sản Phẩm</button><button onclick="switchArtisanTab('vats')" id="art-tab-vats" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer"><i class="fa-solid fa-qrcode mr-1"></i> Tạo Ang Mắm & QR</button><button onclick="logoutUser()" class="px-3 py-2 rounded-xl bg-rose-900/80 text-white text-xs font-bold hover:bg-rose-800 cursor-pointer"><i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất</button></div></div><div class="p-6 sm:p-8"><div id="art-pane-products" class="block space-y-8"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8"><div class="lg:col-span-5 royal-gradient-card p-6 rounded-2xl"><h4 id="prod-form-title" class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2"><i class="fa-solid fa-pen-to-square"></i> Đăng Hoặc Sửa Sản Phẩm
+</p><div class="grid grid-cols-2 gap-4 pt-2"><div class="royal-gradient-card p-4 rounded-2xl"><span class="text-sc-gold font-mono text-2xl font-black">12 - 24</span><p class="text-xs text-rose-200 mt-1">Tháng ủ chượp phơi nắng sương tự nhiên</p></div><div class="royal-gradient-card p-4 rounded-2xl"><span class="text-emerald-400 font-mono text-2xl font-black">OCOP 3★</span><p class="text-xs text-rose-200 mt-1">Chứng nhận chất lượng cấp Tỉnh Nam Định</p></div></div></div><div class="lg:col-span-6 grid grid-cols-2 gap-4"><div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64"><img src="DSC_0055.JPG" alt="Phơi mắm ang sành" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-2xl overflow-hidden border-2 border-sc-gold/50 shadow-xl bg-black h-64"><img src="1000002833.jpg" alt="Câu chuyện làng nghề" onerror="this.src='https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div></div></div></section><section id="process" class="py-20 royal-damask-bg border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Chuẩn Mực Thủ Công</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Quy Trình 5 Bước Làm Mắm Sa Châu</h2></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5"><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 01</span><h4 class="font-serif font-bold text-white text-base mt-1">Chọn Cá & Muối</h4><p class="text-xs text-rose-200/80 mt-2">Cá nục, cá cơm tươi từ biển và muối hạt Bạch Long lưu kho trên 1 năm cho hết vị chát.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 02</span><h4 class="font-serif font-bold text-white text-base mt-1">Vào Chượp Ang Sành</h4><p class="text-xs text-rose-200/80 mt-2">Trộn cá và muối theo tỷ lệ vàng (85% cá : 15% muối) rồi đưa vào các ang sành truyền thống.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 03</span><h4 class="font-serif font-bold text-white text-base mt-1">Phơi Nắng & Đánh Đảo</h4><p class="text-xs text-rose-200/80 mt-2">Mở nắp ang đón bức xạ mặt trời ban ngày, cào đảo đều tay và theo dõi nhiệt độ bằng IoT.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 04</span><h4 class="font-serif font-bold text-white text-base mt-1">Lọc Cốt Mắm</h4><p class="text-xs text-rose-200/80 mt-2">Sau 12-24 tháng, lọc cốt mắm qua hệ thống giỏ tre và lớp trấu truyền thống trong vắt.</p></div><div class="royal-gradient-card p-5 rounded-2xl relative"><span class="text-sc-gold font-mono text-xs font-bold">BƯỚC 05</span><h4 class="font-serif font-bold text-white text-base mt-1">Đóng Chai & Dán QR</h4><p class="text-xs text-rose-200/80 mt-2">Đóng chai tiêu chuẩn 1 Lít, cấp mã QR Hộ chiếu số DPP minh bạch từng ang mắm.</p></div></div></div></section><section id="products" class="py-20 bg-sc-red-900 border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-950 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase tracking-widest font-bold">Danh mục chính</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-4">Các Dòng Sản Phẩm Mạnh Sánh</h2><p class="text-rose-200/80 text-sm mt-2">Hỗ trợ cả 2 hình thức: Đặt hàng trước (Ang đang ủ - Xem Realtime) & Mua thành phẩm đóng sẵn (Xem Biểu đồ 3 giai đoạn).</p></div><div id="main-product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div></div></section><section id="kitchen" class="py-20 bg-sc-red-950 border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="text-center mb-12"><span class="px-4 py-1.5 rounded-full bg-sc-red-900 border border-sc-gold/40 text-sc-gold font-mono text-xs uppercase font-bold">Ẩm Thực Gia Truyền</span><h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mt-3">Góc Vào Bếp Cùng Mắm Mạnh Sánh</h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-bowl-food mr-1"></i> Món Chấm Tinh Tế</span><h4 class="font-serif font-bold text-white text-lg mt-1">Nước Chấm Nem Giao Thủy</h4><p class="text-xs text-rose-200/80 mt-2">Pha cốt mắm cá Mạnh Sánh cùng tỏi ớt băm, chút đường và cốt chanh tươi giúp dậy mùi thơm nồng đặc trưng.</p></div><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-fire-burner mr-1"></i> Món Kho Đậm Đà</span><h4 class="font-serif font-bold text-white text-lg mt-1">Thịt Ba Chỉ Kho Mắm Ruốc Tôm</h4><p class="text-xs text-rose-200/80 mt-2">Mắm tôm Mạnh Sánh ủ sành màu mật ong khi chưng cùng thịt ba chỉ và sả ớt tạo nên vị bùi ngậy khó quên.</p></div><div class="royal-gradient-card p-6 rounded-2xl"><span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-leaf mr-1"></i> Bí Quyết Giữ Vị</span><h4 class="font-serif font-bold text-white text-lg mt-1">Nêm Mắm Khi Tắt Bếp</h4><p class="text-xs text-rose-200/80 mt-2">Với nước mắm truyền thống giàu đạm amin tự nhiên, hãy nêm sau cùng trước khi bắc nồi xuống để giữ trọn hương thơm.</p></div></div></div></section></main><section id="main-view-passport" class="hidden py-12 royal-damask-bg min-h-screen border-b-2 border-sc-gold/30"><div class="max-w-7xl mx-auto px-4"><div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-rose-900/80 mb-8 gap-4"><div class="flex items-center gap-3 text-xs font-mono"><button onclick="switchMainView('home')" class="text-sc-gold hover:underline font-bold cursor-pointer"><i class="fa-solid fa-arrow-left"></i> Quay lại Trang Chủ</button><span class="text-rose-400">/</span><span class="text-white" id="dpp-breadcrumb-text">Cổng Đặt Hàng & Tra Cứu Hộ Chiếu</span></div><div class="flex items-center gap-2" id="customer-tabs-container"><button onclick="switchDppTab('order')" id="tab-btn-order" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black text-xs uppercase shadow cursor-pointer">Đặt Mua Mắm</button><button onclick="switchDppTab('passport')" id="tab-btn-passport" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-sc-gold/50 font-bold text-xs uppercase hover:text-white cursor-pointer">Tra Hộ Chiếu DPP & IoT</button></div></div><div id="customer-order-wrapper" class="block"><div id="dpp-tab-pane-order" class="block space-y-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><button type="button" onclick="selectOrderCategory('preorder')" id="order-mode-btn-preorder" class="p-5 rounded-2xl border-2 border-emerald-400 bg-emerald-950/50 text-left transition flex items-start gap-4 cursor-pointer shadow-lg"><div class="w-12 h-12 rounded-xl bg-emerald-500 text-sc-red-950 flex items-center justify-center text-xl shrink-0 font-bold"><i class="fa-solid fa-satellite-dish"></i></div><div><div class="flex items-center gap-2"><span class="font-serif font-bold text-white text-lg">1. Đơn Đặt Hàng Trước (Ủ Theo Yêu Cầu)</span><span class="px-2 py-0.5 rounded bg-emerald-400 text-sc-red-950 font-mono font-black text-[10px]">REALTIME IOT</span></div><p class="text-xs text-emerald-200/90 mt-1">Đặt trước từ ang đang ủ chượp tại xưởng. Đơn hàng được gắn mã <strong>PRE-MANHSANH-01</strong> hiển thị trực tiếp <strong>Thông Số Cảm Biến Realtime</strong> từng giây.</p></div></button><button type="button" onclick="selectOrderCategory('ready')" id="order-mode-btn-ready" class="p-5 rounded-2xl border border-sc-gold/40 bg-sc-red-950/60 text-left transition flex items-start gap-4 cursor-pointer hover:border-sc-gold"><div class="w-12 h-12 rounded-xl bg-sc-gold text-sc-red-950 flex items-center justify-center text-xl shrink-0 font-bold"><i class="fa-solid fa-chart-line"></i></div><div><div class="flex items-center gap-2"><span class="font-serif font-bold text-white text-lg">2. Đơn Đặt Hàng Đã Thành Phẩm (Đóng Sẵn)</span><span class="px-2 py-0.5 rounded bg-sc-gold text-sc-red-950 font-mono font-black text-[10px]">BIỂU ĐỒ 3 GIAI ĐOẠN</span></div><p class="text-xs text-rose-200/90 mt-1">Mắm cốt đã rút nỏ đóng chai sẵn sàng giao ngay. Đơn hàng gắn mã <strong>FIN-MANHSANH-01</strong> hiển thị <strong>Biểu Đồ Theo Dõi Lại 3 Giai Đoạn</strong> & Nhật ký Chatbox.</p></div></button></div><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div class="lg:col-span-7 space-y-4"><div class="flex items-center justify-between"><h3 class="font-serif text-xl font-bold text-white" id="order-list-heading">Chọn Sản Phẩm Đặt Hàng Trước (Theo dõi Realtime)</h3><span id="order-mode-badge" class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-mono text-xs font-bold">Chế độ: Đơn Đặt Trước</span></div><div id="cart-items-container" class="space-y-4"></div></div><div class="lg:col-span-5 royal-gradient-card rounded-3xl p-6 sm:p-7 border-2 border-sc-gold shadow-2xl"><h3 class="font-serif text-lg font-bold text-white mb-4">Thông Tin Nhận Hàng & Cấp Hộ Chiếu</h3><form onsubmit="handleCheckoutOrder(event)" class="space-y-4 text-xs"><div class="p-3.5 rounded-2xl bg-sc-red-950 border border-sc-gold/60 space-y-1.5"><label class="text-amber-200 font-mono font-bold block">Phân Loại Đơn & Chế Độ Giám Sát DPP *</label><div id="checkout-mode-summary" class="text-emerald-400 font-mono font-bold text-xs">
+📡 ĐƠN ĐẶT HÀNG TRƯỚC -> Mở khóa Thông Số Realtime
+</div><p class="text-[10px] text-rose-300 font-mono">Nghệ nhân phụ trách: <strong>Phạm Văn Mạnh (Cơ sở Mạnh Sánh)</strong></p></div><div id="preorder-custom-fields" class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 space-y-2"><label class="text-emerald-300 font-mono font-bold block text-[11px]"><i class="fa-solid fa-jar mr-1"></i> Tùy chọn Ang ủ đặt trước:</label><select id="chk-preorder-ang" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-emerald-600/60 font-mono text-xs"><option value="PRE-MANHSANH-01">Ang đang ủ: PRE-MANHSANH-01 (Mẻ Cá Nục - Sensor NODE_1)</option><option value="ANG-MANHSANH-01">Ang tiêu chuẩn: ANG-MANHSANH-01 (Trạm IoT Chính)</option></select></div><input type="text" id="chk-name" required placeholder="Họ và tên người nhận *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="tel" id="chk-phone" required placeholder="Số điện thoại *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="text" id="chk-address" required placeholder="Địa chỉ chi tiết nhận hàng *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><textarea id="chk-note" placeholder="Ghi chú thêm cho Nghệ nhân Mạnh..." rows="2" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"></textarea><div class="pt-3 border-t border-rose-900 space-y-2 font-mono text-sm"><div class="flex justify-between text-rose-200"><span>Tiền hàng:</span><span id="chk-subtotal">200.000 đ</span></div><div class="flex justify-between text-rose-200"><span>Phí bọc xốp vận chuyển:</span><span class="text-emerald-400">30.000 đ</span></div><div class="flex justify-between font-bold text-white pt-2 border-t border-rose-900 text-base"><span>Tổng cộng:</span><span id="chk-total" class="text-yellow-300">230.000 đ</span></div></div><button type="submit" id="checkout-submit-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs uppercase shadow transition hover:scale-105 cursor-pointer">
+Xác Nhận Đặt Hàng Trước & Mở Trạm Realtime
+</button></form></div></div></div><div id="dpp-tab-pane-passport" class="hidden"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div class="lg:col-span-4 bg-sc-red-900/90 rounded-3xl p-6 border-2 border-sc-gold/40 shadow-2xl space-y-4"><div class="flex items-center gap-2"><i class="fa-solid fa-qrcode text-sc-gold text-xl"></i><h3 class="font-serif text-lg font-bold text-white">Tra Cứu Hộ Chiếu (DPP)</h3></div><div class="relative"><input type="text" id="dpp-search-input" class="w-full bg-sc-red-950 text-white font-mono text-sm px-4 py-3 rounded-xl border border-rose-900 focus:border-sc-gold pl-10 uppercase" placeholder="Nhập mã DPP..." value="FIN-MANHSANH-01"><i class="fa-solid fa-search absolute left-3.5 top-3.5 text-rose-400"></i><button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition cursor-pointer">Tìm</button></div><div class="text-[11px] text-rose-200/90 font-mono space-y-2 bg-sc-red-950/80 p-3.5 rounded-xl border border-rose-900"><p class="text-sc-gold font-bold uppercase">Chọn Nhanh Theo Phân Loại Đơn:</p><button onclick="quickLookupMode('preorder', 'PRE-MANHSANH-01')" class="w-full text-left p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60 transition cursor-pointer flex items-center justify-between"><span><i class="fa-solid fa-satellite-dish mr-1"></i> PRE-MANHSANH-01</span><span class="text-[9px] bg-emerald-500 text-sc-red-950 px-1.5 py-0.5 rounded font-bold">Đơn Đặt Trước (Realtime)</span></button><button onclick="quickLookupMode('ready', 'FIN-MANHSANH-01')" class="w-full text-left p-2 rounded-lg bg-amber-950/60 border border-sc-gold/40 text-amber-200 hover:bg-amber-900/60 transition cursor-pointer flex items-center justify-between"><span><i class="fa-solid fa-chart-line mr-1"></i> FIN-MANHSANH-01</span><span class="text-[9px] bg-sc-gold text-sc-red-950 px-1.5 py-0.5 rounded font-bold">Đơn Thành Phẩm (Biểu Đồ)</span></button></div><div id="user-orders-box" class="bg-sc-red-950/60 p-3.5 rounded-xl border border-rose-900 space-y-2"><p class="text-xs font-mono font-bold text-white"><i class="fa-solid fa-receipt text-sc-gold mr-1"></i> Đơn Hàng Vừa Đặt:</p><div id="recent-orders-list" class="space-y-1.5 text-[11px] font-mono text-rose-200"><p class="text-rose-400">Chưa có đơn mới trong phiên này.</p></div></div></div><div class="lg:col-span-8 royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold shadow-2xl relative space-y-6"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-rose-900 pb-4"><div class="flex items-center gap-4"><img src="IMG_20261112_075425.png" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=150&q=80'" class="w-16 h-16 rounded-xl border border-sc-gold/50 object-cover"><div><span id="dpp-order-type-tag" class="px-2.5 py-0.5 rounded-full bg-sc-gold text-sc-red-950 font-mono text-[10px] font-black uppercase">ĐƠN ĐÃ THÀNH PHẨM - THEO DÕI LẠI BIỂU ĐỒ</span><h3 id="dpp-display-title" class="font-serif text-2xl font-bold text-white mt-1">Hồ Sơ Nước Mắm Gia Truyền Mạnh Sánh</h3></div></div></div><div id="dpp-real-data" class="space-y-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800"><h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">1. Định Danh Đơn Hàng & Ang Mắm</h4><ul class="text-xs text-rose-100 space-y-1.5 font-mono"><li>Mã Hộ Chiếu DPP: <strong id="dpp-res-id" class="text-yellow-300">FIN-MANHSANH-01</strong></li><li>Loại đơn hàng: <strong id="dpp-res-order-type" class="text-emerald-400">Đơn thành phẩm đóng sẵn (Xem Biểu Đồ)</strong></li><li>Nguyên liệu: <span id="dpp-res-fish">85% Cá Nục/Cơm tươi + 15% Muối Bạch Long</span></li></ul></div><div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800"><h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">2. Thông Tin Cơ Sở Nghệ Nhân</h4><ul class="text-xs text-rose-100 space-y-1.5 font-mono"><li>Nghệ nhân: <strong id="dpp-res-artisan" class="text-yellow-300">Nghệ nhân Phạm Văn Mạnh (Mạnh Sánh)</strong></li><li>Quy trình: <span id="dpp-res-process">3 Giai đoạn: Vào chượp, Phơi nắng đánh đảo, Lọc cốt</span></li><li>Chứng nhận: <span class="text-emerald-400">OCOP 3 Sao Nam Định</span></li></ul></div></div><div class="bg-sc-red-950 p-5 rounded-2xl border-2 border-sc-gold shadow-inner space-y-4"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-rose-900"><div><h4 class="font-mono text-sc-gold font-bold flex items-center gap-2 text-sm"><i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i>
+3. Giám Sát Thông Số IoT (<span id="iot-station-label">FIN-MANHSANH-01</span>)
+</h4><p id="iot-mode-description" class="text-[11px] text-amber-200 font-mono mt-1">
+Chế độ: Đơn hàng đóng sẵn hiển thị Biểu đồ 3 giai đoạn để khách theo dõi lại lịch sử ủ chượp.
+</p></div><div class="flex items-center gap-2 bg-sc-red-900 p-1 rounded-xl border border-sc-gold/40 self-start sm:self-auto"><button onclick="switchIotSubTab('realtime')" id="btn-iot-realtime" class="px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer"><i class="fa-solid fa-gauge-high mr-1"></i>Realtime (Đơn Đặt Trước)
+</button><button onclick="switchIotSubTab('chart')" id="btn-iot-chart" class="px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer"><i class="fa-solid fa-chart-line mr-1"></i>Biểu Đồ (Đơn Đóng Sẵn)
+</button><button onclick="fetchIotSheetLive(true)" title="Đồng bộ lại từ Google Sheet" class="px-2.5 py-1.5 rounded-lg bg-sc-red-950 text-sc-gold hover:bg-sc-red-800 text-xs border border-sc-gold/30 cursor-pointer"><i class="fa-solid fa-rotate"></i></button></div></div><div id="iot-pane-realtime" class="hidden pt-2 space-y-3"><div class="p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 flex items-center justify-between text-xs font-mono"><span class="text-emerald-300"><i class="fa-solid fa-circle-dot animate-ping mr-1.5"></i> Đang truyền trực tiếp thông số Ang đặt trước của khách hàng</span><span id="iot-timestamp" class="text-yellow-300">Đồng bộ Google Sheet...</span></div><div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono"><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Lõi Ang</span><strong id="iot-temp-ang" class="text-yellow-300 text-lg">-- °C</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Độ Mặn (Baumé)</span><strong id="iot-salinity" class="text-cyan-300 text-lg">-- °Bé</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Độ Đục Nước</span><strong id="iot-turbidity" class="text-emerald-300 text-lg">-- NTU</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center"><span class="text-rose-300 block text-[11px] mb-1">Nhiệt Độ Không Khí</span><strong id="iot-temp-air" class="text-amber-400 text-lg">-- °C</strong></div><div class="bg-black/40 p-3.5 rounded-xl border border-rose-900/80 text-center col-span-2 sm:col-span-2"><span class="text-rose-300 block text-[11px] mb-1">Độ Ẩm Không Khí</span><strong id="iot-humi-air" class="text-blue-300 text-lg">-- %</strong></div></div><div class="flex items-center justify-between text-[10px] font-mono text-rose-300/80 px-1"><span><i class="fa-solid fa-table text-emerald-400 mr-1"></i> Nguồn: Google Sheet NODE_1 (Cập nhật mỗi 5 giây)</span><span id="iot-row-count">Số bản ghi: --</span></div></div><div id="iot-pane-chart" class="block pt-2 space-y-5"><div class="space-y-2"><div class="flex items-center justify-between"><span class="text-xs font-mono font-bold text-amber-200 uppercase"><i class="fa-solid fa-layer-group text-sc-gold mr-1"></i> Chọn Giai Đoạn Để Xem Biểu Đồ Theo Dõi Lại:</span><button onclick="setChartStage('all')" id="stage-btn-all" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-mono text-[11px] font-bold cursor-pointer">Xem Cả 3 Giai Đoạn</button></div><div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 font-mono text-xs"><button onclick="setChartStage('stage1')" id="stage-btn-stage1" class="p-3 rounded-xl bg-sc-red-900/90 border border-amber-500/40 text-left hover:border-sc-gold transition cursor-pointer"><span class="text-[10px] text-amber-300 font-bold block">GIAI ĐOẠN 1</span><strong class="text-white block mt-0.5">1. Vào Chượp Ang Sành</strong><span id="stage1-date-label" class="text-[10px] text-rose-300 block mt-1">Tháng 01 - Tháng 03</span></button><button onclick="setChartStage('stage2')" id="stage-btn-stage2" class="p-3 rounded-xl bg-sc-red-900/90 border border-emerald-500/40 text-left hover:border-emerald-400 transition cursor-pointer"><span class="text-[10px] text-emerald-300 font-bold block">GIAI ĐOẠN 2</span><strong class="text-white block mt-0.5">2. Phơi Nắng & Đánh Đảo</strong><span id="stage2-date-label" class="text-[10px] text-rose-300 block mt-1">Tháng 04 - Tháng 14</span></button><button onclick="setChartStage('stage3')" id="stage-btn-stage3" class="p-3 rounded-xl bg-sc-red-900/90 border border-cyan-500/40 text-left hover:border-cyan-400 transition cursor-pointer"><span class="text-[10px] text-cyan-300 font-bold block">GIAI ĐOẠN 3</span><strong class="text-white block mt-0.5">3. Lọc Cốt Mắm</strong><span id="stage3-date-label" class="text-[10px] text-rose-300 block mt-1">Tháng 15 - Tháng 18</span></button></div></div><div class="flex flex-wrap items-center justify-between gap-2 pt-1"><div class="flex items-center gap-1.5 font-mono text-xs"><span class="text-rose-300 mr-1">Độ chi tiết:</span><button onclick="setChartPeriod('day')" id="period-btn-day" class="px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer">Theo Ngày</button><button onclick="setChartPeriod('month')" id="period-btn-month" class="px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Tháng</button><button onclick="setChartPeriod('year')" id="period-btn-year" class="px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer">Theo Năm</button></div><select id="chart-metric-select" onchange="renderIotChart()" class="bg-sc-red-900 text-yellow-300 font-mono text-xs px-3 py-1.5 rounded-lg border border-sc-gold/50"><option value="all">Tất cả thông số chính</option><option value="tempAng">Nhiệt Độ Lõi Ang (°C)</option><option value="salinity">Độ Mặn (°Bé)</option><option value="turbidity">Độ Đục Nước (NTU)</option><option value="airTemp">Nhiệt Độ Không Khí (°C)</option><option value="airHumi">Độ Ẩm Không Khí (%)</option></select></div><div class="bg-black/50 p-3 rounded-xl border border-rose-900/80 h-72 relative"><canvas id="iot-history-chart"></canvas></div><div id="chart-stage-indicator" class="text-[11px] font-mono text-center text-amber-200 bg-sc-red-900/60 py-1.5 px-3 rounded-lg border border-sc-gold/30">
+Đang hiển thị dữ liệu tổng hợp xuyên suốt 3 giai đoạn: Vào chượp ang sành ➔ Phơi nắng & Đánh đảo ➔ Lọc cốt mắm.
+</div><div class="mt-6 bg-sc-red-900/90 rounded-2xl border-2 border-sc-gold/70 overflow-hidden shadow-xl"><div class="bg-sc-red-950 px-5 py-3.5 border-b border-sc-gold/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-sc-gold text-sc-red-950 flex items-center justify-center font-bold"><i class="fa-solid fa-comments"></i></div><div><h5 class="font-serif font-bold text-white text-base">Chatbox Nhật Ký Chuyển Tiếp Giữa Các Giai Đoạn & Chọn Cá Muối</h5><p class="text-[10px] font-mono text-amber-200/90">Lưu vết thời gian thực hiện, khối lượng & hình ảnh Chọn Cá - Muối của Nghệ nhân</p></div></div><span id="chatbox-role-status" class="px-3 py-1 rounded-full bg-sc-red-900 border border-sc-gold/50 text-[10px] font-mono text-rose-200"><i class="fa-solid fa-lock text-sc-gold mr-1"></i> Chế độ Khách xem (Đăng nhập Nghệ nhân để mở Biểu mẫu)
+</span></div><div id="stage-chat-feed" class="p-4 space-y-4 max-h-96 overflow-y-auto bg-sc-red-950/60"></div><div id="artisan-chat-form-locked" class="p-4 bg-sc-red-950 border-t border-rose-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono"><span class="text-rose-200"><i class="fa-solid fa-user-shield text-sc-gold mr-1.5"></i> Bạn là Nghệ nhân Phạm Văn Mạnh? Đăng nhập để mở <strong>Biểu mẫu sẵn</strong> cập nhật ngày tháng giai đoạn & ảnh/khối lượng Chọn Cá - Muối.</span><button type="button" onclick="openAuthModal('login')" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase text-[11px] shrink-0 cursor-pointer shadow">
+Đăng Nhập Nghệ Nhân
+</button></div><form id="artisan-stage-chat-form" onsubmit="handleAddStageChatLog(event)" class="hidden p-5 bg-sc-red-950 border-t-2 border-sc-gold space-y-4 text-xs font-mono"><div class="flex items-center justify-between border-b border-rose-900 pb-2"><span class="text-sc-gold font-bold uppercase text-xs"><i class="fa-solid fa-file-pen mr-1"></i> Biểu Mẫu Sẵn Cho Nghệ Nhân (Chỉ cần chọn ngày & điền thông tin thay đổi)</span><span class="text-[10px] text-emerald-400">● Đã mở khóa quyền Nghệ Nhân</span></div><div class="grid grid-cols-1 sm:grid-cols-3 gap-3"><div><label class="block text-amber-200 mb-1">Chọn Mốc Giai Đoạn Mẫu *</label><select id="chat-template-stage" onchange="applyStageChatTemplate()" class="w-full bg-sc-red-900 text-yellow-300 font-bold px-3 py-2 rounded-xl border border-sc-gold/60"><option value="Chọn Cá & Muối Đầu Vào">0. Chọn Cá & Muối (Nhập Ảnh + Khối Lượng)</option><option value="Giai đoạn 1: Vào Chượp Ang Sành">1. Vào Chượp Ang Sành</option><option value="Giai đoạn 2: Phơi Nắng & Đánh Đảo">2. Phơi Nắng & Đánh Đảo</option><option value="Giai đoạn 3: Lọc Cốt Mắm">3. Lọc Cốt Mắm</option></select></div><div><label class="block text-amber-200 mb-1">Từ Ngày (Bắt đầu) *</label><input type="date" id="chat-date-start" required class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-800"></div><div><label class="block text-amber-200 mb-1">Đến Ngày (Hoàn tất) *</label><input type="date" id="chat-date-end" required class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-800"></div></div><div class="p-3.5 rounded-xl bg-sc-red-900/70 border border-sc-gold/50 space-y-3"><div class="text-amber-300 font-bold text-[11px] uppercase flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced text-sc-gold"></i> Thông Tin Chọn Cá & Muối (Khối Lượng & Hình Ảnh Thực Tế)
+</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 space-y-2"><label class="block text-cyan-300 font-bold">🐟 Phần Chọn Cá (Loại cá & Khối lượng kg) *</label><div class="grid grid-cols-2 gap-2"><input type="text" id="chat-fish-type" value="Cá Nục Than Tươi" required class="bg-sc-red-900 text-white px-2.5 py-1.5 rounded-lg border border-rose-800" placeholder="Loại cá..."><input type="number" id="chat-fish-weight" value="850" step="0.5" required class="bg-sc-red-900 text-yellow-300 font-bold px-2.5 py-1.5 rounded-lg border border-rose-800" placeholder="Số kg cá"></div><label class="block text-[10px] text-rose-300">Tải Ảnh Mẻ Cá Thực Tế (Tùy chọn hoặc giữ mẫu):</label><input type="file" id="chat-fish-img" accept="image/*" class="w-full text-[10px] text-rose-200 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-sc-gold file:text-sc-red-950 file:font-bold"></div><div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 space-y-2"><label class="block text-amber-200 font-bold">🧂 Phần Chọn Muối (Loại muối & Khối lượng kg) *</label><div class="grid grid-cols-2 gap-2"><input type="text" id="chat-salt-type" value="Muối Hạt Bạch Long" required class="bg-sc-red-900 text-white px-2.5 py-1.5 rounded-lg border border-rose-800" placeholder="Loại muối..."><input type="number" id="chat-salt-weight" value="150" step="0.5" required class="bg-sc-red-900 text-yellow-300 font-bold px-2.5 py-1.5 rounded-lg border border-rose-800" placeholder="Số kg muối"></div><label class="block text-[10px] text-rose-300">Tải Ảnh Muối Hạt Thực Tế (Tùy chọn hoặc giữ mẫu):</label><input type="file" id="chat-salt-img" accept="image/*" class="w-full text-[10px] text-rose-200 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-sc-gold file:text-sc-red-950 file:font-bold"></div></div></div><div><label class="block text-amber-200 mb-1">Nội dung ghi chú thay đổi ở giai đoạn này (Đã điền sẵn biểu mẫu) *</label><textarea id="chat-stage-note" rows="2" required class="w-full bg-sc-red-900 text-white px-3 py-2 rounded-xl border border-rose-800">Đã kiểm định cá nục tươi vảy sáng và muối hạt Bạch Long lưu kho 12 tháng, trộn đều theo tỷ lệ vàng đưa vào ang sành.</textarea></div><button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-sc-gold to-amber-500 text-sc-red-950 font-black uppercase tracking-wider shadow-lg cursor-pointer hover:from-amber-400"><i class="fa-solid fa-paper-plane mr-1"></i> Cập Nhật Biểu Mẫu Vào Chatbox Giai Đoạn
+</button></form></div></div></div></div></div></div></div></div><div id="artisan-dashboard-wrapper" class="hidden mt-8"><div class="bg-sc-red-950/90 rounded-3xl border-2 border-sc-gold shadow-2xl overflow-hidden"><div class="bg-sc-red-900 p-6 border-b border-sc-gold/40 flex flex-col sm:flex-row justify-between items-center gap-4"><div><h3 class="font-serif text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-shop text-sc-gold"></i> Quản Lý Cửa Hàng & Xưởng Nghệ Nhân
+</h3><p class="text-xs text-rose-200 mt-1 font-mono">Chủ cơ sở: <strong id="dash-artisan-name" class="text-yellow-300">Phạm Văn Mạnh (Mạnh Sánh)</strong></p></div><div class="flex flex-wrap gap-2"><button onclick="switchArtisanTab('products')" id="art-tab-products" class="px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-bold text-xs shadow transition cursor-pointer"><i class="fa-solid fa-boxes-stacked mr-1"></i> Quản Lý Sản Phẩm</button><button onclick="switchArtisanTab('vats')" id="art-tab-vats" class="px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer"><i class="fa-solid fa-qrcode mr-1"></i> Tạo Ang Mắm & QR</button><button onclick="openStageChatFromAdmin()" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition cursor-pointer"><i class="fa-solid fa-comments mr-1"></i> Mở Biểu Mẫu Chatbox 3 Giai Đoạn</button><button onclick="logoutUser()" class="px-3 py-2 rounded-xl bg-rose-900/80 text-white text-xs font-bold hover:bg-rose-800 cursor-pointer"><i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất</button></div></div><div class="p-6 sm:p-8"><div id="art-pane-products" class="block space-y-8"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8"><div class="lg:col-span-5 royal-gradient-card p-6 rounded-2xl"><h4 id="prod-form-title" class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2"><i class="fa-solid fa-pen-to-square"></i> Đăng Hoặc Sửa Sản Phẩm
 </h4><form onsubmit="handleSaveProduct(event)" class="space-y-3.5 text-xs font-mono"><input type="hidden" id="prod-edit-id" value=""><div><label class="block text-amber-200 mb-1">Tên Sản Phẩm *</label><input type="text" id="prod-name" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="VD: Set Song Vị"></div><div class="grid grid-cols-2 gap-3"><div><label class="block text-amber-200 mb-1">Giá Bán (VNĐ) *</label><input type="number" id="prod-price" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="200000"></div><div><label class="block text-amber-200 mb-1">Phân loại *</label><input type="text" id="prod-type" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="BỘ QUÀ TẶNG"></div></div><div class="grid grid-cols-2 gap-3"><div><label class="block text-amber-200 mb-1">Dung Tích *</label><select id="prod-volume" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900"><option value="500 ml">500 ml</option><option value="1 Lít" selected>1 Lít</option><option value="Bộ 2 chai x 1L">Bộ 2 chai x 1L</option></select></div><div><label class="block text-amber-200 mb-1">Hạn Sử Dụng *</label><select id="prod-expiry" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900"><option value="12 tháng">12 tháng</option><option value="24 tháng" selected>24 tháng</option></select></div></div><div class="grid grid-cols-2 gap-3"><div><label class="block text-amber-200 mb-1">Hương Vị *</label><input type="text" id="prod-flavor" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900" placeholder="Hậu ngọt"></div><div><label class="block text-amber-200 mb-1">Mùi *</label><select id="prod-smell" class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900"><option value="Đậm mùi truyền thống (Mắm chuẩn)">Đậm mùi truyền thống</option><option value="Thơm dịu (Không hôi)">Thơm dịu (Không hôi)</option></select></div></div><div><label class="block text-amber-200 mb-1">Mô tả *</label><textarea id="prod-desc" rows="2" required class="w-full bg-sc-red-950 text-white px-3 py-2 rounded-xl border border-rose-900"></textarea></div><div><label class="block text-amber-200 mb-1">Đổi Ảnh Sản Phẩm</label><input type="file" id="prod-img" accept="image/*" class="w-full bg-sc-red-950 text-white px-3 py-1 rounded-xl border border-rose-900 text-[10px]"></div><div class="flex gap-2 pt-2"><button type="submit" id="prod-submit-btn" class="flex-1 py-3 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase hover:bg-amber-400 transition cursor-pointer">Lưu Sản Phẩm</button><button type="button" onclick="resetProductForm()" id="prod-cancel-btn" class="hidden px-4 py-3 rounded-xl bg-sc-red-900 text-rose-200 border border-rose-700 font-bold cursor-pointer">Hủy</button></div></form></div><div class="lg:col-span-7 space-y-4"><h4 class="font-serif text-lg font-bold text-white border-b border-rose-900 pb-2">Danh Sách Sản Phẩm Mạnh Sánh</h4><div id="artisan-product-manage-list" class="space-y-3"></div></div></div></div><div id="art-pane-vats" class="hidden space-y-8"><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="royal-gradient-card p-6 rounded-2xl"><h4 class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2">Khởi Tạo Ang Mắm & Phát Hành QR</h4><form onsubmit="handleCreateVat(event)" class="space-y-4 text-xs font-mono"><div><label class="block text-amber-200 mb-1">Mã Ang *</label><input type="text" id="vat-id" required class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900" value="ANG-MANHSANH-02"></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-amber-200 mb-1">Loại Cá *</label><select id="vat-fish" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><option value="Cá Nục Than">Cá Nục Than</option><option value="Cá Cơm">Cá Cơm</option></select></div><div><label class="block text-amber-200 mb-1">Ngày Ủ *</label><input type="date" id="vat-date" required class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"></div></div><button type="submit" class="w-full py-3 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase cursor-pointer">Lưu & Phát Hành QR</button></form></div><div class="bg-sc-red-950/80 p-6 rounded-2xl border-2 border-dashed border-sc-gold/50 flex flex-col items-center justify-center text-center"><div id="qr-empty-state" class="text-rose-300 space-y-3"><i class="fa-solid fa-qrcode text-5xl opacity-50"></i><p class="font-mono text-sm">Mã QR Hộ chiếu số DPP</p></div><div id="qr-result-state" class="hidden w-full flex flex-col items-center"><h5 class="text-sc-gold font-bold font-mono mb-2 uppercase text-sm">Tem Hộ Chiếu Số DPP</h5><div id="qrcode-container" class="bg-white p-3 rounded-xl shadow-2xl mb-4"></div><span id="qr-vat-display" class="font-bold text-white text-lg font-serif">ANG-XXX</span><button onclick="testScanQR()" class="mt-3 px-4 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs cursor-pointer"><i class="fa-solid fa-mobile-screen mr-1"></i> Quét Thử</button></div></div></div><div><h4 class="font-serif text-lg font-bold text-white mb-4 border-b border-rose-900 pb-2">Danh Sách Ang Mắm</h4><div id="artisan-vat-list" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div></div></div></div></div></div></div></section><canvas id="hidden-canvas" style="display:none;"></canvas><div id="auth-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4"><div class="royal-gradient-card rounded-3xl max-w-md w-full p-6 sm:p-7 border-2 border-sc-gold shadow-2xl relative text-xs"><button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-sc-red-950 text-rose-300 hover:text-white flex items-center border border-rose-800 justify-center cursor-pointer"><i class="fa-solid fa-xmark"></i></button><h2 class="font-serif text-xl font-bold text-sc-gold mb-2">Tài Khoản SaChau-Sense</h2><div id="login-error" class="hidden bg-rose-900/70 text-rose-100 border border-rose-500 p-2.5 rounded-xl mb-3 text-[11px] font-mono text-center"><i class="fa-solid fa-circle-exclamation text-yellow-300 mr-1"></i> Bạn đã nhập sai số điện thoại hoặc mật khẩu!
 </div><div class="flex border-b border-rose-900 mb-4 text-center"><button id="tab-login" onclick="switchLoginReg('login')" class="flex-1 py-2.5 font-bold text-sc-gold border-b-2 border-sc-gold cursor-pointer">Đăng Nhập</button><button id="tab-register" onclick="switchLoginReg('register')" class="flex-1 py-2.5 font-bold text-rose-300 border-b-2 border-transparent hover:text-white cursor-pointer">Đăng Ký Mới</button></div><form id="form-login" onsubmit="handleAuthLogin(event)" class="space-y-4"><div><label class="block text-amber-200 font-mono mb-1">Số điện thoại *</label><input type="text" id="login-identifier" required placeholder="Nghệ nhân: 0988888888" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900" value="0988888888"></div><div><label class="block text-amber-200 font-mono mb-1">Mật khẩu *</label><input type="password" id="login-password" required placeholder="Mật khẩu: 123456" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900" value="123456"></div><button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase cursor-pointer">Đăng Nhập Ngay</button></form><form id="form-register" onsubmit="handleAuthRegister(event)" class="space-y-3.5 hidden"><div><label class="block text-amber-200 font-mono mb-1">Vai trò *</label><select id="reg-role" onchange="toggleOcopUpload()" class="w-full bg-sc-red-950 text-yellow-300 font-bold px-3.5 py-2.5 rounded-xl border border-sc-gold/50"><option value="customer">Khách Mua Hàng</option><option value="artisan">Nghệ Nhân Làm Mắm</option></select></div><input type="text" id="reg-name" required placeholder="Họ và tên *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="tel" id="reg-phone" required placeholder="Số điện thoại *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><input type="password" id="reg-pass" required placeholder="Mật khẩu *" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900"><div id="reg-artisan-fields" class="hidden space-y-3 pt-2 border-t border-rose-900"><input type="text" id="reg-facility" placeholder="Tên cơ sở mắm *" class="w-full bg-sc-red-950 text-white px-3.5 py-2 rounded-xl border border-rose-900"><div><label class="block text-amber-200 font-mono mb-1">Ảnh Chứng Nhận OCOP (Bắt buộc)</label><input type="file" id="reg-ocop-img" accept="image/*" class="w-full bg-sc-red-950 text-white px-3 py-1.5 rounded-xl border border-rose-900 text-[10px]"></div></div><button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase cursor-pointer">Hoàn Tất Đăng Ký</button></form></div></div><footer class="bg-sc-red-950 border-t border-sc-gold/30 py-10 text-center text-xs text-rose-300/80 font-mono"><div class="max-w-7xl mx-auto px-4 space-y-2"><p class="text-sc-gold font-bold uppercase">Dự Án SaChau-Sense - Cơ Sở Nước Mắm Truyền Thống Mạnh Sánh</p><p>Địa chỉ: Làng nghề Sa Châu, Xã Giao Châu, Huyện Giao Thủy, Tỉnh Nam Định</p></div></footer><script>
 const IOT_SHEET_ID = "1SeC3UHfVmW-FfKZ77vDx9b9sDrIkrxoLq6vTHGe9Vr0";
@@ -48,6 +58,194 @@ const WEBHOOK_ORDER_URL = "https://script.google.com/macros/s/AKfycbxCbEUDhUD1vg
 const WEBHOOK_AUTH_URL = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec";
 let isArtisanLoggedIn = false;
 let currentQRUrl = "";
+let currentOrderMode = 'preorder'; // 'preorder' (Đặt hàng trước -> Realtime) hoặc 'ready' (Thành phẩm -> Biểu đồ 3 giai đoạn)
+let currentChartStage = 'all'; // 'all', 'stage1', 'stage2', 'stage3'
+// --- DỮ LIỆU MẪU BAN ĐẦU CHO CHATBOX NHẬT KÝ 3 GIAI ĐOẠN & CHỌN CÁ MUỐI ---
+const defaultStageLogs = [
+{
+id: 'log_0',
+stageTitle: 'Chọn Cá & Muối Đầu Vào',
+startDate: '2025-05-01',
+endDate: '2025-05-03',
+fishType: 'Cá Nục Than Biển Giao Thủy',
+fishWeight: 850,
+fishImg: 'DSC_0055.JPG',
+saltType: 'Muối Hạt Bạch Long Lưu Kho 1 Năm',
+saltWeight: 150,
+saltImg: 'DSC_0063.JPG',
+note: 'Tuyển chọn 850kg cá nục than tươi rói vừa cập bến cùng 150kg muối hạt Bạch Long ráo nước, không chát.',
+artisan: 'Nghệ nhân Phạm Văn Mạnh',
+updatedAt: '03/05/2025 08:30'
+},
+{
+id: 'log_1',
+stageTitle: 'Giai đoạn 1: Vào Chượp Ang Sành',
+startDate: '2025-05-04',
+endDate: '2025-08-04',
+fishType: 'Chượp Cá Nục + Muối Bạch Long',
+fishWeight: 850,
+fishImg: 'DSC_0055.JPG',
+saltType: 'Muối Hạt Bạch Long (Tỷ lệ 85:15)',
+saltWeight: 150,
+saltImg: 'DSC_0032.JPG',
+note: 'Ủ kín trong ang sành truyền thống 3 tháng đầu để cá ngấm đều muối, bắt đầu quá trình thủy phân đạm tự nhiên.',
+artisan: 'Nghệ nhân Phạm Văn Mạnh',
+updatedAt: '04/08/2025 16:00'
+},
+{
+id: 'log_2',
+stageTitle: 'Giai đoạn 2: Phơi Nắng & Đánh Đảo',
+startDate: '2025-08-05',
+endDate: '2026-06-15',
+fishType: 'Chượp Cá Nục Đang Chín Hương',
+fishWeight: 850,
+fishImg: 'DSC_0055.JPG',
+saltType: 'Muối Bão Hòa 26.5 °Bé',
+saltWeight: 150,
+saltImg: 'DSC_0112.JPG',
+note: 'Mở nắp ang phơi nắng ban ngày, đón sương đêm và cào đảo liên tục hơn 300 lượt. Nhiệt độ lõi ang duy trì 32-35°C.',
+artisan: 'Nghệ nhân Phạm Văn Mạnh',
+updatedAt: '15/06/2026 11:20'
+},
+{
+id: 'log_3',
+stageTitle: 'Giai đoạn 3: Lọc Cốt Mắm',
+startDate: '2026-06-16',
+endDate: '2026-10-20',
+fishType: 'Cốt Mắm Nhĩ Rút Nỏ Cánh Gián',
+fishWeight: 850,
+fishImg: 'DSC_0025.JPG',
+saltType: 'Độ Mặn Chuẩn Đóng Chai',
+saltWeight: 150,
+saltImg: 'DSC_0032.JPG',
+note: 'Kéo rút qua giỏ tre và lớp trấu lọc truyền thống. Cốt mắm trong vắt (0.92 NTU), sánh đượm, đóng chai thành phẩm.',
+artisan: 'Nghệ nhân Phạm Văn Mạnh',
+updatedAt: '20/10/2026 09:15'
+}
+];
+function getStageLogs() {
+const saved = localStorage.getItem('sc_stage_chat_logs_v1');
+if (!saved) {
+localStorage.setItem('sc_stage_chat_logs_v1', JSON.stringify(defaultStageLogs));
+return defaultStageLogs;
+}
+return JSON.parse(saved);
+}
+function renderStageChatFeed() {
+const logs = getStageLogs();
+const feed = document.getElementById('stage-chat-feed');
+if (!feed) return;
+// Cập nhật nhãn ngày trên 3 nút giai đoạn biểu đồ
+const s1 = logs.find(l => l.stageTitle.includes('Giai đoạn 1'));
+const s2 = logs.find(l => l.stageTitle.includes('Giai đoạn 2'));
+const s3 = logs.find(l => l.stageTitle.includes('Giai đoạn 3'));
+if (s1) document.getElementById('stage1-date-label').innerText = `${s1.startDate} ➔ ${s1.endDate}`;
+if (s2) document.getElementById('stage2-date-label').innerText = `${s2.startDate} ➔ ${s2.endDate}`;
+if (s3) document.getElementById('stage3-date-label').innerText = `${s3.startDate} ➔ ${s3.endDate}`;
+feed.innerHTML = logs.map((item, idx) => `
+<div class="bg-sc-red-900/90 border border-sc-gold/40 rounded-2xl p-4 space-y-3 shadow"><div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-900/80 pb-2"><div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-sc-gold text-sc-red-950 font-mono font-black text-xs flex items-center justify-center">${idx}</span><strong class="font-serif text-white text-sm">${item.stageTitle}</strong><span class="px-2 py-0.5 rounded bg-sc-red-950 text-emerald-400 font-mono text-[10px] border border-emerald-500/40"><i class="fa-regular fa-calendar-check mr-1"></i>${item.startDate} đến ${item.endDate}
+</span></div><span class="text-[10px] font-mono text-amber-200/80"><i class="fa-solid fa-user-check text-sc-gold mr-1"></i>${item.artisan} • ${item.updatedAt}</span></div><p class="text-xs text-rose-100 leading-relaxed font-sans">${item.note}</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1"><div class="bg-sc-red-950/90 p-2.5 rounded-xl border border-rose-800/80 flex items-center gap-3"><img src="${item.fishImg}" alt="Ảnh Cá" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80'" class="w-14 h-14 rounded-lg object-cover border border-sc-gold/50 shrink-0"><div class="text-[11px] font-mono"><span class="text-cyan-300 font-bold block"><i class="fa-solid fa-fish mr-1"></i>Chọn Cá: ${item.fishType}</span><span class="text-yellow-300 font-bold text-xs">Khối lượng: ${item.fishWeight} kg</span></div></div><div class="bg-sc-red-950/90 p-2.5 rounded-xl border border-rose-800/80 flex items-center gap-3"><img src="${item.saltImg}" alt="Ảnh Muối" onerror="this.src='https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=150&q=80'" class="w-14 h-14 rounded-lg object-cover border border-sc-gold/50 shrink-0"><div class="text-[11px] font-mono"><span class="text-amber-200 font-bold block"><i class="fa-solid fa-cubes-stacked mr-1"></i>Chọn Muối: ${item.saltType}</span><span class="text-yellow-300 font-bold text-xs">Khối lượng: ${item.saltWeight} kg</span></div></div></div></div>
+`).join('');
+}
+function applyStageChatTemplate() {
+const stageVal = document.getElementById('chat-template-stage').value;
+const noteEl = document.getElementById('chat-stage-note');
+const startEl = document.getElementById('chat-date-start');
+const endEl = document.getElementById('chat-date-end');
+if (stageVal.includes('Chọn Cá & Muối')) {
+startEl.value = '2025-05-01';
+endEl.value = '2025-05-03';
+noteEl.value = 'Đã kiểm định cá nục tươi vảy sáng và muối hạt Bạch Long lưu kho 12 tháng, cân đủ khối lượng chuẩn bị vào chượp.';
+} else if (stageVal.includes('Giai đoạn 1')) {
+startEl.value = '2025-05-04';
+endEl.value = '2025-08-04';
+noteEl.value = 'Hoàn tất vào chượp ang sành theo tỷ lệ vàng 85% cá : 15% muối. Đậy kín ủ 3 tháng đầu.';
+} else if (stageVal.includes('Giai đoạn 2')) {
+startEl.value = '2025-08-05';
+endEl.value = '2026-06-15';
+noteEl.value = 'Mở nắp ang phơi nắng sương tự nhiên và cào đánh đảo định kỳ. Hương mắm dậy thơm dịu, màu cánh gián.';
+} else {
+startEl.value = '2026-06-16';
+endEl.value = '2026-10-20';
+noteEl.value = 'Lọc cốt mắm nhĩ qua giỏ tre và lớp trấu truyền thống, cốt mắm trong vắt đạt chuẩn đóng chai.';
+}
+}
+async function handleAddStageChatLog(e) {
+e.preventDefault();
+const stageTitle = document.getElementById('chat-template-stage').value;
+const startDate = document.getElementById('chat-date-start').value;
+const endDate = document.getElementById('chat-date-end').value;
+const fishType = document.getElementById('chat-fish-type').value;
+const fishWeight = document.getElementById('chat-fish-weight').value;
+const saltType = document.getElementById('chat-salt-type').value;
+const saltWeight = document.getElementById('chat-salt-weight').value;
+const note = document.getElementById('chat-stage-note').value;
+const fishFile = document.getElementById('chat-fish-img').files[0];
+const saltFile = document.getElementById('chat-salt-img').files[0];
+let fishImg = 'DSC_0055.JPG';
+let saltImg = 'DSC_0063.JPG';
+if (fishFile) fishImg = await compressImage(fishFile);
+if (saltFile) saltImg = await compressImage(saltFile);
+let logs = getStageLogs();
+const existingIdx = logs.findIndex(l => l.stageTitle === stageTitle);
+const newEntry = {
+id: 'log_' + Date.now(),
+stageTitle,
+startDate,
+endDate,
+fishType,
+fishWeight,
+fishImg,
+saltType,
+saltWeight,
+saltImg,
+note,
+artisan: 'Nghệ nhân Phạm Văn Mạnh',
+updatedAt: new Date().toLocaleString('vi-VN')
+};
+if (existingIdx >= 0) {
+logs[existingIdx] = newEntry;
+} else {
+logs.push(newEntry);
+}
+localStorage.setItem('sc_stage_chat_logs_v1', JSON.stringify(logs));
+renderStageChatFeed();
+alert(`✅ Đã cập nhật biểu mẫu "${stageTitle}" kèm thông tin Chọn Cá (${fishWeight}kg) & Muối (${saltWeight}kg) vào Chatbox!`);
+}
+// --- QUẢN LÝ 2 CHẾ ĐỘ ĐẶT HÀNG: ĐẶT TRƯỚC (REALTIME) & THÀNH PHẨM (BIỂU ĐỒ) ---
+function selectOrderCategory(mode) {
+currentOrderMode = mode;
+const btnPre = document.getElementById('order-mode-btn-preorder');
+const btnReady = document.getElementById('order-mode-btn-ready');
+const heading = document.getElementById('order-list-heading');
+const badge = document.getElementById('order-mode-badge');
+const summary = document.getElementById('checkout-mode-summary');
+const preFields = document.getElementById('preorder-custom-fields');
+const submitBtn = document.getElementById('checkout-submit-btn');
+if (mode === 'preorder') {
+btnPre.className = "p-5 rounded-2xl border-2 border-emerald-400 bg-emerald-950/50 text-left transition flex items-start gap-4 cursor-pointer shadow-lg";
+btnReady.className = "p-5 rounded-2xl border border-sc-gold/40 bg-sc-red-950/60 text-left transition flex items-start gap-4 cursor-pointer hover:border-sc-gold";
+heading.innerText = "Chọn Sản Phẩm Đặt Hàng Trước (Theo dõi Realtime)";
+badge.className = "px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-mono text-xs font-bold";
+badge.innerText = "Chế độ: Đơn Đặt Trước (Realtime)";
+summary.className = "text-emerald-400 font-mono font-bold text-xs";
+summary.innerText = "📡 ĐƠN ĐẶT HÀNG TRƯỚC -> Mở khóa Thông Số Realtime";
+preFields.classList.remove('hidden');
+submitBtn.className = "w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs uppercase shadow transition hover:scale-105 cursor-pointer";
+submitBtn.innerText = "Xác Nhận Đặt Hàng Trước & Mở Trạm Realtime";
+} else {
+btnReady.className = "p-5 rounded-2xl border-2 border-sc-gold bg-sc-red-900/80 text-left transition flex items-start gap-4 cursor-pointer shadow-lg";
+btnPre.className = "p-5 rounded-2xl border border-emerald-500/30 bg-sc-red-950/60 text-left transition flex items-start gap-4 cursor-pointer hover:border-emerald-400";
+heading.innerText = "Chọn Sản Phẩm Đã Thành Phẩm (Đóng Sẵn - Xem Biểu Đồ)";
+badge.className = "px-3 py-1 rounded-full bg-sc-gold/20 border border-sc-gold text-sc-gold font-mono text-xs font-bold";
+badge.innerText = "Chế độ: Đơn Thành Phẩm (Biểu Đồ)";
+summary.className = "text-yellow-300 font-mono font-bold text-xs";
+summary.innerText = "📊 ĐƠN ĐÃ THÀNH PHẨM -> Mở khóa Biểu Đồ 3 Giai Đoạn";
+preFields.classList.add('hidden');
+submitBtn.className = "w-full py-4 rounded-xl bg-gradient-to-r from-sc-gold to-amber-600 text-sc-red-950 font-black text-xs uppercase shadow transition hover:scale-105 cursor-pointer";
+submitBtn.innerText = "Xác Nhận Mua Thành Phẩm & Xem Biểu Đồ 3 Giai Đoạn";
+}
+}
 const defaultManhSanhProducts = [
 {
 id: "ms_set2",
@@ -58,7 +256,7 @@ volume: "Bộ 2 chai x 1L",
 expiry: "24 tháng",
 flavor: "1 Mắm Cá + 1 Mắm Tôm",
 smell: "Đậm mùi truyền thống",
-desc: "Kết hợp tùy chọn giữa Mắm Tôm và Mắm Cá. Rất hợp làm quà biếu.",
+desc: "Kết hợp tùy chọn giữa Mắm Tôm và Mắm Cá. Hỗ trợ đặt trước từ ang hoặc mua đóng sẵn.",
 img: "DSC_0112.JPG"
 },
 {
@@ -104,7 +302,13 @@ products.forEach(p => {
 if (typeof cartQty[p.id] === 'undefined') cartQty[p.id] = 0;
 });
 mainGrid.innerHTML = products.map(p => `
-<div class="royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold/60 flex flex-col justify-between hover:shadow-2xl transition"><div><div class="flex justify-between items-center mb-4"><span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-[10px] border border-sc-gold/40">${p.type}</span><span class="text-amber-200 text-xs font-mono">${p.volume}</span></div><div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-4 overflow-hidden bg-black flex items-center justify-center"><img src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition"></div><h3 class="font-serif font-bold text-white text-lg">${p.name}</h3><p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">${p.desc}</p><div class="mt-3 p-2.5 bg-sc-red-950/70 rounded-xl border border-rose-900/60 text-[10px] font-mono text-rose-200 space-y-1"><div><i class="fa-solid fa-clock text-sc-gold mr-1"></i> HSD: ${p.expiry}</div><div><i class="fa-solid fa-utensils text-amber-300 mr-1"></i> Vị: ${p.flavor}</div><div class="text-emerald-400"><i class="fa-solid fa-wind mr-1"></i> Mùi: ${p.smell}</div></div><span class="block text-base font-mono font-bold text-yellow-300 mt-3">${Number(p.price).toLocaleString('vi-VN')} đ</span></div><div class="pt-4 border-t border-rose-900/80 mt-4"><button onclick="handlePrimaryActionClick('${p.id}')" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1.5 shadow cursor-pointer"><i class="fa-solid ${isArtisanLoggedIn ? 'fa-pen-to-square' : 'fa-cart-plus'}"></i><span>${isArtisanLoggedIn ? 'Quản Lý / Sửa Sản Phẩm' : 'Chọn Mua Ngay'}</span></button></div></div>
+<div class="royal-gradient-card rounded-3xl p-6 border-2 border-sc-gold/60 flex flex-col justify-between hover:shadow-2xl transition"><div><div class="flex justify-between items-center mb-4"><span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold font-mono font-black text-[10px] border border-sc-gold/40">${p.type}</span><span class="text-amber-200 text-xs font-mono">${p.volume}</span></div><div class="w-full h-56 rounded-xl border border-sc-gold/30 mb-4 overflow-hidden bg-black flex items-center justify-center"><img src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition"></div><h3 class="font-serif font-bold text-white text-lg">${p.name}</h3><p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">${p.desc}</p><div class="mt-3 p-2.5 bg-sc-red-950/70 rounded-xl border border-rose-900/60 text-[10px] font-mono text-rose-200 space-y-1"><div><i class="fa-solid fa-clock text-sc-gold mr-1"></i> HSD: ${p.expiry}</div><div><i class="fa-solid fa-utensils text-amber-300 mr-1"></i> Vị: ${p.flavor}</div><div class="text-emerald-400"><i class="fa-solid fa-wind mr-1"></i> Mùi: ${p.smell}</div></div><span class="block text-base font-mono font-bold text-yellow-300 mt-3">${Number(p.price).toLocaleString('vi-VN')} đ</span></div><div class="pt-4 border-t border-rose-900/80 mt-4 space-y-2">
+${isArtisanLoggedIn ? `
+<button onclick="handlePrimaryActionClick('${p.id}')" class="w-full py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-xs font-black transition flex items-center justify-center gap-1.5 shadow cursor-pointer"><i class="fa-solid fa-pen-to-square"></i><span>Quản Lý / Sửa Sản Phẩm</span></button>
+` : `
+<div class="grid grid-cols-2 gap-2"><button onclick="handlePrimaryActionClick('${p.id}', 'preorder')" class="py-2 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition flex items-center justify-center gap-1 shadow cursor-pointer"><i class="fa-solid fa-satellite-dish"></i><span>Đặt Trước</span></button><button onclick="handlePrimaryActionClick('${p.id}', 'ready')" class="py-2 px-2 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 text-[11px] font-black transition flex items-center justify-center gap-1 shadow cursor-pointer"><i class="fa-solid fa-bottle-droplet"></i><span>Mua Sẵn</span></button></div>
+`}
+</div></div>
 `).join('');
 cartContainer.innerHTML = products.map(p => `
 <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col sm:flex-row justify-between gap-4 items-center"><div class="flex gap-4 items-center w-full"><img src="${p.img}" alt="SP" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80'" class="w-16 h-16 rounded-lg object-cover border border-sc-gold shrink-0"><div><h4 class="font-serif font-bold text-white text-base">${p.name}</h4><p class="text-[11px] text-rose-200 font-mono">${p.volume} | ${p.flavor}</p><span class="text-sm font-mono font-bold text-yellow-300">${Number(p.price).toLocaleString('vi-VN')} đ</span></div></div><div class="flex items-center gap-3 self-end sm:self-center"><button onclick="updateCart('${p.id}', -1)" class="w-8 h-8 rounded bg-sc-red-950 text-white font-bold border border-rose-800 cursor-pointer">-</button><span id="cart-qty-${p.id}" class="font-mono text-sm w-5 text-center text-white">${cartQty[p.id] || 0}</span><button onclick="updateCart('${p.id}', 1)" class="w-8 h-8 rounded bg-sc-gold text-sc-red-950 font-bold cursor-pointer">+</button></div></div>
@@ -152,23 +356,27 @@ const name = document.getElementById('chk-name').value;
 const phone = document.getElementById('chk-phone').value;
 const address = document.getElementById('chk-address').value;
 const note = document.getElementById('chk-note').value;
-const orderCode = 'ANG-MANHSANH-01';
+const isPreorder = currentOrderMode === 'preorder';
+const orderCode = isPreorder
+? (document.getElementById('chk-preorder-ang').value || 'PRE-MANHSANH-01')
+: 'FIN-MANHSANH-01';
+const orderTypeLabel = isPreorder ? "Đơn Đặt Hàng Trước (Realtime)" : "Đơn Thành Phẩm Đóng Sẵn (Biểu Đồ)";
 const payload = {
 timestamp: new Date().toLocaleString('vi-VN'),
 orderCode: orderCode,
 artisanName: "Nghệ Nhân Phạm Văn Mạnh",
 artisanFacility: "Cơ sở Mạnh Sánh",
-iotNode: "ANG-MANHSANH-01",
+iotNode: orderCode,
 customerName: name,
 phone: phone,
 city: "Nam Định",
 address: address,
-items: itemsSummary.join(", "),
+items: `[${orderTypeLabel}] ` + itemsSummary.join(", "),
 subtotal: subtotal,
 shipping: 30000,
 total: subtotal + 30000,
 note: note,
-status: "Mới đặt hàng"
+status: orderTypeLabel
 };
 try {
 fetch(WEBHOOK_ORDER_URL, {
@@ -178,12 +386,43 @@ headers: { 'Content-Type': 'text/plain' },
 body: JSON.stringify(payload)
 });
 } catch (err) { console.log(err); }
-alert(`🎉 ĐẶT MUA THÀNH CÔNG!
-Khách hàng: ${name}
-Mã DPP: ${orderCode}`);
-document.getElementById('dpp-search-input').value = orderCode;
+// Lưu vào danh sách đơn vừa đặt
+const recentEl = document.getElementById('recent-orders-list');
+if (recentEl) {
+recentEl.innerHTML = `
+<button onclick="quickLookupMode('${currentOrderMode}', '${orderCode}')" class="w-full text-left p-2 rounded-lg bg-sc-red-900 border border-sc-gold/50 text-white hover:bg-sc-red-800 cursor-pointer flex justify-between items-center"><span><strong>${orderCode}</strong> (${name})</span><span class="text-[10px] text-sc-gold">${isPreorder ? 'Xem Realtime' : 'Xem Biểu Đồ'} ➔</span></button>
+`;
+}
+alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!
+Loại đơn: ${orderTypeLabel}
+Mã DPP: ${orderCode}
+Hệ thống sẽ tự động mở ${isPreorder ? 'Mục Thông Số Realtime' : 'Mục Biểu Đồ 3 Giai Đoạn & Chatbox'} cho đơn hàng của bạn!`);
 switchDppTab('passport');
-performDppLookup(orderCode);
+quickLookupMode(currentOrderMode, orderCode);
+}
+function quickLookupMode(mode, code) {
+document.getElementById('dpp-search-input').value = code;
+document.getElementById('dpp-res-id').innerText = code;
+document.getElementById('iot-station-label').innerText = code;
+const tagEl = document.getElementById('dpp-order-type-tag');
+const typeTextEl = document.getElementById('dpp-res-order-type');
+const descEl = document.getElementById('iot-mode-description');
+if (mode === 'preorder') {
+tagEl.className = "px-2.5 py-0.5 rounded-full bg-emerald-400 text-sc-red-950 font-mono text-[10px] font-black uppercase";
+tagEl.innerText = "ĐƠN ĐẶT HÀNG TRƯỚC - GIÁM SÁT REALTIME";
+typeTextEl.className = "text-emerald-400";
+typeTextEl.innerText = "Đơn đặt hàng trước (Hiển thị Realtime)";
+descEl.innerText = "Chế độ: Đơn hàng đặt trước hiển thị trực tiếp thông số cảm biến Realtime từ ang mắm đang ủ.";
+switchIotSubTab('realtime');
+} else {
+tagEl.className = "px-2.5 py-0.5 rounded-full bg-sc-gold text-sc-red-950 font-mono text-[10px] font-black uppercase";
+tagEl.innerText = "ĐƠN ĐÃ THÀNH PHẨM - THEO DÕI LẠI BIỂU ĐỒ 3 GIAI ĐOẠN";
+typeTextEl.className = "text-yellow-300";
+typeTextEl.innerText = "Đơn thành phẩm đóng sẵn (Hiển thị Biểu Đồ 3 Giai Đoạn)";
+descEl.innerText = "Chế độ: Đơn hàng đóng sẵn hiển thị Biểu đồ 3 giai đoạn (Vào chượp, Phơi nắng đánh đảo, Lọc cốt mắm) & Nhật ký Chatbox.";
+switchIotSubTab('chart');
+}
+fetchIotSheetLive();
 }
 function toggleMobileMenu() {
 const drawer = document.getElementById('mobile-menu-drawer');
@@ -283,6 +522,7 @@ localStorage.setItem('sc_manhsanh_products_v2', JSON.stringify(products));
 resetProductForm();
 renderAllProducts();
 }
+// --- ĐỒNG BỘ GOOGLE SHEET & BIỂU ĐỒ CHIA 3 GIAI ĐOẠN ---
 let rawSensorRows = [];
 let currentChartPeriod = 'day';
 let iotChartInstance = null;
@@ -362,7 +602,7 @@ const btnChart = document.getElementById('btn-iot-chart');
 if (subTab === 'realtime') {
 realtimePane.classList.remove('hidden');
 chartPane.classList.add('hidden');
-btnRealtime.className = "px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer";
+btnRealtime.className = "px-3.5 py-1.5 rounded-lg bg-emerald-400 text-sc-red-950 font-mono font-black text-xs transition cursor-pointer";
 btnChart.className = "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer";
 } else {
 realtimePane.classList.add('hidden');
@@ -372,35 +612,81 @@ btnRealtime.className = "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white
 renderIotChart();
 }
 }
+function setChartStage(stage) {
+currentChartStage = stage;
+const ids = ['all', 'stage1', 'stage2', 'stage3'];
+ids.forEach(s => {
+const el = document.getElementById(`stage-btn-${s}`);
+if (!el) return;
+if (s === 'all') {
+el.className = stage === 'all'
+? "px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-mono text-[11px] font-bold cursor-pointer"
+: "px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 font-mono text-[11px] cursor-pointer";
+} else {
+el.classList.toggle('ring-2', s === stage);
+el.classList.toggle('ring-sc-gold', s === stage);
+}
+});
+const indicator = document.getElementById('chart-stage-indicator');
+if (stage === 'stage1') {
+indicator.innerText = "Giai đoạn 1 (Vào Chượp Ang Sành): Quá trình cá và muối hạt Bạch Long ngấm đều trong ang sành kín.";
+} else if (stage === 'stage2') {
+indicator.innerText = "Giai đoạn 2 (Phơi Nắng & Đánh Đảo): Quá trình mở nắp ang đón bức xạ mặt trời và cào đảo liên tục.";
+} else if (stage === 'stage3') {
+indicator.innerText = "Giai đoạn 3 (Lọc Cốt Mắm): Quá trình kéo rút cốt mắm nhĩ trong vắt qua giỏ tre và lớp trấu.";
+} else {
+indicator.innerText = "Đang hiển thị dữ liệu tổng hợp xuyên suốt 3 giai đoạn: Vào chượp ang sành ➔ Phơi nắng & Đánh đảo ➔ Lọc cốt mắm.";
+}
+renderIotChart();
+}
 function setChartPeriod(period) {
 currentChartPeriod = period;
 ['day', 'month', 'year'].forEach(p => {
 const btn = document.getElementById(`period-btn-${p}`);
 if (p === period) {
-btn.className = "px-3 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer";
+btn.className = "px-2.5 py-1 rounded-lg bg-sc-gold text-sc-red-950 font-bold cursor-pointer";
 } else {
-btn.className = "px-3 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer";
+btn.className = "px-2.5 py-1 rounded-lg bg-sc-red-900 text-rose-200 border border-rose-800 hover:text-white cursor-pointer";
 }
 });
 renderIotChart();
 }
-function aggregateDataByPeriod(rows, period) {
-if (!rows || rows.length === 0) return { labels: [], tempAng: [], salinity: [], turbidity: [], airTemp: [], airHumi: [] };
+function filterRowsByStage(rows, stage) {
+if (!rows || rows.length === 0) return [];
+const n = rows.length;
+const s1End = Math.max(1, Math.floor(n / 3));
+const s2End = Math.max(2, Math.floor((2 * n) / 3));
+if (stage === 'stage1') return rows.slice(0, s1End);
+if (stage === 'stage2') return rows.slice(s1End, s2End);
+if (stage === 'stage3') return rows.slice(s2End);
+return rows;
+}
+function aggregateDataByPeriod(rows, period, stage) {
+const stageRows = filterRowsByStage(rows, stage);
+if (!stageRows || stageRows.length === 0) return { labels: [], tempAng: [], salinity: [], turbidity: [], airTemp: [], airHumi: [] };
+const total = stageRows.length;
 const groups = {};
-rows.forEach(r => {
+stageRows.forEach((r, idx) => {
 const d = r.dateObj;
-let key = "";
+let stagePrefix = "";
+if (stage === 'all') {
+if (idx < total / 3) stagePrefix = "[GĐ1: Vào chượp] ";
+else if (idx < (2 * total) / 3) stagePrefix = "[GĐ2: Phơi đảo] ";
+else stagePrefix = "[GĐ3: Lọc cốt] ";
+}
+let timeKey = "";
 if (period === 'day') {
 const dd = String(d.getDate()).padStart(2, '0');
 const mm = String(d.getMonth() + 1).padStart(2, '0');
 const hh = String(d.getHours()).padStart(2, '0');
 const min = String(d.getMinutes()).padStart(2, '0');
-key = `${dd}/${mm} ${hh}:${min}`;
+timeKey = `${dd}/${mm} ${hh}:${min}`;
 } else if (period === 'month') {
-key = `Tháng ${d.getMonth() + 1}/${d.getFullYear()}`;
+timeKey = `T${d.getMonth() + 1}/${d.getFullYear()}`;
 } else {
-key = `Năm ${d.getFullYear()}`;
+timeKey = `Năm ${d.getFullYear()}`;
 }
+const key = stagePrefix + timeKey;
 if (!groups[key]) groups[key] = { count: 0, tempAng: 0, salinity: 0, turbidity: 0, airTemp: 0, airHumi: 0 };
 groups[key].count++;
 groups[key].tempAng += r.tempAng;
@@ -427,7 +713,7 @@ const canvas = document.getElementById('iot-history-chart');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 const metric = document.getElementById('chart-metric-select').value;
-const agg = aggregateDataByPeriod(rawSensorRows, currentChartPeriod);
+const agg = aggregateDataByPeriod(rawSensorRows, currentChartPeriod, currentChartStage);
 if (iotChartInstance) iotChartInstance.destroy();
 const allDatasets = [
 { key: 'tempAng', label: 'Nhiệt độ Lõi Ang (°C)', data: agg.tempAng, borderColor: '#FDE047', backgroundColor: 'rgba(253, 224, 71, 0.15)', tension: 0.35 },
@@ -445,7 +731,7 @@ responsive: true,
 maintainAspectRatio: false,
 plugins: { legend: { labels: { color: '#fff1f2', font: { family: 'Space Grotesk', size: 11 } } } },
 scales: {
-x: { ticks: { color: '#fecdd3', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
+x: { ticks: { color: '#fecdd3', font: { size: 9 } }, grid: { color: 'rgba(255,255,255,0.06)' } },
 y: { ticks: { color: '#fecdd3', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.08)' } }
 }
 }
@@ -496,13 +782,21 @@ document.getElementById(`art-tab-${t}`).className = t === tab
 : "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer";
 });
 }
-function handlePrimaryActionClick(prodId = null) {
+function openStageChatFromAdmin() {
+document.getElementById('customer-order-wrapper').classList.remove('hidden');
+switchDppTab('passport');
+quickLookupMode('ready', 'FIN-MANHSANH-01');
+const formEl = document.getElementById('artisan-stage-chat-form');
+if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
+}
+function handlePrimaryActionClick(prodId = null, mode = null) {
 switchMainView('passport-app');
 if (isArtisanLoggedIn) {
 switchArtisanTab('products');
 if (prodId) editProduct(prodId);
 } else {
 switchDppTab('order');
+if (mode) selectOrderCategory(mode);
 }
 }
 function openAuthModal(mode = 'login') {
@@ -575,12 +869,14 @@ document.getElementById('login-error').classList.remove('hidden');
 }
 function activateArtisanMode(name) {
 isArtisanLoggedIn = true;
-document.getElementById('customer-order-wrapper').classList.add('hidden');
-document.getElementById('customer-tabs-container').classList.add('hidden');
 document.getElementById('floating-cart-wrapper').classList.add('hidden');
 const artDash = document.getElementById('artisan-dashboard-wrapper');
 artDash.classList.remove('hidden');
 artDash.classList.add('block');
+// Mở khóa Biểu mẫu sẵn trong Chatbox cho Nghệ nhân
+document.getElementById('artisan-chat-form-locked').classList.add('hidden');
+document.getElementById('artisan-stage-chat-form').classList.remove('hidden');
+document.getElementById('chatbox-role-status').innerHTML = `<i class="fa-solid fa-unlock text-emerald-400 mr-1"></i> Chế độ Nghệ Nhân: Biểu mẫu sẵn đã mở khóa`;
 document.getElementById('nav-primary-text').innerText = "Quản Lý Cửa Hàng";
 document.getElementById('nav-primary-text-mobile').innerText = "Quản Lý";
 document.getElementById('nav-primary-icon').className = "fa-solid fa-shop";
@@ -596,6 +892,9 @@ document.getElementById('artisan-dashboard-wrapper').classList.add('hidden');
 document.getElementById('artisan-dashboard-wrapper').classList.remove('block');
 document.getElementById('customer-order-wrapper').classList.remove('hidden');
 document.getElementById('customer-tabs-container').classList.remove('hidden');
+document.getElementById('artisan-chat-form-locked').classList.remove('hidden');
+document.getElementById('artisan-stage-chat-form').classList.add('hidden');
+document.getElementById('chatbox-role-status').innerHTML = `<i class="fa-solid fa-lock text-sc-gold mr-1"></i> Chế độ Khách xem`;
 document.getElementById('nav-primary-text').innerText = "Đặt Mua Mắm";
 document.getElementById('nav-primary-text-mobile').innerText = "Mua";
 document.getElementById('nav-primary-icon').className = "fa-solid fa-cart-shopping";
@@ -626,7 +925,7 @@ let vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
 const listEl = document.getElementById('artisan-vat-list');
 if (!listEl) return;
 if (vats.length === 0) {
-listEl.innerHTML = `<div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 text-xs font-mono text-emerald-400">Trạm mặc định: ANG-MANHSANH-01 (Đang kết nối Google Sheet)</div>`;
+listEl.innerHTML = `<div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 text-xs font-mono text-emerald-400">Trạm mặc định: PRE-MANHSANH-01 & FIN-MANHSANH-01</div>`;
 return;
 }
 listEl.innerHTML = vats.map(v => `
@@ -639,12 +938,16 @@ if (currentQRUrl) window.location.href = currentQRUrl;
 function performDppLookup(codeParam = null) {
 const query = (codeParam || document.getElementById('dpp-search-input').value).trim().toUpperCase();
 if (!query) return alert("Vui lòng nhập mã DPP!");
-document.getElementById('dpp-res-id').innerText = query;
-document.getElementById('iot-station-label').innerText = query;
-fetchIotSheetLive();
+if (query.startsWith('PRE')) {
+quickLookupMode('preorder', query);
+} else {
+quickLookupMode('ready', query);
+}
 }
 window.addEventListener('DOMContentLoaded', () => {
 renderAllProducts();
+renderStageChatFeed();
+applyStageChatTemplate();
 fetchIotSheetLive();
 setInterval(() => fetchIotSheetLive(false), 5000);
 const dppCode = new URLSearchParams(window.location.search).get('dpp');
