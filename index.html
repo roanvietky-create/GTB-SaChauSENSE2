@@ -153,9 +153,23 @@
                     </div>
 
                     <form onsubmit="handleChatboxStageSubmit(event)" class="bg-sc-red-950 p-4 sm:p-6 rounded-3xl border-2 border-sc-gold/60 space-y-6">
-                        <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-rose-900 pb-3">
-                            <span class="text-sc-gold font-black text-base sm:text-lg uppercase"><i class="fa-solid fa-clipboard-list mr-2"></i>Biểu Mẫu Cập Nhật Nhật Ký Ang Mắm</span>
-                            <span class="px-3 py-1 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-500/50 text-xs sm:text-sm font-bold">Mã Ang: ANG-MANHSANH-01</span>
+                        <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-rose-900 pb-3">
+                            <div>
+                                <span class="text-sc-gold font-black text-base sm:text-lg uppercase block"><i class="fa-solid fa-clipboard-list mr-2"></i>Biểu Mẫu Cập Nhật Nhật Ký Ang Mắm</span>
+                                <span class="text-xs text-rose-300">Mọi thay đổi sẽ tự động đồng bộ lên toàn bộ trang web & Hộ chiếu số DPP</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="cb-active-vat-badge" class="px-3.5 py-1.5 rounded-xl bg-emerald-950 text-emerald-300 border-2 border-emerald-500/60 text-sm sm:text-base font-black">Mã Ang: ANG-MANHSANH-01</span>
+                            </div>
+                        </div>
+
+                        <!-- Chọn Loại Mắm của Ang -->
+                        <div class="p-4 rounded-2xl bg-sc-red-900/80 border border-sc-gold/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <label class="text-yellow-300 font-black text-sm sm:text-base"><i class="fa-solid fa-jar mr-2"></i>Loại Mắm Của Ang Này (Mắm Cá / Mắm Tôm):</label>
+                            <select id="cb-sauce-type" class="sm:w-72 bg-sc-red-950 text-yellow-300 font-black px-4 py-2.5 rounded-xl border-2 border-sc-gold text-sm sm:text-base">
+                                <option value="Mắm Cá Truyền Thống">Mắm Cá Truyền Thống</option>
+                                <option value="Mắm Tôm Sa Châu">Mắm Tôm Sa Châu</option>
+                            </select>
                         </div>
 
                         <!-- ================= MỤC 0: CHỌN CÁ VÀ MUỐI (TÁCH RIÊNG LOẠI & KHỐI LƯỢNG KG + LƯU LỰA CHỌN KHÁC) ================= -->
@@ -221,116 +235,173 @@
                             </div>
                         </div>
 
-                        <!-- ================= GIAI ĐOẠN 1: VÀO CHƯỢP ANG SÀNH (TỶ LỆ % TỰ ĐỘNG KHỚP 100% + ẢNH GIAI ĐOẠN) ================= -->
+                        <!-- ================= GIAI ĐOẠN 1: VÀO CHƯỢP ANG SÀNH ================= -->
                         <div class="p-4 sm:p-5 rounded-2xl bg-black/40 border-2 border-amber-500/50 space-y-4">
-                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-900 pb-2">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-900 pb-3">
                                 <label class="text-amber-300 font-black text-base sm:text-lg">1. Giai đoạn 1: Vào Chượp Ang Sành</label>
-                                <span id="cb-ratio-total-badge" class="px-3 py-1 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-500/50 text-xs sm:text-sm font-bold">Tổng tỷ lệ: 100% (Đã khớp)</span>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
-                                    <input type="date" id="cb-s1-start" required value="2025-01-10" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
-                                </div>
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
-                                    <input type="date" id="cb-s1-end" required value="2025-03-10" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-rose-200 font-bold">Trạng thái:</span>
+                                    <select id="cb-s1-status" onchange="toggleStageInputs(1)" class="bg-sc-red-900 text-yellow-300 font-bold px-3 py-1.5 rounded-xl border border-sc-gold text-xs sm:text-sm">
+                                        <option value="active">Đã / Đang thực hiện</option>
+                                        <option value="none">Chưa đến giai đoạn này (Không có)</option>
+                                    </select>
                                 </div>
                             </div>
 
-                            <!-- Bảng nhập Tỷ lệ phần trăm tự động cân bằng 100% -->
-                            <div class="p-3.5 rounded-2xl bg-sc-red-950/90 border border-sc-gold/40 space-y-3">
-                                <span class="text-xs sm:text-sm text-sc-gold font-bold block"><i class="fa-solid fa-scale-balanced mr-1.5"></i>Tỷ Lệ Pha Trộn Vào Chượp (Tự động tính khớp 100%):</span>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                    <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
-                                        <label class="text-xs text-amber-200 block mb-1 font-bold">Tỷ lệ Cá (%)</label>
-                                        <div class="relative flex items-center">
-                                            <input type="number" step="0.5" min="0" max="100" id="cb-s1-fish-pct" value="85" oninput="rebalanceStage1Percentages('fish')" class="w-full bg-sc-red-950 text-yellow-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
-                                            <span class="absolute right-3 text-rose-200 font-bold">%</span>
-                                        </div>
+                            <div id="cb-s1-body" class="space-y-4">
+                                <div class="flex justify-end">
+                                    <span id="cb-ratio-total-badge" class="px-3 py-1 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-500/50 text-xs sm:text-sm font-bold">Tổng tỷ lệ: 100% (Đã khớp)</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
+                                        <input type="date" id="cb-s1-start" value="2025-01-10" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
                                     </div>
-                                    <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
-                                        <label class="text-xs text-cyan-200 block mb-1 font-bold">Tỷ lệ Muối (%)</label>
-                                        <div class="relative flex items-center">
-                                            <input type="number" step="0.5" min="0" max="100" id="cb-s1-salt-pct" value="15" oninput="rebalanceStage1Percentages('salt')" class="w-full bg-sc-red-950 text-cyan-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
-                                            <span class="absolute right-3 text-rose-200 font-bold">%</span>
-                                        </div>
-                                    </div>
-                                    <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
-                                        <label class="text-xs text-emerald-200 block mb-1 font-bold">Nguyên liệu khác (%)</label>
-                                        <div class="relative flex items-center">
-                                            <input type="number" step="0.5" min="0" max="100" id="cb-s1-other-pct" value="0" oninput="rebalanceStage1Percentages('other')" class="w-full bg-sc-red-950 text-emerald-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
-                                            <span class="absolute right-3 text-rose-200 font-bold">%</span>
-                                        </div>
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
+                                        <input type="date" id="cb-s1-end" value="2025-03-10" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
                                     </div>
                                 </div>
+
+                                <!-- Bảng nhập Tỷ lệ phần trăm tự động cân bằng 100% -->
+                                <div class="p-3.5 rounded-2xl bg-sc-red-950/90 border border-sc-gold/40 space-y-3">
+                                    <span class="text-xs sm:text-sm text-sc-gold font-bold block"><i class="fa-solid fa-scale-balanced mr-1.5"></i>Tỷ Lệ Pha Trộn Vào Chượp (Tự động tính khớp 100%):</span>
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                        <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
+                                            <label class="text-xs text-amber-200 block mb-1 font-bold">Tỷ lệ Cá/Tôm (%)</label>
+                                            <div class="relative flex items-center">
+                                                <input type="number" step="0.5" min="0" max="100" id="cb-s1-fish-pct" value="85" oninput="rebalanceStage1Percentages('fish')" class="w-full bg-sc-red-950 text-yellow-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
+                                                <span class="absolute right-3 text-rose-200 font-bold">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
+                                            <label class="text-xs text-cyan-200 block mb-1 font-bold">Tỷ lệ Muối (%)</label>
+                                            <div class="relative flex items-center">
+                                                <input type="number" step="0.5" min="0" max="100" id="cb-s1-salt-pct" value="15" oninput="rebalanceStage1Percentages('salt')" class="w-full bg-sc-red-950 text-cyan-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
+                                                <span class="absolute right-3 text-rose-200 font-bold">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-sc-red-900/70 p-3 rounded-xl border border-rose-800">
+                                            <label class="text-xs text-emerald-200 block mb-1 font-bold">Nguyên liệu khác (%)</label>
+                                            <div class="relative flex items-center">
+                                                <input type="number" step="0.5" min="0" max="100" id="cb-s1-other-pct" value="0" oninput="rebalanceStage1Percentages('other')" class="w-full bg-sc-red-950 text-emerald-300 font-black px-3 py-2 rounded-lg border border-sc-gold/50 text-base sm:text-lg pr-8">
+                                                <span class="absolute right-3 text-rose-200 font-bold">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-rose-200 block mb-1">Tên nguyên liệu khác (nếu có):</label>
+                                        <input type="text" id="cb-s1-other-name" placeholder="VD: Thính gạo rang / Nước muối bão hòa (Để trống nếu không dùng)" oninput="updateStage1AutoNote()" class="w-full bg-sc-red-900 text-white px-3.5 py-2 rounded-xl border border-rose-800 text-xs sm:text-sm">
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label class="text-xs text-rose-200 block mb-1">Tên nguyên liệu khác (nếu có):</label>
-                                    <input type="text" id="cb-s1-other-name" placeholder="VD: Thính gạo rang / Nước muối bão hòa (Để trống nếu không dùng)" oninput="updateStage1AutoNote()" class="w-full bg-sc-red-900 text-white px-3.5 py-2 rounded-xl border border-rose-800 text-xs sm:text-sm">
+                                    <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 1:</label>
+                                    <input type="text" id="cb-s1-note" value="Trộn 85% cá : 15% muối hạt, ủ kín lên men ban đầu trong ang sành." class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm">
+                                </div>
+
+                                <div>
+                                    <label class="text-xs sm:text-sm text-amber-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 1 - Vào Chượp (Nếu có):</label>
+                                    <input type="file" id="cb-s1-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
                                 </div>
                             </div>
-
-                            <div>
-                                <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 1 (Tự động tổng hợp hoặc nhập thêm):</label>
-                                <input type="text" id="cb-s1-note" value="Trộn 85% cá : 15% muối hạt, ủ kín lên men ban đầu trong ang sành." class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm">
-                            </div>
-
-                            <div>
-                                <label class="text-xs sm:text-sm text-amber-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 1 - Vào Chượp (Nếu có):</label>
-                                <input type="file" id="cb-s1-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
+                            <div id="cb-s1-empty-msg" class="hidden p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs sm:text-sm text-center">
+                                <i class="fa-solid fa-clock mr-1"></i> Giai đoạn 1 đang để ở trạng thái: <strong>Không có (Chưa đến giai đoạn này)</strong>.
                             </div>
                         </div>
 
-                        <!-- ================= GIAI ĐOẠN 2: PHƠI NẮNG VÀ ĐÁNH ĐẢO (KÈM ẢNH GIAI ĐOẠN) ================= -->
+                        <!-- ================= GIAI ĐOẠN 2: PHƠI NẮNG VÀ ĐÁNH ĐẢO ================= -->
                         <div class="p-4 sm:p-5 rounded-2xl bg-black/40 border-2 border-cyan-500/50 space-y-4">
-                            <label class="text-cyan-300 font-black block text-base sm:text-lg border-b border-rose-900 pb-2">2. Giai đoạn 2: Phơi Nắng & Đánh Đảo</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
-                                    <input type="date" id="cb-s2-start" required value="2025-03-11" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
-                                </div>
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
-                                    <input type="date" id="cb-s2-end" required value="2026-01-15" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-900 pb-3">
+                                <label class="text-cyan-300 font-black text-base sm:text-lg">2. Giai đoạn 2: Phơi Nắng & Đánh Đảo</label>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-rose-200 font-bold">Trạng thái:</span>
+                                    <select id="cb-s2-status" onchange="toggleStageInputs(2)" class="bg-sc-red-900 text-yellow-300 font-bold px-3 py-1.5 rounded-xl border border-sc-gold text-xs sm:text-sm">
+                                        <option value="active">Đã / Đang thực hiện</option>
+                                        <option value="none">Chưa đến giai đoạn này (Không có)</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div>
-                                <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 2:</label>
-                                <input type="text" id="cb-s2-note" value="Mở nắp phơi nắng, đánh đảo 180 lượt hấp thụ nhiệt" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm" placeholder="Ghi chú thay đổi GĐ 2...">
+                            <div id="cb-s2-body" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
+                                        <input type="date" id="cb-s2-start" value="2025-03-11" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                                    </div>
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
+                                        <input type="date" id="cb-s2-end" value="2026-01-15" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 2:</label>
+                                    <input type="text" id="cb-s2-note" value="Mở nắp phơi nắng, đánh đảo 180 lượt hấp thụ nhiệt" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm" placeholder="Ghi chú thay đổi GĐ 2...">
+                                </div>
+                                <div>
+                                    <label class="text-xs sm:text-sm text-cyan-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 2 - Phơi Nắng & Đánh Đảo (Nếu có):</label>
+                                    <input type="file" id="cb-s2-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-xs sm:text-sm text-cyan-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 2 - Phơi Nắng & Đánh Đảo (Nếu có):</label>
-                                <input type="file" id="cb-s2-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
+                            <div id="cb-s2-empty-msg" class="hidden p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs sm:text-sm text-center">
+                                <i class="fa-solid fa-clock mr-1"></i> Giai đoạn 2 đang để ở trạng thái: <strong>Không có (Chưa đến giai đoạn này)</strong>.
                             </div>
                         </div>
 
-                        <!-- ================= GIAI ĐOẠN 3: LỌC CỐT MẮM (KÈM ẢNH GIAI ĐOẠN) ================= -->
+                        <!-- ================= GIAI ĐOẠN 3: LỌC CỐT MẮM ================= -->
                         <div class="p-4 sm:p-5 rounded-2xl bg-black/40 border-2 border-emerald-500/50 space-y-4">
-                            <label class="text-emerald-300 font-black block text-base sm:text-lg border-b border-rose-900 pb-2">3. Giai đoạn 3: Lọc Cốt Mắm</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
-                                    <input type="date" id="cb-s3-start" required value="2026-01-16" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
-                                </div>
-                                <div>
-                                    <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
-                                    <input type="date" id="cb-s3-end" required value="2026-03-01" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-900 pb-3">
+                                <label class="text-emerald-300 font-black text-base sm:text-lg">3. Giai đoạn 3: Lọc Cốt Mắm</label>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-rose-200 font-bold">Trạng thái:</span>
+                                    <select id="cb-s3-status" onchange="toggleStageInputs(3)" class="bg-sc-red-900 text-yellow-300 font-bold px-3 py-1.5 rounded-xl border border-sc-gold text-xs sm:text-sm">
+                                        <option value="active">Đã / Đang thực hiện</option>
+                                        <option value="none">Chưa đến giai đoạn này (Không có)</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div>
-                                <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 3:</label>
-                                <input type="text" id="cb-s3-note" value="Rút nỏ qua giỏ tre & lớp trấu, cốt mắm trong vắt" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm" placeholder="Ghi chú thay đổi GĐ 3...">
+                            <div id="cb-s3-body" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Từ ngày:</span>
+                                        <input type="date" id="cb-s3-start" value="2026-01-16" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                                    </div>
+                                    <div>
+                                        <span class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Đến ngày:</span>
+                                        <input type="date" id="cb-s3-end" value="2026-03-01" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-sm sm:text-base">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs sm:text-sm text-rose-200 block mb-1 font-bold">Ghi chú Giai đoạn 3:</label>
+                                    <input type="text" id="cb-s3-note" value="Rút nỏ qua giỏ tre & lớp trấu, cốt mắm trong vắt" class="w-full bg-sc-red-900 text-white px-3.5 py-2.5 rounded-xl border border-rose-700 text-xs sm:text-sm" placeholder="Ghi chú thay đổi GĐ 3...">
+                                </div>
+                                <div>
+                                    <label class="text-xs sm:text-sm text-emerald-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 3 - Lọc Cốt Mắm (Nếu có):</label>
+                                    <input type="file" id="cb-s3-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-xs sm:text-sm text-emerald-200 block mb-1.5 font-bold"><i class="fa-solid fa-image mr-1.5"></i>Ảnh thực tế Giai đoạn 3 - Lọc Cốt Mắm (Nếu có):</label>
-                                <input type="file" id="cb-s3-img" accept="image/*" class="w-full bg-sc-red-900 text-white p-2 rounded-xl border border-rose-700 text-xs sm:text-sm file:bg-sc-gold file:text-sc-red-950 file:border-0 file:rounded-lg file:px-3 file:py-1.5 file:font-black file:mr-3 cursor-pointer">
+                            <div id="cb-s3-empty-msg" class="hidden p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs sm:text-sm text-center">
+                                <i class="fa-solid fa-clock mr-1"></i> Giai đoạn 3 đang để ở trạng thái: <strong>Không có (Chưa đến giai đoạn này)</strong>.
                             </div>
                         </div>
 
                         <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-sc-gold via-amber-400 to-amber-500 text-sc-red-950 font-black uppercase text-base sm:text-lg shadow-2xl hover:scale-[1.01] transition cursor-pointer">
-                            <i class="fa-solid fa-floppy-disk mr-2"></i> LƯU NHẬT KÝ & CẬP NHẬT LÊN BIỂU ĐỒ DPP
+                            <i class="fa-solid fa-floppy-disk mr-2"></i> LƯU NHẬT KÝ & ĐỒNG BỘ TOÀN TRANG WEB
                         </button>
+
+                        <!-- MÃ QR CỦA ANG ĐÓ Ở CUỐI BẢNG CHATBOT -->
+                        <div class="p-5 rounded-3xl bg-sc-red-900/90 border-2 border-dashed border-sc-gold flex flex-col sm:flex-row items-center justify-between gap-6">
+                            <div class="space-y-2 text-center sm:text-left">
+                                <span class="px-3 py-1 rounded-full bg-sc-red-950 text-sc-gold border border-sc-gold/40 text-xs font-bold uppercase">Mã QR Định Danh Của Ang Này</span>
+                                <h5 id="cb-qr-vat-title" class="font-serif text-xl sm:text-2xl font-bold text-white mt-1">ANG-MANHSANH-01</h5>
+                                <p id="cb-qr-vat-sub" class="text-xs sm:text-sm text-emerald-300">Mắm Cá Truyền Thống • Quét mã để mở Hộ chiếu số DPP của ang</p>
+                                <button type="button" onclick="previewActiveVatDpp()" class="mt-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow cursor-pointer">
+                                    <i class="fa-solid fa-eye mr-1.5"></i> Xem Hộ Chiếu DPP Của Ang Này
+                                </button>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl shadow-2xl shrink-0">
+                                <div id="cb-qrcode-box"></div>
+                            </div>
+                        </div>
                     </form>
 
                     <!-- Phản hồi lịch sử cập nhật trong chatbox -->
@@ -496,11 +567,11 @@
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center justify-between">
-                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[10px] font-bold">MỤC 1 • REALTIME IOT</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[10px] font-bold">MỤC 1 • CÓ CẢ REALTIME & BIỂU ĐỒ</span>
                                     <i id="check-icon-preorder" class="fa-solid fa-circle-check text-sc-gold text-lg"></i>
                                 </div>
                                 <h3 class="font-serif font-bold text-white text-lg mt-1">1. Đặt Mắm Theo Yêu Cầu (Đặt Trước)</h3>
-                                <p class="text-xs text-rose-200/80 mt-1">Tùy chỉnh yêu cầu riêng về <strong>Độ đục, Màu mắm, Độ mặn, Mắm hôi hay Mắm thơm</strong>. Đơn hàng sẽ liên kết với <strong>Thông Số Cảm Biến Realtime</strong> để theo dõi trực tiếp.</p>
+                                <p class="text-xs text-rose-200/80 mt-1">Tùy chỉnh yêu cầu riêng về <strong>Độ đục, Màu mắm, Độ mặn, Mắm hôi hay Mắm thơm</strong>. Đơn hàng đặt trước sẽ hiển thị <strong>cả Thông Số Cảm Biến Realtime lẫn Biểu Đồ</strong>.</p>
                             </div>
                         </button>
 
@@ -510,11 +581,11 @@
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center justify-between">
-                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-[10px] font-bold">MỤC 2 • BIỂU ĐỒ 3 GIAI ĐOẠN</span>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-[10px] font-bold">MỤC 2 • CHỈ HIỂN THỊ BIỂU ĐỒ 3 GĐ</span>
                                     <i id="check-icon-ready" class="fa-regular fa-circle text-rose-400 text-lg"></i>
                                 </div>
                                 <h3 class="font-serif font-bold text-white text-lg mt-1">2. Đặt Mắm Thành Phẩm (Đóng Chai Sẵn)</h3>
-                                <p class="text-xs text-rose-200/80 mt-1">Mua các dòng mắm đã rút nỏ và đóng chai hoàn chỉnh. Đơn hàng sẽ hiển thị <strong>Mục Biểu Đồ Lịch Sử 3 Giai Đoạn</strong> (Vào chượp, Phơi nắng đánh đảo, Lọc cốt) để theo dõi lại.</p>
+                                <p class="text-xs text-rose-200/80 mt-1">Mua các dòng mắm đã rút nỏ và đóng chai hoàn chỉnh. Đơn đóng sẵn <strong>chỉ hiển thị Biểu Đồ Lịch Sử 3 Giai Đoạn</strong> để theo dõi lại (không có Realtime).</p>
                             </div>
                         </button>
                     </div>
@@ -626,17 +697,21 @@
                                 <button onclick="performDppLookup()" class="absolute right-2 top-2 px-3 py-1.5 bg-sc-gold hover:bg-amber-400 text-sc-red-950 rounded-lg text-xs font-bold transition cursor-pointer">Tìm</button>
                             </div>
 
-                            <!-- Chọn nhanh chế độ xem DPP theo loại đơn -->
+                            <!-- Chọn nhanh chế độ xem DPP theo loại đơn & Danh sách Ang -->
                             <div class="text-[11px] text-rose-200/90 font-mono space-y-2 bg-sc-red-950/70 p-3.5 rounded-2xl border border-rose-900">
-                                <p class="text-sc-gold font-bold">Tra Cứu Nhanh Theo Loại Đơn Hàng:</p>
+                                <p class="text-sc-gold font-bold">Chế Độ Hiển Thị Theo Loại Đơn:</p>
                                 <button onclick="simulateOrderLookup('preorder')" class="w-full text-left py-2 px-3 rounded-xl bg-sc-red-900 hover:bg-sc-red-800 text-emerald-300 border border-emerald-500/40 flex items-center justify-between cursor-pointer">
-                                    <span><i class="fa-solid fa-gauge-high mr-1.5"></i>Đơn Đặt Trước (Xem Realtime)</span>
-                                    <span class="text-[9px] bg-emerald-950 px-1.5 py-0.5 rounded">LIVE</span>
+                                    <span><i class="fa-solid fa-gauge-high mr-1.5"></i>Đơn Đặt Trước (Realtime + Biểu Đồ)</span>
+                                    <span class="text-[9px] bg-emerald-950 px-1.5 py-0.5 rounded">FULL</span>
                                 </button>
                                 <button onclick="simulateOrderLookup('ready')" class="w-full text-left py-2 px-3 rounded-xl bg-sc-red-900 hover:bg-sc-red-800 text-amber-300 border border-amber-500/40 flex items-center justify-between cursor-pointer">
-                                    <span><i class="fa-solid fa-chart-line mr-1.5"></i>Đơn Thành Phẩm (Biểu Đồ 3 GĐ)</span>
-                                    <span class="text-[9px] bg-amber-950 px-1.5 py-0.5 rounded">CHART</span>
+                                    <span><i class="fa-solid fa-chart-line mr-1.5"></i>Đơn Đóng Sẵn (Chỉ Biểu Đồ 3 GĐ)</span>
+                                    <span class="text-[9px] bg-amber-950 px-1.5 py-0.5 rounded">CHART ONLY</span>
                                 </button>
+                                <div class="pt-2 border-t border-rose-900/80">
+                                    <p class="text-amber-200 font-bold mb-1.5">Chọn Nhanh Mã Ang Đã Tạo:</p>
+                                    <div id="dpp-quick-vat-links" class="flex flex-wrap gap-1.5"></div>
+                                </div>
                             </div>
 
                             <!-- Khung hiển thị Hồ Sơ Chọn Cá & Muối (Cập nhật từ Chatbox Nghệ nhân) -->
@@ -676,8 +751,8 @@
                                     <div class="bg-sc-red-950 p-4 rounded-xl border border-rose-800">
                                         <h4 class="font-mono text-sc-gold font-bold mb-2 text-xs">1. Định Danh Lô Hàng / Ang Mắm</h4>
                                         <ul class="text-xs text-rose-100 space-y-1.5 font-mono">
-                                            <li>Mã truy xuất: <strong id="dpp-res-id" class="text-white">ANG-MANHSANH-01</strong></li>
-                                            <li>Loại đơn hàng: <strong id="dpp-res-order-type" class="text-emerald-400">Đặt Hàng Trước (Theo dõi Realtime)</strong></li>
+                                            <li>Mã truy xuất: <strong id="dpp-res-id" class="text-white">ANG-MANHSANH-01</strong> (<span id="dpp-res-sauce-type" class="text-yellow-300 font-bold">Mắm Cá Truyền Thống</span>)</li>
+                                            <li>Loại đơn hàng: <strong id="dpp-res-order-type" class="text-emerald-400">Đặt Hàng Trước (Có Realtime & Biểu Đồ)</strong></li>
                                             <li>Nguyên liệu: <span id="dpp-res-fish">850 kg Cá Nục & Cơm + 150 kg Muối Bạch Long</span></li>
                                         </ul>
                                     </div>
@@ -941,24 +1016,35 @@
                                 <div class="royal-gradient-card p-6 rounded-2xl">
                                     <h4 class="font-serif text-lg font-bold text-sc-gold mb-4 border-b border-rose-900 pb-2">Khởi Tạo Ang Mắm & Phát Hành QR</h4>
                                     <form onsubmit="handleCreateVat(event)" class="space-y-4 text-xs font-mono">
-                                        <div>
-                                            <label class="block text-amber-200 mb-1">Mã Ang *</label>
-                                            <input type="text" id="vat-id" required class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900" value="ANG-MANHSANH-02">
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div>
-                                                <label class="block text-amber-200 mb-1">Loại Cá *</label>
+                                                <label class="block text-amber-200 mb-1 font-bold">Mã Ang *</label>
+                                                <input type="text" id="vat-id" required class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900 uppercase" value="ANG-MANHSANH-02">
+                                            </div>
+                                            <div>
+                                                <label class="block text-amber-200 mb-1 font-bold">Loại Mắm (Tôm / Cá) *</label>
+                                                <select id="vat-sauce-type" onchange="syncVatFishOptions()" class="w-full bg-sc-red-950 text-yellow-300 font-bold px-3.5 py-2.5 rounded-xl border border-sc-gold/60">
+                                                    <option value="Mắm Cá Truyền Thống">Mắm Cá Truyền Thống</option>
+                                                    <option value="Mắm Tôm Sa Châu">Mắm Tôm Sa Châu</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-amber-200 mb-1 font-bold">Nguyên Liệu Chính *</label>
                                                 <select id="vat-fish" class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
                                                     <option value="Cá Nục Than">Cá Nục Than</option>
-                                                    <option value="Cá Cơm">Cá Cơm</option>
+                                                    <option value="Cá Cơm Than">Cá Cơm Than</option>
+                                                    <option value="Cá Nục & Cá Cơm">Cá Nục & Cá Cơm</option>
+                                                    <option value="Tôm Chà Biển (Mắm Tôm)">Tôm Chà Biển (Mắm Tôm)</option>
                                                 </select>
                                             </div>
                                             <div>
-                                                <label class="block text-amber-200 mb-1">Ngày Ủ *</label>
+                                                <label class="block text-amber-200 mb-1 font-bold">Ngày Bắt Đầu Ủ *</label>
                                                 <input type="date" id="vat-date" required class="w-full bg-sc-red-950 text-white px-3.5 py-2.5 rounded-xl border border-rose-900">
                                             </div>
                                         </div>
-                                        <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold text-sc-red-950 font-black uppercase cursor-pointer">Lưu & Phát Hành QR</button>
+                                        <button type="submit" class="w-full py-3 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black uppercase shadow-lg cursor-pointer transition">Lưu & Phát Hành QR (+ Mở Nhật Ký)</button>
                                     </form>
                                 </div>
                                 <div class="bg-sc-red-950/80 p-6 rounded-2xl border-2 border-dashed border-sc-gold/50 flex flex-col items-center justify-center text-center">
@@ -972,8 +1058,11 @@
                                 </div>
                             </div>
                             <div>
-                                <h4 class="font-serif text-lg font-bold text-white mb-4 border-b border-rose-900 pb-2">Danh Sách Ang Mắm</h4>
-                                <div id="artisan-vat-list" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-rose-900 pb-2">
+                                    <h4 class="font-serif text-lg font-bold text-white">Danh Sách Ang Mắm (Bấm vào từng Ang để mở Trợ Lý Nhật Ký & Mã QR)</h4>
+                                    <span class="text-xs font-mono text-emerald-400"><i class="fa-solid fa-hand-pointer mr-1"></i>Chọn Ang để cập nhật giai đoạn</span>
+                                </div>
+                                <div id="artisan-vat-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                             </div>
                         </div>
                     </div>
@@ -1207,55 +1296,86 @@
             document.getElementById('cb-s1-note').value = ratioStr;
         }
 
-        // --- DỮ LIỆU 3 GIAI ĐOẠN & CHỌN CÁ MUỐI ---
-        const defaultStageConfig = {
-            fishType: "Cá Nục & Cá Cơm",
-            fishKg: 850,
-            saltType: "Muối Bạch Long",
-            saltKg: 150,
-            fishWeight: "850 kg Cá Nục & Cá Cơm",
-            saltWeight: "150 kg Muối Bạch Long",
-            fishImg: "DSC_0055.JPG",
-            saltImg: "DSC_0032.JPG",
-            stage1: {
-                name: "Giai đoạn 1: Vào Chượp Ang Sành",
-                start: "2025-01-10",
-                end: "2025-03-10",
-                fishPct: 85,
-                saltPct: 15,
-                otherPct: 0,
-                otherName: "",
-                img: "DSC_0055.JPG",
-                note: "Trộn 85% cá : 15% muối hạt, ủ kín lên men ban đầu trong ang sành."
-            },
-            stage2: {
-                name: "Giai đoạn 2: Phơi Nắng & Đánh Đảo",
-                start: "2025-03-11",
-                end: "2026-01-15",
-                img: "DSC_0085.JPG",
-                note: "Mở nắp phơi nắng trực tiếp, cào đánh đảo đều tay hấp thụ bức xạ mặt trời."
-            },
-            stage3: {
-                name: "Giai đoạn 3: Lọc Cốt Mắm",
-                start: "2026-01-16",
-                end: "2026-03-01",
-                img: "DSC_0063.JPG",
-                note: "Rút nỏ qua hệ thống giỏ tre & lớp trấu truyền thống, thu cốt mắm cánh gián."
-            }
-        };
+        // --- QUẢN LÝ ĐA ANG MẮM & ĐỒNG BỘ TOÀN TRANG WEB ---
+        let activeVatId = "ANG-MANHSANH-01";
+        let currentDppOrderMode = "preorder"; // 'preorder' (cả Realtime + Biểu đồ) hoặc 'ready' (chỉ Biểu đồ)
 
-        function getStageConfig() {
-            const saved = localStorage.getItem('sc_stage_config_v2');
+        function createDefaultVatRecord(id, sauceType = "Mắm Cá Truyền Thống", fishType = "Cá Nục & Cá Cơm", startDate = "2025-01-10") {
+            return {
+                id: id,
+                sauceType: sauceType,
+                artisan: "Nghệ nhân Phạm Văn Mạnh (Mạnh Sánh)",
+                fishType: fishType,
+                fishKg: 850,
+                saltType: "Muối Bạch Long",
+                saltKg: 150,
+                fishWeight: `850 kg ${fishType}`,
+                saltWeight: "150 kg Muối Bạch Long",
+                fishImg: "DSC_0055.JPG",
+                saltImg: "DSC_0032.JPG",
+                stage1: {
+                    name: "Giai đoạn 1: Vào Chượp Ang Sành",
+                    status: "active",
+                    start: startDate,
+                    end: "2025-03-10",
+                    fishPct: 85,
+                    saltPct: 15,
+                    otherPct: 0,
+                    otherName: "",
+                    img: "DSC_0055.JPG",
+                    note: "Trộn 85% cá : 15% muối hạt, ủ kín lên men ban đầu trong ang sành."
+                },
+                stage2: {
+                    name: "Giai đoạn 2: Phơi Nắng & Đánh Đảo",
+                    status: "active",
+                    start: "2025-03-11",
+                    end: "2026-01-15",
+                    img: "DSC_0085.JPG",
+                    note: "Mở nắp phơi nắng trực tiếp, cào đánh đảo đều tay hấp thụ bức xạ mặt trời."
+                },
+                stage3: {
+                    name: "Giai đoạn 3: Lọc Cốt Mắm",
+                    status: "active",
+                    start: "2026-01-16",
+                    end: "2026-03-01",
+                    img: "DSC_0063.JPG",
+                    note: "Rút nỏ qua hệ thống giỏ tre & lớp trấu truyền thống, thu cốt mắm cánh gián."
+                }
+            };
+        }
+
+        function getAllVatsMap() {
+            const saved = localStorage.getItem('sc_all_vats_map_v1');
             if (!saved) {
-                localStorage.setItem('sc_stage_config_v2', JSON.stringify(defaultStageConfig));
-                return JSON.parse(JSON.stringify(defaultStageConfig));
+                const initMap = {
+                    "ANG-MANHSANH-01": createDefaultVatRecord("ANG-MANHSANH-01", "Mắm Cá Truyền Thống", "Cá Nục & Cá Cơm", "2025-01-10")
+                };
+                localStorage.setItem('sc_all_vats_map_v1', JSON.stringify(initMap));
+                return initMap;
             }
             const parsed = JSON.parse(saved);
-            return Object.assign({}, defaultStageConfig, parsed, {
-                stage1: Object.assign({}, defaultStageConfig.stage1, parsed.stage1 || {}),
-                stage2: Object.assign({}, defaultStageConfig.stage2, parsed.stage2 || {}),
-                stage3: Object.assign({}, defaultStageConfig.stage3, parsed.stage3 || {})
-            });
+            if (!parsed["ANG-MANHSANH-01"]) {
+                parsed["ANG-MANHSANH-01"] = createDefaultVatRecord("ANG-MANHSANH-01", "Mắm Cá Truyền Thống", "Cá Nục & Cá Cơm", "2025-01-10");
+            }
+            return parsed;
+        }
+
+        function saveAllVatsMap(mapObj) {
+            localStorage.setItem('sc_all_vats_map_v1', JSON.stringify(mapObj));
+        }
+
+        function getStageConfig(vatId = null) {
+            const targetId = (vatId || activeVatId || "ANG-MANHSANH-01").toUpperCase();
+            const mapObj = getAllVatsMap();
+            if (!mapObj[targetId]) {
+                mapObj[targetId] = createDefaultVatRecord(targetId);
+                saveAllVatsMap(mapObj);
+            }
+            const rec = mapObj[targetId];
+            if (!rec.stage1.status) rec.stage1.status = "active";
+            if (!rec.stage2.status) rec.stage2.status = "active";
+            if (!rec.stage3.status) rec.stage3.status = "active";
+            return rec;
         }
 
         function formatVNDate(yyyy_mm_dd) {
@@ -1265,38 +1385,94 @@
             return `${parts[2]}/${parts[1]}/${parts[0]}`;
         }
 
-        function syncStageConfigToUI() {
-            const cfg = getStageConfig();
+        function toggleStageInputs(stageNum) {
+            const statusVal = document.getElementById(`cb-s${stageNum}-status`).value;
+            const bodyEl = document.getElementById(`cb-s${stageNum}-body`);
+            const emptyMsgEl = document.getElementById(`cb-s${stageNum}-empty-msg`);
+            if (statusVal === 'none') {
+                bodyEl.classList.add('hidden');
+                emptyMsgEl.classList.remove('hidden');
+            } else {
+                bodyEl.classList.remove('hidden');
+                emptyMsgEl.classList.add('hidden');
+            }
+        }
+
+        function renderChatbotQRCode(vatId, sauceType) {
+            const box = document.getElementById('cb-qrcode-box');
+            if (!box) return;
+            box.innerHTML = "";
+            const url = `${window.location.href.split('?')[0]}?dpp=${vatId}`;
+            currentQRUrl = url;
+            new QRCode(box, { text: url, width: 130, height: 130, colorDark: "#54090f", colorLight: "#ffffff" });
+            const titleEl = document.getElementById('cb-qr-vat-title');
+            const subEl = document.getElementById('cb-qr-vat-sub');
+            if (titleEl) titleEl.innerText = vatId;
+            if (subEl) subEl.innerText = `${sauceType || 'Mắm Truyền Thống'} • Quét mã để mở Hộ chiếu số DPP của ang`;
+        }
+
+        function previewActiveVatDpp() {
+            toggleStageChatbox(false);
+            document.getElementById('dpp-search-input').value = activeVatId;
+            if (isArtisanLoggedIn) {
+                // Tạm mở giao diện tra cứu DPP cho nghệ nhân xem
+                document.getElementById('customer-order-wrapper').classList.remove('hidden');
+            }
+            switchMainView('passport-app');
+            switchDppTab('passport');
+            performDppLookup(activeVatId);
+        }
+
+        function syncStageConfigToUI(vatId = null) {
+            if (vatId) activeVatId = vatId.toUpperCase();
+            const cfg = getStageConfig(activeVatId);
             const fishDisplay = `${cfg.fishKg} kg ${cfg.fishType}`;
             const saltDisplay = `${cfg.saltKg} kg ${cfg.saltType}`;
             cfg.fishWeight = fishDisplay;
             cfg.saltWeight = saltDisplay;
 
-            // Cập nhật hiển thị Cá & Muối ở DPP
+            // Cập nhật thông tin DPP trên giao diện khách hàng
+            document.getElementById('dpp-res-id').innerText = cfg.id;
+            document.getElementById('iot-station-label').innerText = cfg.id;
+            const sauceTypeEl = document.getElementById('dpp-res-sauce-type');
+            if (sauceTypeEl) sauceTypeEl.innerText = cfg.sauceType || "Mắm Cá Truyền Thống";
+
             document.getElementById('dpp-fish-weight').innerText = fishDisplay;
             document.getElementById('dpp-salt-weight').innerText = saltDisplay;
             document.getElementById('dpp-fish-img').src = cfg.fishImg;
             document.getElementById('dpp-salt-img').src = cfg.saltImg;
             document.getElementById('dpp-res-fish').innerText = `${fishDisplay} + ${saltDisplay}`;
 
-            // Cập nhật 3 ảnh giai đoạn
+            // Cập nhật 3 ảnh giai đoạn ở DPP
             const s1ImgEl = document.getElementById('dpp-s1-img');
             const s2ImgEl = document.getElementById('dpp-s2-img');
             const s3ImgEl = document.getElementById('dpp-s3-img');
-            if (s1ImgEl && cfg.stage1.img) s1ImgEl.src = cfg.stage1.img;
-            if (s2ImgEl && cfg.stage2.img) s2ImgEl.src = cfg.stage2.img;
-            if (s3ImgEl && cfg.stage3.img) s3ImgEl.src = cfg.stage3.img;
+            if (s1ImgEl) s1ImgEl.src = cfg.stage1.status === 'none' ? 'https://placehold.co/300x200/2b0306/fda4af?text=Chua+Den+GD1' : (cfg.stage1.img || 'DSC_0055.JPG');
+            if (s2ImgEl) s2ImgEl.src = cfg.stage2.status === 'none' ? 'https://placehold.co/300x200/2b0306/fda4af?text=Chua+Den+GD2' : (cfg.stage2.img || 'DSC_0085.JPG');
+            if (s3ImgEl) s3ImgEl.src = cfg.stage3.status === 'none' ? 'https://placehold.co/300x200/2b0306/fda4af?text=Chua+Den+GD3' : (cfg.stage3.img || 'DSC_0063.JPG');
 
-            // Cập nhật ngày trên 3 nút Giai đoạn
-            document.getElementById('stage1-date-badge').innerText = `${formatVNDate(cfg.stage1.start)} - ${formatVNDate(cfg.stage1.end)}`;
-            document.getElementById('stage2-date-badge').innerText = `${formatVNDate(cfg.stage2.start)} - ${formatVNDate(cfg.stage2.end)}`;
-            document.getElementById('stage3-date-badge').innerText = `${formatVNDate(cfg.stage3.start)} - ${formatVNDate(cfg.stage3.end)}`;
+            // Cập nhật nhãn ngày hoặc trạng thái "Không có (Chưa đến GĐ)" trên 3 nút Giai đoạn
+            document.getElementById('stage1-date-badge').innerText = cfg.stage1.status === 'none'
+                ? "Không có (Chưa đến GĐ)"
+                : `${formatVNDate(cfg.stage1.start)} - ${formatVNDate(cfg.stage1.end)}`;
+            document.getElementById('stage2-date-badge').innerText = cfg.stage2.status === 'none'
+                ? "Không có (Chưa đến GĐ)"
+                : `${formatVNDate(cfg.stage2.start)} - ${formatVNDate(cfg.stage2.end)}`;
+            document.getElementById('stage3-date-badge').innerText = cfg.stage3.status === 'none'
+                ? "Không có (Chưa đến GĐ)"
+                : `${formatVNDate(cfg.stage3.start)} - ${formatVNDate(cfg.stage3.end)}`;
 
-            // Điền sẵn vào form Trợ lý Nghệ nhân
+            // Điền sẵn vào form Trợ lý Nghệ nhân cho đúng Ang đang chọn
+            const badgeEl = document.getElementById('cb-active-vat-badge');
+            if (badgeEl) badgeEl.innerText = `Mã Ang: ${cfg.id}`;
+            const sauceSel = document.getElementById('cb-sauce-type');
+            if (sauceSel) sauceSel.value = cfg.sauceType || "Mắm Cá Truyền Thống";
+
             renderMaterialDropdowns(cfg.fishType, cfg.saltType);
             document.getElementById('cb-fish-kg').value = cfg.fishKg;
             document.getElementById('cb-salt-kg').value = cfg.saltKg;
 
+            document.getElementById('cb-s1-status').value = cfg.stage1.status || 'active';
             document.getElementById('cb-s1-start').value = cfg.stage1.start;
             document.getElementById('cb-s1-end').value = cfg.stage1.end;
             document.getElementById('cb-s1-fish-pct').value = cfg.stage1.fishPct ?? 85;
@@ -1304,20 +1480,39 @@
             document.getElementById('cb-s1-other-pct').value = cfg.stage1.otherPct ?? 0;
             document.getElementById('cb-s1-other-name').value = cfg.stage1.otherName || "";
             document.getElementById('cb-s1-note').value = cfg.stage1.note;
+            toggleStageInputs(1);
 
+            document.getElementById('cb-s2-status').value = cfg.stage2.status || 'active';
             document.getElementById('cb-s2-start').value = cfg.stage2.start;
             document.getElementById('cb-s2-end').value = cfg.stage2.end;
             document.getElementById('cb-s2-note').value = cfg.stage2.note;
+            toggleStageInputs(2);
 
+            document.getElementById('cb-s3-status').value = cfg.stage3.status || 'active';
             document.getElementById('cb-s3-start').value = cfg.stage3.start;
             document.getElementById('cb-s3-end').value = cfg.stage3.end;
             document.getElementById('cb-s3-note').value = cfg.stage3.note;
+            toggleStageInputs(3);
 
+            renderChatbotQRCode(cfg.id, cfg.sauceType);
             updateStageBannerText();
+            loadArtisanVats();
+            renderQuickVatLinks();
+        }
+
+        function renderQuickVatLinks() {
+            const container = document.getElementById('dpp-quick-vat-links');
+            if (!container) return;
+            const mapObj = getAllVatsMap();
+            container.innerHTML = Object.values(mapObj).map(v => `
+                <button onclick="document.getElementById('dpp-search-input').value='${v.id}'; performDppLookup('${v.id}')" class="px-2.5 py-1 rounded-lg ${v.id === activeVatId ? 'bg-sc-gold text-sc-red-950 font-black' : 'bg-sc-red-900 text-rose-200 border border-rose-800'} text-[10px] cursor-pointer transition">
+                    ${v.id} (${v.sauceType && v.sauceType.includes('Tôm') ? 'Mắm Tôm' : 'Mắm Cá'})
+                </button>
+            `).join('');
         }
 
         function updateStageBannerText() {
-            const cfg = getStageConfig();
+            const cfg = getStageConfig(activeVatId);
             const titleEl = document.getElementById('stage-banner-title');
             const timeEl = document.getElementById('stage-banner-time');
             const ratioEl = document.getElementById('stage-banner-ratio');
@@ -1329,43 +1524,69 @@
                 ? ` : ${cfg.stage1.otherPct}% ${cfg.stage1.otherName || 'Nguyên liệu khác'}`
                 : '';
             if (ratioEl) {
-                ratioEl.innerHTML = `<i class="fa-solid fa-scale-balanced mr-1"></i>Tỷ lệ vào chượp: ${cfg.stage1.fishPct}% Cá (${cfg.fishType}) : ${cfg.stage1.saltPct}% Muối (${cfg.saltType})${otherPart} = 100%`;
+                ratioEl.innerHTML = `<i class="fa-solid fa-scale-balanced mr-1"></i>Loại: <strong class="text-yellow-300">${cfg.sauceType || 'Mắm Cá'}</strong> | Tỷ lệ vào chượp: ${cfg.stage1.fishPct}% (${cfg.fishType}) : ${cfg.stage1.saltPct}% (${cfg.saltType})${otherPart} = 100%`;
             }
 
             if (currentChartStage === 'stage1') {
                 titleEl.innerText = cfg.stage1.name;
-                timeEl.innerText = `${formatVNDate(cfg.stage1.start)} → ${formatVNDate(cfg.stage1.end)}`;
-                noteEl.innerText = `${cfg.stage1.note} | Khối lượng: ${cfg.fishKg} kg ${cfg.fishType} & ${cfg.saltKg} kg ${cfg.saltType}.`;
-                if (singleImgWrap && singleImgEl) {
-                    singleImgWrap.classList.remove('hidden');
-                    singleImgEl.src = cfg.stage1.img || "DSC_0055.JPG";
+                if (cfg.stage1.status === 'none') {
+                    timeEl.innerText = "Trạng thái: Không có (Chưa đến giai đoạn này)";
+                    noteEl.innerText = "Ang mắm này hiện chưa bước vào hoặc chưa cập nhật dữ liệu cho Giai đoạn 1.";
+                    if (singleImgWrap) singleImgWrap.classList.add('hidden');
+                } else {
+                    timeEl.innerText = `${formatVNDate(cfg.stage1.start)} → ${formatVNDate(cfg.stage1.end)}`;
+                    noteEl.innerText = `${cfg.stage1.note} | Khối lượng: ${cfg.fishKg} kg ${cfg.fishType} & ${cfg.saltKg} kg ${cfg.saltType}.`;
+                    if (singleImgWrap && singleImgEl) {
+                        singleImgWrap.classList.remove('hidden');
+                        singleImgEl.src = cfg.stage1.img || "DSC_0055.JPG";
+                    }
                 }
             } else if (currentChartStage === 'stage2') {
                 titleEl.innerText = cfg.stage2.name;
-                timeEl.innerText = `${formatVNDate(cfg.stage2.start)} → ${formatVNDate(cfg.stage2.end)}`;
-                noteEl.innerText = cfg.stage2.note;
-                if (singleImgWrap && singleImgEl) {
-                    singleImgWrap.classList.remove('hidden');
-                    singleImgEl.src = cfg.stage2.img || "DSC_0085.JPG";
+                if (cfg.stage2.status === 'none') {
+                    timeEl.innerText = "Trạng thái: Không có (Chưa đến giai đoạn này)";
+                    noteEl.innerText = "Ang mắm này hiện chưa đến giai đoạn Phơi nắng & Đánh đảo (Trạng thái: Không có).";
+                    if (singleImgWrap) singleImgWrap.classList.add('hidden');
+                } else {
+                    timeEl.innerText = `${formatVNDate(cfg.stage2.start)} → ${formatVNDate(cfg.stage2.end)}`;
+                    noteEl.innerText = cfg.stage2.note;
+                    if (singleImgWrap && singleImgEl) {
+                        singleImgWrap.classList.remove('hidden');
+                        singleImgEl.src = cfg.stage2.img || "DSC_0085.JPG";
+                    }
                 }
             } else if (currentChartStage === 'stage3') {
                 titleEl.innerText = cfg.stage3.name;
-                timeEl.innerText = `${formatVNDate(cfg.stage3.start)} → ${formatVNDate(cfg.stage3.end)}`;
-                noteEl.innerText = cfg.stage3.note;
-                if (singleImgWrap && singleImgEl) {
-                    singleImgWrap.classList.remove('hidden');
-                    singleImgEl.src = cfg.stage3.img || "DSC_0063.JPG";
+                if (cfg.stage3.status === 'none') {
+                    timeEl.innerText = "Trạng thái: Không có (Chưa đến giai đoạn này)";
+                    noteEl.innerText = "Ang mắm này hiện chưa đến giai đoạn Lọc cốt mắm (Trạng thái: Không có).";
+                    if (singleImgWrap) singleImgWrap.classList.add('hidden');
+                } else {
+                    timeEl.innerText = `${formatVNDate(cfg.stage3.start)} → ${formatVNDate(cfg.stage3.end)}`;
+                    noteEl.innerText = cfg.stage3.note;
+                    if (singleImgWrap && singleImgEl) {
+                        singleImgWrap.classList.remove('hidden');
+                        singleImgEl.src = cfg.stage3.img || "DSC_0063.JPG";
+                    }
                 }
             } else {
-                titleEl.innerText = "Tổng hợp cả 3 giai đoạn: Vào chượp → Phơi nắng đánh đảo → Lọc cốt mắm";
-                timeEl.innerText = `${formatVNDate(cfg.stage1.start)} → ${formatVNDate(cfg.stage3.end)}`;
-                noteEl.innerText = `Nguyên liệu: ${cfg.fishKg} kg ${cfg.fishType} + ${cfg.saltKg} kg ${cfg.saltType}. Nhấp vào từng giai đoạn phía trên để xem chi tiết.`;
+                const activeStages = [
+                    cfg.stage1.status !== 'none' ? 'GĐ1: Vào chượp' : 'GĐ1: Không có',
+                    cfg.stage2.status !== 'none' ? 'GĐ2: Phơi đảo' : 'GĐ2: Không có',
+                    cfg.stage3.status !== 'none' ? 'GĐ3: Lọc cốt' : 'GĐ3: Không có'
+                ].join(' → ');
+                titleEl.innerText = `Tổng hợp quy trình Ang ${cfg.id}: ${activeStages}`;
+                timeEl.innerText = `${cfg.sauceType || 'Mắm Truyền Thống'}`;
+                noteEl.innerText = `Nguyên liệu: ${cfg.fishKg} kg ${cfg.fishType} + ${cfg.saltKg} kg ${cfg.saltType}. Bấm vào từng giai đoạn phía trên để kiểm tra chi tiết.`;
                 if (singleImgWrap) singleImgWrap.classList.add('hidden');
             }
         }
 
         // --- XỬ LÝ TRỢ LÝ BIỂU MẪU CỦA NGHỆ NHÂN ---
-        function toggleStageChatbox(forceOpen = null) {
+        function toggleStageChatbox(forceOpen = null, vatId = null) {
+            if (vatId) {
+                syncStageConfigToUI(vatId);
+            }
             const panel = document.getElementById('stage-chatbox-panel');
             if (forceOpen === true) {
                 panel.classList.remove('hidden');
@@ -1376,24 +1597,30 @@
             }
         }
 
+        function openVatInChatbot(vatId) {
+            syncStageConfigToUI(vatId);
+            toggleStageChatbox(true);
+        }
+
         function openArtisanChatboxFromChart() {
             if (!isArtisanLoggedIn) {
                 alert("Vui lòng đăng nhập tài khoản Nghệ nhân (SĐT: 0988888888 / MK: 123456) để mở Trợ Lý Biểu Mẫu cập nhật nhật ký 3 giai đoạn!");
                 openAuthModal('login');
                 return;
             }
-            toggleStageChatbox(true);
+            toggleStageChatbox(true, activeVatId);
         }
 
         async function handleChatboxStageSubmit(e) {
             e.preventDefault();
-            const cfg = getStageConfig();
+            const mapObj = getAllVatsMap();
+            const cfg = getStageConfig(activeVatId);
 
             // 1. Kiểm tra Loại Cá ("Khác" -> lưu vào danh sách dùng cho các lần sau)
             let chosenFishType = document.getElementById('cb-fish-type-select').value;
             if (chosenFishType === '__other__') {
                 const customFish = document.getElementById('cb-fish-custom-input').value.trim();
-                if (!customFish) return alert("Vui lòng nhập tên loại cá ở mục Khác!");
+                if (!customFish) return alert("Vui lòng nhập tên loại cá/tôm ở mục Khác!");
                 chosenFishType = customFish;
                 const savedFish = getSavedFishTypes();
                 if (!savedFish.includes(customFish)) {
@@ -1415,6 +1642,7 @@
                 }
             }
 
+            cfg.sauceType = document.getElementById('cb-sauce-type').value;
             cfg.fishType = chosenFishType;
             cfg.fishKg = parseFloat(document.getElementById('cb-fish-kg').value) || 0;
             cfg.saltType = chosenSaltType;
@@ -1428,7 +1656,8 @@
             if (fishFile) cfg.fishImg = await compressImage(fishFile);
             if (saltFile) cfg.saltImg = await compressImage(saltFile);
 
-            // Giai đoạn 1 + Tỷ lệ % + Ảnh GĐ1
+            // Giai đoạn 1 + Trạng thái + Tỷ lệ % + Ảnh GĐ1
+            cfg.stage1.status = document.getElementById('cb-s1-status').value;
             cfg.stage1.start = document.getElementById('cb-s1-start').value;
             cfg.stage1.end = document.getElementById('cb-s1-end').value;
             cfg.stage1.fishPct = parseFloat(document.getElementById('cb-s1-fish-pct').value) || 0;
@@ -1439,38 +1668,41 @@
             const s1File = document.getElementById('cb-s1-img').files[0];
             if (s1File) cfg.stage1.img = await compressImage(s1File);
 
-            // Giai đoạn 2 + Ảnh GĐ2
+            // Giai đoạn 2 + Trạng thái + Ảnh GĐ2
+            cfg.stage2.status = document.getElementById('cb-s2-status').value;
             cfg.stage2.start = document.getElementById('cb-s2-start').value;
             cfg.stage2.end = document.getElementById('cb-s2-end').value;
             cfg.stage2.note = document.getElementById('cb-s2-note').value;
             const s2File = document.getElementById('cb-s2-img').files[0];
             if (s2File) cfg.stage2.img = await compressImage(s2File);
 
-            // Giai đoạn 3 + Ảnh GĐ3
+            // Giai đoạn 3 + Trạng thái + Ảnh GĐ3
+            cfg.stage3.status = document.getElementById('cb-s3-status').value;
             cfg.stage3.start = document.getElementById('cb-s3-start').value;
             cfg.stage3.end = document.getElementById('cb-s3-end').value;
             cfg.stage3.note = document.getElementById('cb-s3-note').value;
             const s3File = document.getElementById('cb-s3-img').files[0];
             if (s3File) cfg.stage3.img = await compressImage(s3File);
 
-            localStorage.setItem('sc_stage_config_v2', JSON.stringify(cfg));
-            syncStageConfigToUI();
+            mapObj[activeVatId] = cfg;
+            saveAllVatsMap(mapObj);
+
+            syncStageConfigToUI(activeVatId);
             renderIotChart();
 
             const logBox = document.getElementById('chatbox-log-messages');
             const timeStr = new Date().toLocaleTimeString('vi-VN');
             logBox.insertAdjacentHTML('afterbegin', `
                 <div class="bg-emerald-950/90 p-3.5 rounded-2xl border-2 border-emerald-500/60 text-emerald-200 text-xs sm:text-sm space-y-1">
-                    <strong><i class="fa-solid fa-check-circle mr-1.5"></i>Đã lưu nhật ký lúc ${timeStr}:</strong>
-                    <div>• Cá & Muối: <strong>${cfg.fishWeight}</strong> | <strong>${cfg.saltWeight}</strong></div>
-                    <div>• Tỷ lệ vào chượp: <strong>${cfg.stage1.fishPct}% Cá : ${cfg.stage1.saltPct}% Muối${cfg.stage1.otherPct > 0 ? ' : ' + cfg.stage1.otherPct + '% ' + (cfg.stage1.otherName || 'Khác') : ''} (Tổng 100%)</strong></div>
-                    <div>• Thời gian 3 GĐ: GĐ1 (${formatVNDate(cfg.stage1.start)}-${formatVNDate(cfg.stage1.end)}) | GĐ2 (${formatVNDate(cfg.stage2.start)}-${formatVNDate(cfg.stage2.end)}) | GĐ3 (${formatVNDate(cfg.stage3.start)}-${formatVNDate(cfg.stage3.end)})</div>
+                    <strong><i class="fa-solid fa-check-circle mr-1.5"></i>Đã đồng bộ Ang [${cfg.id}] (${cfg.sauceType}) lúc ${timeStr}:</strong>
+                    <div>• Nguyên liệu: <strong>${cfg.fishWeight}</strong> | <strong>${cfg.saltWeight}</strong></div>
+                    <div>• GĐ1: ${cfg.stage1.status === 'none' ? 'Không có (Chưa đến)' : formatVNDate(cfg.stage1.start) + ' - ' + formatVNDate(cfg.stage1.end)} | GĐ2: ${cfg.stage2.status === 'none' ? 'Không có (Chưa đến)' : formatVNDate(cfg.stage2.start) + ' - ' + formatVNDate(cfg.stage2.end)} | GĐ3: ${cfg.stage3.status === 'none' ? 'Không có (Chưa đến)' : formatVNDate(cfg.stage3.start) + ' - ' + formatVNDate(cfg.stage3.end)}</div>
                 </div>
             `);
-            alert("✅ Đã lưu thành công! Các lựa chọn mới, tỷ lệ 100% và hình ảnh từng giai đoạn đã được cập nhật lên Hộ chiếu số DPP.");
+            alert(`✅ Đã lưu và đồng bộ dữ liệu của Ang [${cfg.id}] (${cfg.sauceType}) trên toàn trang web!`);
         }
 
-        // --- TÁCH MỤC MUA HÀNG THÀNH 2 PHẦN: ĐẶT TRƯỚC (REALTIME) & THÀNH PHẨM (BIỂU ĐỒ) ---
+        // --- TÁCH MỤC MUA HÀNG THÀNH 2 PHẦN: ĐẶT TRƯỚC (CÓ CẢ REALTIME & BIỂU ĐỒ) vs ĐÓNG SẴN (CHỈ CÓ BIỂU ĐỒ) ---
         function selectOrderMode(mode) {
             currentOrderMode = mode;
             const cardPre = document.getElementById('mode-card-preorder');
@@ -1491,13 +1723,13 @@
                 iconReady.className = "fa-regular fa-circle text-rose-400 text-lg";
                 heading.innerText = "1. Chọn Sản Phẩm & Đặt Mắm Theo Yêu Cầu";
                 badge.className = "px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/50 font-mono text-xs font-bold";
-                badge.innerText = "Đặt Theo Yêu Cầu • Realtime";
+                badge.innerText = "Đặt Trước • Realtime + Biểu Đồ";
                 desc.className = "text-xs font-mono text-emerald-300 mb-4 bg-sc-red-950 p-3 rounded-xl border border-emerald-500/40";
-                desc.innerHTML = `<i class="fa-solid fa-sliders mr-1"></i> Đặt Mắm Theo Yêu Cầu: Tùy chọn thông số độ đục, màu mắm, độ mặn, mùi thơm/hôi và theo dõi <strong>Realtime</strong>.`;
+                desc.innerHTML = `<i class="fa-solid fa-sliders mr-1"></i> Đặt Mắm Theo Yêu Cầu: Tùy chọn thông số độ đục, màu mắm, độ mặn, mùi thơm/hôi và mở khóa <strong>cả Realtime lẫn Biểu Đồ 3 Giai Đoạn</strong>.`;
                 extraPre.classList.remove('hidden');
-                typeLabel.innerText = "Đặt Mắm Theo Yêu Cầu (Realtime)";
+                typeLabel.innerText = "Đặt Mắm Theo Yêu Cầu (Realtime + Biểu Đồ)";
                 typeLabel.className = "text-emerald-400 font-bold";
-                submitBtn.innerText = "Xác Nhận Đặt Mắm Theo Yêu Cầu & Mở Realtime";
+                submitBtn.innerText = "Xác Nhận Đặt Mắm Theo Yêu Cầu (Mở Realtime & Biểu Đồ)";
             } else {
                 cardReady.className = "p-5 rounded-3xl border-2 border-sc-gold bg-sc-red-950 text-left transition flex items-start gap-4 shadow-xl cursor-pointer";
                 cardPre.className = "p-5 rounded-3xl border border-rose-800 bg-sc-red-900/50 text-left transition flex items-start gap-4 hover:border-sc-gold/60 cursor-pointer";
@@ -1505,11 +1737,11 @@
                 iconPre.className = "fa-regular fa-circle text-rose-400 text-lg";
                 heading.innerText = "2. Chọn Đặt Mắm Thành Phẩm (Đóng Chai Sẵn)";
                 badge.className = "px-3 py-1 rounded-full bg-amber-950 text-amber-300 border border-amber-500/50 font-mono text-xs font-bold";
-                badge.innerText = "Đặt Mắm Thành Phẩm • Biểu Đồ 3 GĐ";
+                badge.innerText = "Đơn Đóng Sẵn • Chỉ Có Biểu Đồ";
                 desc.className = "text-xs font-mono text-amber-200 mb-4 bg-sc-red-950 p-3 rounded-xl border border-amber-500/40";
-                desc.innerHTML = `<i class="fa-solid fa-chart-line mr-1"></i> Đặt Mắm Thành Phẩm: Hiển thị <strong>Biểu Đồ 3 Giai Đoạn</strong> (Vào chượp, Phơi nắng đánh đảo, Lọc cốt) để theo dõi lại.`;
+                desc.innerHTML = `<i class="fa-solid fa-chart-line mr-1"></i> Đặt Mắm Thành Phẩm Đóng Sẵn: <strong>Chỉ hiển thị Biểu Đồ 3 Giai Đoạn</strong> (Vào chượp, Phơi nắng đánh đảo, Lọc cốt) để theo dõi lại.`;
                 extraPre.classList.add('hidden');
-                typeLabel.innerText = "Đặt Mắm Thành Phẩm (Biểu Đồ)";
+                typeLabel.innerText = "Đặt Mắm Thành Phẩm (Chỉ Biểu Đồ)";
                 typeLabel.className = "text-amber-300 font-bold";
                 submitBtn.innerText = "Đặt Mua Thành Phẩm & Xem Biểu Đồ 3 Giai Đoạn";
             }
@@ -1527,23 +1759,32 @@
         }
 
         function simulateOrderLookup(mode) {
+            currentDppOrderMode = mode;
             const pill = document.getElementById('dpp-order-mode-pill');
             const orderTypeEl = document.getElementById('dpp-res-order-type');
             const subEl = document.getElementById('iot-mode-subtitle');
+            const btnRealtime = document.getElementById('btn-iot-realtime');
+            const btnChart = document.getElementById('btn-iot-chart');
 
             if (mode === 'preorder') {
+                // Đơn đặt trước: Hiển thị CẢ Realtime VÀ Biểu đồ
+                btnRealtime.classList.remove('hidden');
+                btnChart.classList.remove('hidden');
                 pill.className = "px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono uppercase font-bold";
-                pill.innerText = "Đơn Đặt Hàng Trước • Theo Dõi Realtime";
-                orderTypeEl.innerText = "Đơn Đặt Hàng Trước (Hiển thị Realtime)";
+                pill.innerText = "Đơn Đặt Hàng Trước • Có Cả Realtime & Biểu Đồ";
+                orderTypeEl.innerText = "Đơn Đặt Hàng Trước (Theo dõi Realtime + Biểu Đồ)";
                 orderTypeEl.className = "text-emerald-400";
-                subEl.innerText = "Đơn Đặt Trước: Hiển thị thông số cảm biến Realtime trực tiếp từ ang mắm.";
+                subEl.innerText = "Đơn Đặt Trước: Khách hàng xem được cả thông số cảm biến Realtime lẫn Biểu đồ 3 giai đoạn.";
                 switchIotSubTab('realtime');
             } else {
+                // Đơn đóng sẵn: CHỈ có Biểu đồ, ẩn nút Realtime
+                btnRealtime.classList.add('hidden');
+                btnChart.classList.remove('hidden');
                 pill.className = "px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono uppercase font-bold";
-                pill.innerText = "Đơn Đã Thành Phẩm • Theo Dõi Lại Biểu Đồ 3 Giai Đoạn";
-                orderTypeEl.innerText = "Đơn Đóng Sẵn Thành Phẩm (Hiển thị Biểu Đồ 3 GĐ)";
+                pill.innerText = "Đơn Thành Phẩm Đóng Sẵn • Chỉ Hiển Thị Biểu Đồ 3 Giai Đoạn";
+                orderTypeEl.innerText = "Đơn Đóng Sẵn Thành Phẩm (Chỉ Hiển Thị Biểu Đồ 3 GĐ)";
                 orderTypeEl.className = "text-amber-300";
-                subEl.innerText = "Đơn Thành Phẩm: Hiển thị biểu đồ lịch sử 3 giai đoạn (Vào chượp, Phơi nắng đánh đảo, Lọc cốt).";
+                subEl.innerText = "Đơn Thành Phẩm Đóng Sẵn: Chỉ hiển thị Biểu đồ lịch sử 3 giai đoạn để theo dõi lại.";
                 switchIotSubTab('chart');
             }
         }
@@ -1755,7 +1996,7 @@
             const phone = document.getElementById('chk-phone').value;
             const address = document.getElementById('chk-address').value;
             let note = document.getElementById('chk-note').value;
-            const orderCode = 'ANG-MANHSANH-01';
+            const orderCode = activeVatId || 'ANG-MANHSANH-01';
 
             let customSpecSummary = "";
             if (currentOrderMode === 'preorder') {
@@ -1769,15 +2010,15 @@
             }
 
             const orderTypeDesc = currentOrderMode === 'preorder'
-                ? `Đặt Mắm Theo Yêu Cầu (Realtime)`
-                : `Đặt Mắm Thành Phẩm (Biểu Đồ 3 Giai Đoạn)`;
+                ? `Đặt Mắm Theo Yêu Cầu (Realtime + Biểu Đồ)`
+                : `Đặt Mắm Thành Phẩm (Chỉ Biểu Đồ 3 Giai Đoạn)`;
 
             const payload = {
                 timestamp: new Date().toLocaleString('vi-VN'),
                 orderCode: orderCode,
                 artisanName: "Nghệ Nhân Phạm Văn Mạnh",
                 artisanFacility: "Cơ sở Mạnh Sánh",
-                iotNode: "ANG-MANHSANH-01",
+                iotNode: orderCode,
                 customerName: name,
                 phone: phone,
                 city: "Nam Định",
@@ -1787,7 +2028,7 @@
                 shipping: 30000,
                 total: subtotal + 30000,
                 note: note,
-                status: currentOrderMode === 'preorder' ? "Đặt trước - Đang ủ Realtime" : "Thành phẩm - Đã đóng chai"
+                status: currentOrderMode === 'preorder' ? "Đặt trước - Realtime & Biểu đồ" : "Thành phẩm - Chỉ Biểu đồ"
             };
 
             try {
@@ -1800,15 +2041,15 @@
             } catch (err) { console.log(err); }
 
             if (currentOrderMode === 'preorder') {
-                alert(`🎉 ĐẶT HÀNG TRƯỚC THÀNH CÔNG!
+                alert(`🎉 ĐẶT MẮM THEO YÊU CẦU THÀNH CÔNG!
 Khách hàng: ${name}
 Mã DPP: ${orderCode}
-Hệ thống sẽ mở trực tiếp Bảng Thông Số Cảm Biến REALTIME của ang mắm!`);
+Hệ thống sẽ mở cả Bảng Thông Số REALTIME và BIỂU ĐỒ của ang mắm!`);
             } else {
                 alert(`🎉 ĐẶT ĐƠN THÀNH PHẨM THÀNH CÔNG!
 Khách hàng: ${name}
 Mã DPP: ${orderCode}
-Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô mắm!`);
+Hệ thống sẽ mở BIỂU ĐỒ LỊCH SỬ 3 GIAI ĐOẠN (Đơn đóng sẵn chỉ hiển thị Biểu đồ)!`);
             }
 
             document.getElementById('dpp-search-input').value = orderCode;
@@ -2010,6 +2251,10 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
         }
 
         function switchIotSubTab(subTab) {
+            // Nếu đơn đóng sẵn (ready) thì chỉ cho phép xem Biểu đồ
+            if (currentDppOrderMode === 'ready' && subTab === 'realtime') {
+                subTab = 'chart';
+            }
             const realtimePane = document.getElementById('iot-pane-realtime');
             const chartPane = document.getElementById('iot-pane-chart');
             const btnRealtime = document.getElementById('btn-iot-realtime');
@@ -2024,7 +2269,7 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
                 realtimePane.classList.add('hidden');
                 chartPane.classList.remove('hidden');
                 btnChart.className = "px-3.5 py-1.5 rounded-lg bg-sc-gold text-sc-red-950 font-mono font-black text-xs transition cursor-pointer";
-                btnRealtime.className = "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer";
+                btnRealtime.className = (currentDppOrderMode === 'ready' ? "hidden " : "") + "px-3.5 py-1.5 rounded-lg text-rose-200 hover:text-white font-mono font-bold text-xs transition cursor-pointer";
                 renderIotChart();
             }
         }
@@ -2057,44 +2302,48 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
             renderIotChart();
         }
 
-        // Chia dữ liệu thành 3 giai đoạn (Theo ngày cấu hình của Nghệ nhân hoặc chia đều tập dữ liệu Sheet thành 3 phân đoạn)
         function getStageFilteredRows(rows) {
             if (!rows || rows.length === 0) return [];
-            if (currentChartStage === 'all') return rows;
+            const cfg = getStageConfig(activeVatId);
 
-            const cfg = getStageConfig();
-            const stCfg = cfg[currentChartStage];
-            if (stCfg && stCfg.start && stCfg.end) {
-                const startTs = new Date(stCfg.start + "T00:00:00").getTime();
-                const endTs = new Date(stCfg.end + "T23:59:59").getTime();
-                const byDate = rows.filter(r => {
-                    const t = r.dateObj.getTime();
-                    return t >= startTs && t <= endTs;
-                });
-                if (byDate.length > 0) return byDate;
+            if (currentChartStage !== 'all') {
+                const stCfg = cfg[currentChartStage];
+                // Nếu giai đoạn được đánh dấu là "none" (Chưa đến giai đoạn đó) -> Trả về mảng rỗng (Không có dữ liệu)
+                if (!stCfg || stCfg.status === 'none') {
+                    return [];
+                }
+                if (stCfg.start && stCfg.end) {
+                    const startTs = new Date(stCfg.start + "T00:00:00").getTime();
+                    const endTs = new Date(stCfg.end + "T23:59:59").getTime();
+                    const byDate = rows.filter(r => {
+                        const t = r.dateObj.getTime();
+                        return t >= startTs && t <= endTs;
+                    });
+                    if (byDate.length > 0) return byDate;
+                }
+                const third = Math.max(1, Math.floor(rows.length / 3));
+                if (currentChartStage === 'stage1') return rows.slice(0, third);
+                if (currentChartStage === 'stage2') return rows.slice(third, third * 2);
+                return rows.slice(third * 2);
             }
 
-            // Nếu dữ liệu Sheet thực tế nằm trong cùng 1 ngày test, tự động chia 3 phần tương ứng 3 giai đoạn để biểu đồ luôn trực quan
+            // Khi chọn 'all', chỉ gộp những giai đoạn có trạng thái !== 'none'
             const third = Math.max(1, Math.floor(rows.length / 3));
-            if (currentChartStage === 'stage1') return rows.slice(0, third);
-            if (currentChartStage === 'stage2') return rows.slice(third, third * 2);
-            return rows.slice(third * 2);
+            let combined = [];
+            if (cfg.stage1.status !== 'none') combined = combined.concat(rows.slice(0, third).map(r => Object.assign({}, r, { _stageTag: "[GĐ1: Vào chượp] " })));
+            if (cfg.stage2.status !== 'none') combined = combined.concat(rows.slice(third, third * 2).map(r => Object.assign({}, r, { _stageTag: "[GĐ2: Phơi đảo] " })));
+            if (cfg.stage3.status !== 'none') combined = combined.concat(rows.slice(third * 2).map(r => Object.assign({}, r, { _stageTag: "[GĐ3: Lọc cốt] " })));
+            return combined;
         }
 
         function aggregateDataByPeriod(rows, period) {
             const filtered = getStageFilteredRows(rows);
-            if (!filtered || filtered.length === 0) return { labels: [], tempAng: [], salinity: [], turbidity: [], airTemp: [], airHumi: [] };
+            if (!filtered || filtered.length === 0) return { labels: ["Chưa đến giai đoạn này (Không có dữ liệu)"], tempAng: [0], salinity: [0], turbidity: [0], airTemp: [0], airHumi: [0] };
 
             const groups = {};
-            const total = filtered.length;
-            filtered.forEach((r, idx) => {
+            filtered.forEach((r) => {
                 const d = r.dateObj;
-                let stageTag = "";
-                if (currentChartStage === 'all') {
-                    if (idx < total / 3) stageTag = "[GĐ1: Vào chượp] ";
-                    else if (idx < (total * 2) / 3) stageTag = "[GĐ2: Phơi đảo] ";
-                    else stageTag = "[GĐ3: Lọc cốt] ";
-                }
+                const stageTag = r._stageTag || "";
 
                 let key = "";
                 if (period === 'day') {
@@ -2216,11 +2465,14 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
                     ? "px-4 py-2 rounded-xl bg-sc-gold text-sc-red-950 font-bold text-xs shadow transition cursor-pointer"
                     : "px-4 py-2 rounded-xl bg-sc-red-950 text-rose-200 border border-rose-700 font-bold text-xs hover:text-white transition cursor-pointer";
             });
+            if (tab === 'vats') loadArtisanVats();
         }
 
         function handlePrimaryActionClick(prodId = null) {
             switchMainView('passport-app');
             if (isArtisanLoggedIn) {
+                document.getElementById('customer-order-wrapper').classList.add('hidden');
+                document.getElementById('artisan-dashboard-wrapper').classList.remove('hidden');
                 switchArtisanTab('products');
                 if (prodId) editProduct(prodId);
             } else {
@@ -2228,6 +2480,7 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
             }
         }
 
+        // --- HỘP THOẠI TÀI KHOẢN: CHO PHÉP BẤM VÀO MỤC TÀI KHOẢN ĐỂ ĐĂNG XUẤT & ĐĂNG NHẬP TÀI KHOẢN KHÁC ---
         function openAuthModal(mode = 'login') {
             document.getElementById('auth-modal').classList.remove('hidden');
             document.getElementById('login-error').classList.add('hidden');
@@ -2236,6 +2489,13 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
 
         function closeAuthModal() {
             document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function handleAccountBadgeClick() {
+            if (confirm("Bạn muốn Đăng Xuất khỏi tài khoản hiện tại để chuyển sang Đăng Nhập tài khoản khác?")) {
+                logoutUser();
+                openAuthModal('login');
+            }
         }
 
         function switchLoginReg(mode) {
@@ -2303,8 +2563,20 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
 
             if (found) {
                 closeAuthModal();
-                if (found.role === 'artisan') activateArtisanMode(found.name);
-                else alert(`Xin chào khách hàng ${found.name}!`);
+                if (found.role === 'artisan') {
+                    activateArtisanMode(found.name);
+                } else {
+                    isArtisanLoggedIn = false;
+                    document.getElementById('auth-nav-container').innerHTML = `
+                        <button onclick="handleAccountBadgeClick()" title="Bấm để Đăng xuất hoặc Đổi tài khoản khác" class="px-3 py-1.5 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 border border-sc-gold text-xs flex items-center gap-2 cursor-pointer transition">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            <div class="text-left">
+                                <strong class="text-white block text-[11px]">KH: ${found.name}</strong>
+                                <span class="text-[9px] text-amber-300"><i class="fa-solid fa-right-from-bracket mr-0.5"></i>Đổi TK / Đăng xuất</span>
+                            </div>
+                        </button>`;
+                    alert(`Xin chào khách hàng ${found.name}! (Bạn có thể bấm vào tên tài khoản trên thanh menu để đăng xuất hoặc đổi tài khoản khác).`);
+                }
             } else {
                 document.getElementById('login-error').classList.remove('hidden');
             }
@@ -2320,20 +2592,22 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
             artDash.classList.remove('hidden');
             artDash.classList.add('block');
 
-            // Hiển thị Chatbox Biểu mẫu cho Nghệ nhân ở góc trái dưới
             const chatboxWrapper = document.getElementById('artisan-stage-chatbox-wrapper');
             chatboxWrapper.classList.remove('hidden');
-            toggleStageChatbox(true);
 
             document.getElementById('nav-primary-text').innerText = "Quản Lý Cửa Hàng";
             document.getElementById('nav-primary-text-mobile').innerText = "Quản Lý";
             document.getElementById('nav-primary-icon').className = "fa-solid fa-shop";
 
+            // Bấm vào mục Tài khoản của Nghệ nhân cũng cho phép Đăng xuất & Đăng nhập tài khoản khác
             document.getElementById('auth-nav-container').innerHTML = `
-                <div class="px-3 py-1.5 rounded-xl bg-sc-red-950 border border-sc-gold text-xs flex items-center gap-2">
+                <button onclick="handleAccountBadgeClick()" title="Bấm để Đăng xuất hoặc Đăng nhập tài khoản khác" class="px-3 py-1.5 rounded-xl bg-sc-red-950 hover:bg-sc-red-850 border border-sc-gold text-xs flex items-center gap-2 cursor-pointer transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    <div><strong class="text-white block text-[11px]">Nghệ Nhân ${name}</strong><span class="text-[9px] text-sc-gold">Mạnh Sánh</span></div>
-                </div>`;
+                    <div class="text-left">
+                        <strong class="text-white block text-[11px]">Nghệ Nhân ${name}</strong>
+                        <span class="text-[9px] text-sc-gold"><i class="fa-solid fa-right-from-bracket mr-1"></i>Đổi TK / Đăng xuất</span>
+                    </div>
+                </button>`;
 
             renderAllProducts();
             loadArtisanVats();
@@ -2347,6 +2621,7 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
             document.getElementById('customer-order-wrapper').classList.remove('hidden');
             document.getElementById('customer-tabs-container').classList.remove('hidden');
             document.getElementById('artisan-stage-chatbox-wrapper').classList.add('hidden');
+            toggleStageChatbox(false);
 
             document.getElementById('nav-primary-text').innerText = "Đặt Mua Mắm";
             document.getElementById('nav-primary-text-mobile').innerText = "Mua";
@@ -2362,43 +2637,80 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
             switchMainView('home');
         }
 
+        function syncVatFishOptions() {
+            const sauceType = document.getElementById('vat-sauce-type').value;
+            const fishSel = document.getElementById('vat-fish');
+            if (!fishSel) return;
+            if (sauceType.includes('Tôm')) {
+                fishSel.value = "Tôm Chà Biển (Mắm Tôm)";
+            } else {
+                fishSel.value = "Cá Nục Than";
+            }
+        }
+
         function handleCreateVat(e) {
             e.preventDefault();
             const vatId = document.getElementById('vat-id').value.trim().toUpperCase();
+            const sauceType = document.getElementById('vat-sauce-type').value;
             const fish = document.getElementById('vat-fish').value;
-            const date = document.getElementById('vat-date').value;
+            const date = document.getElementById('vat-date').value || "2026-01-01";
 
-            let vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
-            vats.push({ id: vatId, fish, date, artisan: "Nghệ nhân Phạm Văn Mạnh" });
-            localStorage.setItem('sc_vats', JSON.stringify(vats));
+            const mapObj = getAllVatsMap();
+            const newRec = createDefaultVatRecord(vatId, sauceType, fish, date);
+            // Mặc định ang mới tạo đang ở GĐ1, còn GĐ2 và GĐ3 để trạng thái 'none' (Chưa đến giai đoạn đó) để nghệ nhân cập nhật dần
+            newRec.stage1.status = "active";
+            newRec.stage1.start = date;
+            newRec.stage2.status = "none";
+            newRec.stage3.status = "none";
+
+            mapObj[vatId] = newRec;
+            saveAllVatsMap(mapObj);
 
             document.getElementById('qr-empty-state').classList.add('hidden');
             document.getElementById('qr-result-state').classList.remove('hidden');
-            document.getElementById('qr-vat-display').innerText = vatId;
+            document.getElementById('qr-vat-display').innerText = `${vatId} (${sauceType})`;
 
             const container = document.getElementById('qrcode-container');
             container.innerHTML = "";
             currentQRUrl = `${window.location.href.split('?')[0]}?dpp=${vatId}`;
             new QRCode(container, { text: currentQRUrl, width: 150, height: 150, colorDark: "#54090f", colorLight: "#ffffff" });
-            loadArtisanVats();
+
+            syncStageConfigToUI(vatId);
+            alert(`✅ Đã tạo Ang [${vatId}] (${sauceType}) và phát hành Mã QR!
+Bây giờ bạn có thể bấm vào Ang trong Danh Sách bên dưới để mở Bảng Trợ Lý nhập thông tin 3 giai đoạn.`);
         }
 
         function loadArtisanVats() {
-            let vats = JSON.parse(localStorage.getItem('sc_vats') || '[]');
             const listEl = document.getElementById('artisan-vat-list');
             if (!listEl) return;
-            if (vats.length === 0) {
-                listEl.innerHTML = `<div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 text-xs font-mono text-emerald-400">Trạm mặc định: ANG-MANHSANH-01 (Đang kết nối Google Sheet)</div>`;
-                return;
-            }
-            listEl.innerHTML = vats.map(v => `
-                <div class="bg-sc-red-950 p-3 rounded-xl border border-rose-800 flex justify-between items-center text-xs font-mono">
+            const mapObj = getAllVatsMap();
+            const vats = Object.values(mapObj);
+
+            listEl.innerHTML = vats.map(v => {
+                const s1Badge = v.stage1.status === 'none' ? 'GĐ1: Không có' : 'GĐ1: Có';
+                const s2Badge = v.stage2.status === 'none' ? 'GĐ2: Không có' : 'GĐ2: Có';
+                const s3Badge = v.stage3.status === 'none' ? 'GĐ3: Không có' : 'GĐ3: Có';
+                return `
+                <div onclick="openVatInChatbot('${v.id}')" class="bg-sc-red-950 hover:bg-sc-red-900 p-4 rounded-2xl border-2 ${v.id === activeVatId ? 'border-sc-gold shadow-lg' : 'border-rose-800'} flex flex-col justify-between gap-3 text-xs font-mono cursor-pointer transition group">
                     <div>
-                        <strong class="text-sc-gold block">${v.id}</strong>
-                        <span class="text-rose-200 text-[10px]">${v.fish} • Ủ: ${v.date}</span>
+                        <div class="flex items-center justify-between gap-2">
+                            <strong class="text-sc-gold text-base font-serif group-hover:underline">${v.id}</strong>
+                            <span class="px-2 py-0.5 rounded-full bg-sc-red-900 text-yellow-300 border border-sc-gold/40 text-[10px] font-bold">${v.sauceType || 'Mắm Cá'}</span>
+                        </div>
+                        <p class="text-rose-200 text-[11px] mt-1">Nguyên liệu: ${v.fishKg} kg ${v.fishType}</p>
+                        <div class="flex flex-wrap gap-1 mt-2 text-[9px]">
+                            <span class="px-1.5 py-0.5 rounded ${v.stage1.status === 'none' ? 'bg-rose-950 text-rose-400' : 'bg-emerald-950 text-emerald-300'}">${s1Badge}</span>
+                            <span class="px-1.5 py-0.5 rounded ${v.stage2.status === 'none' ? 'bg-rose-950 text-rose-400' : 'bg-emerald-950 text-emerald-300'}">${s2Badge}</span>
+                            <span class="px-1.5 py-0.5 rounded ${v.stage3.status === 'none' ? 'bg-rose-950 text-rose-400' : 'bg-emerald-950 text-emerald-300'}">${s3Badge}</span>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-rose-900 flex items-center justify-between text-[11px] text-emerald-400 font-bold">
+                        <span><i class="fa-solid fa-comments mr-1"></i>Bấm mở Trợ Lý & QR</span>
+                        <i class="fa-solid fa-qrcode text-sc-gold text-sm"></i>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function testScanQR() {
@@ -2408,9 +2720,9 @@ Hệ thống sẽ mở BIỂU ĐỒ THEO DÕI LẠI 3 GIAI ĐOẠN của lô m�
         function performDppLookup(codeParam = null) {
             const query = (codeParam || document.getElementById('dpp-search-input').value).trim().toUpperCase();
             if (!query) return alert("Vui lòng nhập mã DPP!");
-            document.getElementById('dpp-res-id').innerText = query;
-            document.getElementById('iot-station-label').innerText = query;
+            syncStageConfigToUI(query);
             fetchIotSheetLive();
+            renderIotChart();
         }
 
         window.addEventListener('DOMContentLoaded', () => {
