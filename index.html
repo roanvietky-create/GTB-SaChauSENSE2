@@ -146,10 +146,30 @@
 
                 <!-- Nội dung Biểu mẫu chữ lớn dễ thao tác -->
                 <div class="p-4 sm:p-7 overflow-y-auto space-y-6 text-sm sm:text-base font-mono flex-1">
-                    <!-- Tin nhắn hướng dẫn -->
-                    <div class="bg-sc-red-950/95 p-4 rounded-2xl border border-sc-gold/40 text-rose-100 space-y-1.5">
-                        <span class="text-xs sm:text-sm text-sc-gold font-bold block"><i class="fa-solid fa-circle-info mr-1.5"></i>Hướng dẫn nhanh cho Nghệ nhân:</span>
-                        <p class="text-xs sm:text-base leading-relaxed">Bác chỉ cần chọn <strong>Loại Cá, Loại Muối</strong> ở thanh chọn (hoặc chọn <em>"Khác..."</em> để tự gõ tên mới, hệ thống sẽ tự nhớ cho lần sau), nhập <strong>số Kg</strong> và <strong>Tỷ lệ % vào chượp</strong>. Hệ thống sẽ tự động tính phần trăm sao cho tròn <strong>100%</strong>!</p>
+                    <!-- Khung Liên Kết Tự Động Google Form -> Google Sheet -> Website Cho Nghệ Nhân Lớn Tuổi -->
+                    <div class="bg-emerald-950/90 p-4 sm:p-5 rounded-3xl border-2 border-emerald-400 text-emerald-100 space-y-3 shadow-xl">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="text-sm sm:text-base text-emerald-300 font-black uppercase flex items-center gap-2">
+                                <i class="fa-brands fa-wpforms text-xl"></i> Liên Kết Biểu Mẫu Google Form & Google Sheet (Dành Cho Nghệ Nhân Lớn Tuổi)
+                            </span>
+                            <span id="ggform-sync-status" class="px-3 py-1 rounded-full bg-black/50 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                                <i class="fa-solid fa-rotate animate-spin mr-1"></i>Tự động đồng bộ từ Sheet
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm leading-relaxed text-emerald-100/90">
+                            Khi các bác nghệ nhân điền <strong>Google Form</strong> trên điện thoại, dữ liệu sẽ đổ về <strong>Trang tính Google Sheet</strong> và <strong>tự động đẩy thẳng lên Website</strong> vào đúng Mã Ang tương ứng (cập nhật cả Cá & Muối, 3 giai đoạn và Biểu đồ DPP).
+                        </p>
+                        <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                            <a href="https://docs.google.com/spreadsheets/d/1gDZeBXpXS5oQUzVWHUEwG30DY-uhhXJgDHKEXGe6Zg8/edit" target="_blank" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-sc-red-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow cursor-pointer">
+                                <i class="fa-solid fa-table"></i> Mở Trang Tính Nhật Ký 3 Giai Đoạn
+                            </a>
+                            <button type="button" onclick="fetchStageLogsFromGGFormSheet(true)" class="px-4 py-2.5 rounded-xl bg-sc-gold hover:bg-amber-400 text-sc-red-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow cursor-pointer">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> Đồng Bộ Ngay Từ Google Sheet
+                            </button>
+                            <button type="button" onclick="promptChangeStageSheetId()" class="px-3 py-2.5 rounded-xl bg-sc-red-950 hover:bg-sc-red-900 text-amber-200 border border-sc-gold/50 font-bold text-xs sm:text-sm cursor-pointer">
+                                <i class="fa-solid fa-link mr-1"></i> Đổi Link/ID Sheet Khác
+                            </button>
+                        </div>
                     </div>
 
                     <form onsubmit="handleChatboxStageSubmit(event)" class="bg-sc-red-950 p-4 sm:p-6 rounded-3xl border-2 border-sc-gold/60 space-y-6">
@@ -616,8 +636,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="royal-gradient-card p-5 rounded-2xl flex flex-col justify-between">
                         <div>
-                            <div class="h-44 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
-                                <img src="DSC_0127.JPG" alt="Nước chấm đậm đà" onerror="this.src='DSC_0112.JPG'" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            <div class="h-48 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
+                                <img src="DSC_0127.JPG" alt="Nước chấm đậm đà" onerror="this.src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                             </div>
                             <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-bowl-food mr-1"></i> Món Chấm Tinh Tế</span>
                             <h4 class="font-serif font-bold text-white text-lg mt-1">Nước Chấm Đậm Đà</h4>
@@ -626,8 +646,8 @@
                     </div>
                     <div class="royal-gradient-card p-5 rounded-2xl flex flex-col justify-between">
                         <div>
-                            <div class="h-44 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
-                                <img src="1000003077.jpg" alt="Thịt ba chỉ kho mắm tôm" onerror="this.src='DSC_0032.JPG'" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            <div class="h-48 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Thịt ba chỉ kho mắm tôm" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                             </div>
                             <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-fire-burner mr-1"></i> Món Kho Đậm Vị</span>
                             <h4 class="font-serif font-bold text-white text-lg mt-1">Thịt Ba Chỉ Kho Mắm Tôm</h4>
@@ -636,8 +656,8 @@
                     </div>
                     <div class="royal-gradient-card p-5 rounded-2xl flex flex-col justify-between">
                         <div>
-                            <div class="h-44 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
-                                <img src="1000003076.jpg" alt="Cá biển rim mắm cốt" onerror="this.src='DSC_0025.JPG'" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            <div class="h-48 rounded-xl overflow-hidden mb-4 border border-sc-gold/40 bg-black">
+                                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80" alt="Cá biển rim mắm cốt" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                             </div>
                             <span class="text-xs font-mono text-sc-gold"><i class="fa-solid fa-fish-fins mr-1"></i> Hương Vị Biển Cả</span>
                             <h4 class="font-serif font-bold text-white text-lg mt-1">Cá Biển Rim Mắm Cốt</h4>
@@ -1243,6 +1263,7 @@
 
     <script>
         const IOT_SHEET_ID = "1SeC3UHfVmW-FfKZ77vDx9b9sDrIkrxoLq6vTHGe9Vr0";
+        let STAGE_FORM_SHEET_ID = localStorage.getItem('sc_stage_sheet_id') || "1gDZeBXpXS5oQUzVWHUEwG30DY-uhhXJgDHKEXGe6Zg8";
         const WEBHOOK_ORDER_URL = "https://script.google.com/macros/s/AKfycbxCbEUDhUD1vgQ3kBAuGuvqH02IsynXpwt3DiIGrj0Vx35a9eSNguJniGs8Ni27AZkYQw/exec";
         const WEBHOOK_AUTH_URL = "https://script.google.com/macros/s/AKfycbzcWip9bxSFk9vIHg75exg2NiPXOPneAXo5ecbX5WYGnOvkTtRUqVaJun7vXNx52Y0_Ag/exec";
 
@@ -1908,7 +1929,8 @@
                 flavor: "1 Mắm Cá + 1 Mắm Tôm",
                 smell: "Đậm mùi truyền thống",
                 desc: "Kết hợp tùy chọn giữa Mắm Tôm và Mắm Cá. Rất hợp làm quà biếu.",
-                img: "DSC_0112.JPG"
+                img: "DSC_0112.JPG",
+                fallbackImg: "https://lh3.googleusercontent.com/d/1MSBlGbpw8jkXQ4jGqijeFJhWIN2Fo_i-=w800"
             },
             {
                 id: "ms_hopdon",
@@ -1920,9 +1942,12 @@
                 flavor: "Ngọt hậu sâu, sánh đượm",
                 smell: "Đậm mùi truyền thống",
                 desc: "Sản phẩm đóng chai 1.000ml kèm hộp giấy cứng cáp. Có 2 phân loại Mắm Cá và Mắm Tôm để lựa chọn.",
-                img: "1000003076.jpg",
-                imgCa: "1000003076.jpg",
-                imgTom: "1000003077.jpg"
+                img: "DSC_0032.JPG",
+                imgCa: "DSC_0032.JPG",
+                fallbackCa: "https://lh3.googleusercontent.com/d/1A97SKomJ67YY02V1Qag-BCGPdjFkPBl-=w800",
+                imgTom: "DSC_0092.JPG",
+                fallbackTom: "https://lh3.googleusercontent.com/d/1TUUAW7BJmjY6jBMS5PhiQd8fmdzMNBD_=w800",
+                fallbackImg: "https://lh3.googleusercontent.com/d/1A97SKomJ67YY02V1Qag-BCGPdjFkPBl-=w800"
             },
             {
                 id: "ms_chaile",
@@ -1934,28 +1959,35 @@
                 flavor: "Mặn dịu đầu lưỡi",
                 smell: "Thơm dịu",
                 desc: "Dòng nước mắm gia truyền chai lẻ không hộp, tiết kiệm hơn. Có 2 phân loại Mắm Cá và Mắm Tôm.",
-                img: "1000003075.jpg",
-                imgCa: "1000003075.jpg",
-                imgTom: "1000003074.jpg"
+                img: "DSC_0025.JPG",
+                imgCa: "DSC_0025.JPG",
+                fallbackCa: "https://lh3.googleusercontent.com/d/1EANAFO7sdRsMcN8F9Ad0ydkBucNO9xf4=w800",
+                imgTom: "DSC_0031.JPG",
+                fallbackTom: "https://lh3.googleusercontent.com/d/1y1AKLpZuzFvSGmkipisO1Vbf09wwHBrl=w800",
+                fallbackImg: "https://lh3.googleusercontent.com/d/1EANAFO7sdRsMcN8F9Ad0ydkBucNO9xf4=w800"
             }
         ];
 
         function getProductVariantImage(p, flavorStr) {
-            if (!p) return "DSC_0112.JPG";
+            if (!p) return { src: "DSC_0112.JPG", fallback: "https://lh3.googleusercontent.com/d/1MSBlGbpw8jkXQ4jGqijeFJhWIN2Fo_i-=w800" };
             const flv = (flavorStr || "").toLowerCase();
             if (p.id === "ms_hopdon") {
-                return flv.includes("tôm") ? (p.imgTom || "1000003077.jpg") : (p.imgCa || "1000003076.jpg");
+                return flv.includes("tôm")
+                    ? { src: p.imgTom || "DSC_0092.JPG", fallback: p.fallbackTom || "https://lh3.googleusercontent.com/d/1TUUAW7BJmjY6jBMS5PhiQd8fmdzMNBD_=w800" }
+                    : { src: p.imgCa || "DSC_0032.JPG", fallback: p.fallbackCa || "https://lh3.googleusercontent.com/d/1A97SKomJ67YY02V1Qag-BCGPdjFkPBl-=w800" };
             }
             if (p.id === "ms_chaile") {
-                return flv.includes("tôm") ? (p.imgTom || "1000003074.jpg") : (p.imgCa || "1000003075.jpg");
+                return flv.includes("tôm")
+                    ? { src: p.imgTom || "DSC_0031.JPG", fallback: p.fallbackTom || "https://lh3.googleusercontent.com/d/1y1AKLpZuzFvSGmkipisO1Vbf09wwHBrl=w800" }
+                    : { src: p.imgCa || "DSC_0025.JPG", fallback: p.fallbackCa || "https://lh3.googleusercontent.com/d/1EANAFO7sdRsMcN8F9Ad0ydkBucNO9xf4=w800" };
             }
-            return p.img;
+            return { src: p.img || "DSC_0112.JPG", fallback: p.fallbackImg || "https://lh3.googleusercontent.com/d/1MSBlGbpw8jkXQ4jGqijeFJhWIN2Fo_i-=w800" };
         }
 
         function getProducts() {
-            const saved = localStorage.getItem('sc_manhsanh_products_v3');
+            const saved = localStorage.getItem('sc_manhsanh_products_v4');
             if (!saved) {
-                localStorage.setItem('sc_manhsanh_products_v3', JSON.stringify(defaultManhSanhProducts));
+                localStorage.setItem('sc_manhsanh_products_v4', JSON.stringify(defaultManhSanhProducts));
                 return defaultManhSanhProducts;
             }
             return JSON.parse(saved);
@@ -1971,13 +2003,19 @@
             cartFlavor[id] = val;
             const products = getProducts();
             const p = products.find(item => item.id === id);
-            const newImg = getProductVariantImage(p, val);
+            const vImg = getProductVariantImage(p, val);
 
             const cartImgEl = document.getElementById(`cart-img-${id}`);
-            if (cartImgEl && newImg) cartImgEl.src = newImg;
+            if (cartImgEl && vImg) {
+                cartImgEl.onerror = function() { this.onerror = null; this.src = vImg.fallback; };
+                cartImgEl.src = vImg.src;
+            }
 
             const homeImgEl = document.getElementById(`home-img-${id}`);
-            if (homeImgEl && newImg) homeImgEl.src = newImg;
+            if (homeImgEl && vImg) {
+                homeImgEl.onerror = function() { this.onerror = null; this.src = vImg.fallback; };
+                homeImgEl.src = vImg.src;
+            }
 
             const homeSelEl = document.getElementById(`home-flavor-${id}`);
             if (homeSelEl && homeSelEl.value !== val) homeSelEl.value = val;
@@ -2008,7 +2046,7 @@
                             <span class="text-amber-200 text-xs font-mono">${p.volume}</span>
                         </div>
                         <div class="w-full h-64 rounded-xl border border-sc-gold/30 mb-4 overflow-hidden bg-black flex items-center justify-center relative">
-                            <img id="home-img-${p.id}" src="${displayImg}" alt="${p.name}" onerror="this.src='https://lh3.googleusercontent.com/d/1CWEMD_Inqrsm9z4D383UNvzRbVifvkmD=w800'" class="w-full h-full object-cover opacity-95 hover:opacity-100 transition duration-300">
+                            <img id="home-img-${p.id}" src="${displayImg.src}" alt="${p.name}" onerror="this.onerror=null;this.src='${displayImg.fallback}'" class="w-full h-full object-cover opacity-95 hover:opacity-100 transition duration-300">
                         </div>
                         <h3 class="font-serif font-bold text-white text-lg">${p.name}</h3>
                         <p class="text-[11px] text-rose-200/80 mt-2 font-light line-clamp-3">${p.desc}</p>
@@ -2047,7 +2085,7 @@
                 <div class="royal-gradient-card p-4 sm:p-5 rounded-2xl border border-sc-gold/40 flex flex-col gap-3">
                     <div class="flex flex-col sm:flex-row justify-between gap-4 items-center">
                         <div class="flex gap-4 items-center w-full">
-                            <img id="cart-img-${p.id}" src="${displayImg}" alt="SP" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80'" class="w-16 h-16 rounded-lg object-cover border border-sc-gold shrink-0">
+                            <img id="cart-img-${p.id}" src="${displayImg.src}" alt="SP" onerror="this.onerror=null;this.src='${displayImg.fallback}'" class="w-16 h-16 rounded-lg object-cover border border-sc-gold shrink-0">
                             <div>
                                 <h4 class="font-serif font-bold text-white text-base">${p.name}</h4>
                                 <p class="text-[11px] text-rose-200 font-mono">${p.volume} | ${p.flavor}</p>
@@ -2081,7 +2119,7 @@
                 manageList.innerHTML = products.map(p => `
                     <div class="bg-sc-red-950 p-4 rounded-2xl border border-rose-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-3.5 w-full">
-                            <img src="${p.img}" alt="SP" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80'" class="w-14 h-14 rounded-xl object-cover border border-sc-gold shrink-0">
+                            <img src="${p.img}" alt="SP" onerror="this.onerror=null;this.src='${p.fallbackImg || 'https://lh3.googleusercontent.com/d/1MSBlGbpw8jkXQ4jGqijeFJhWIN2Fo_i-=w800'}'" class="w-14 h-14 rounded-xl object-cover border border-sc-gold shrink-0">
                             <div class="text-xs font-mono">
                                 <strong class="text-white text-sm font-serif block">${p.name}</strong>
                                 <span class="text-yellow-300 font-bold">${Number(p.price).toLocaleString('vi-VN')} đ</span>
@@ -2256,7 +2294,7 @@ Hệ thống sẽ mở BIỂU ĐỒ LỊCH SỬ 3 GIAI ĐOẠN (Đơn đóng s�
         function deleteProduct(id) {
             if (!confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
             let products = getProducts().filter(p => p.id !== id);
-            localStorage.setItem('sc_manhsanh_products_v3', JSON.stringify(products));
+            localStorage.setItem('sc_manhsanh_products_v4', JSON.stringify(products));
             renderAllProducts();
         }
 
@@ -2316,7 +2354,7 @@ Hệ thống sẽ mở BIỂU ĐỒ LỊCH SỬ 3 GIAI ĐOẠN (Đơn đóng s�
                 alert("✅ Đã đăng bán sản phẩm mới!");
             }
 
-            localStorage.setItem('sc_manhsanh_products_v3', JSON.stringify(products));
+            localStorage.setItem('sc_manhsanh_products_v4', JSON.stringify(products));
             resetProductForm();
             renderAllProducts();
         }
@@ -2880,7 +2918,187 @@ Bây giờ bạn có thể bấm vào Ang trong Danh Sách bên dưới để m�
             renderIotChart();
         }
 
+        
+        // --- ĐỒNG BỘ TỰ ĐỘNG TỪ GOOGLE FORM -> GOOGLE SHEET (TAB 'Câu trả lời biểu mẫu 2') -> WEBSITE ---
+        const STAGE_FORM_SHEET_GID = "18643551";
+
+        function formatSheetDateToISO(val) {
+            if (!val) return "";
+            const str = String(val).trim();
+            if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return str;
+            const gvizMatch = str.match(/Date\((\d+),(\d+),(\d+)/);
+            if (gvizMatch) {
+                const y = gvizMatch[1];
+                const m = String(Number(gvizMatch[2]) + 1).padStart(2, '0');
+                const d = String(Number(gvizMatch[3])).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            }
+            const vnMatch = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+            if (vnMatch) {
+                return `${vnMatch[3]}-${String(vnMatch[2]).padStart(2, '0')}-${String(vnMatch[1]).padStart(2, '0')}`;
+            }
+            return str;
+        }
+
+        function promptChangeStageSheetId() {
+            const input = prompt("Nhập đường link hoặc ID Trang tính Google Sheet (liên kết với Google Form của bạn):", STAGE_FORM_SHEET_ID);
+            if (!input) return;
+            const match = input.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+            STAGE_FORM_SHEET_ID = match ? match[1] : input.trim();
+            localStorage.setItem('sc_stage_sheet_id', STAGE_FORM_SHEET_ID);
+            fetchStageLogsFromGGFormSheet(true);
+        }
+
+        function fetchStageLogsFromGGFormSheet(showNotice = false) {
+            const callbackName = "handleGGFormStageSheetResponse";
+            window[callbackName] = function(response) {
+                try {
+                    if (!response || !response.table || !response.table.rows) return;
+                    const cols = response.table.cols || [];
+                    const rows = response.table.rows;
+                    const mapObj = getAllVatsMap();
+                    let updatedCount = 0;
+
+                    // Tìm cột theo tên tiêu đề nếu có, fallback theo chỉ số cột thực tế của tab Câu trả lời biểu mẫu 2
+                    const findColIdx = (keywords, fallbackIdx) => {
+                        for (let i = 0; i < cols.length; i++) {
+                            const lbl = (cols[i].label || "").toLowerCase().trim();
+                            if (keywords.some(k => lbl.includes(k))) return i;
+                        }
+                        return fallbackIdx;
+                    };
+
+                    const idxVat = findColIdx(["mã ang"], 2);
+                    const idxSauce = findColIdx(["loại mắm"], 3);
+                    const idxFish = findColIdx(["loại cá"], 4);
+                    const idxFishKg = findColIdx(["khối lượng cá"], 5);
+                    const idxSalt = findColIdx(["loại muối"], 6);
+                    const idxSaltKg = findColIdx(["khối lượng muối"], 7);
+
+                    const idxS1Status = findColIdx(["trạng thái giai đoạn 1", "trạng thái gđ1"], 8);
+                    const idxS1Start = findColIdx(["từ ngày gđ1"], 9);
+                    const idxS1End = findColIdx(["đến ngày gđ1"], 10);
+                    const idxFishPct = findColIdx(["tỷ lệ cá"], 11);
+                    const idxSaltPct = findColIdx(["tỷ lệ muối"], 12);
+                    const idxS1Note = findColIdx(["ghi chú gđ1"], 13);
+
+                    const idxS2Status = findColIdx(["trạng thái giai đoạn 2", "trạng thái gđ2"], 14);
+                    const idxS2Start = findColIdx(["từ ngày gđ2"], 15);
+                    const idxS2End = findColIdx(["đến ngày gđ2"], 16);
+                    const idxS2Note = findColIdx(["ghi chú gđ2"], 17);
+
+                    const idxS3Status = findColIdx(["trạng thái giai đoạn 3", "trạng thái gđ3"], 18);
+                    const idxS3Start = findColIdx(["từ ngày gđ3"], 19);
+                    const idxS3End = findColIdx(["đến ngày gđ3"], 20);
+                    const idxS3Note = findColIdx(["ghi chú gđ3"], 21);
+                    const idxOtherMat = findColIdx(["nguyên liệu khác"], 22);
+
+                    rows.forEach(r => {
+                        const c = r.c;
+                        if (!c) return;
+                        const cellVal = (idx) => (idx >= 0 && c[idx] && c[idx].v !== null && c[idx].v !== undefined)
+                            ? String(c[idx].v).trim()
+                            : ((idx >= 0 && c[idx] && c[idx].f) ? String(c[idx].f).trim() : "");
+
+                        const vatIdRaw = cellVal(idxVat).toUpperCase();
+                        if (!vatIdRaw || vatIdRaw === "MÃ ANG" || !vatIdRaw.includes("ANG")) return;
+
+                        const existing = mapObj[vatIdRaw] || createDefaultVatRecord(vatIdRaw);
+                        const sauceType = cellVal(idxSauce) || existing.sauceType || "Mắm Cá Truyền Thống";
+                        const fishType = cellVal(idxFish) || existing.fishType || "Cá Nục & Cá Cơm";
+                        const fishKg = parseFloat(cellVal(idxFishKg)) || existing.fishKg || 850;
+                        const saltType = cellVal(idxSalt) || existing.saltType || "Muối Bạch Long";
+                        const saltKg = parseFloat(cellVal(idxSaltKg)) || existing.saltKg || 150;
+
+                        const isNoneStatus = (txt) => {
+                            const t = (txt || "").toLowerCase();
+                            return t.includes("chưa đến") || t.includes("không có") || t === "none" || t === "ko có";
+                        };
+
+                        const s1StatusRaw = cellVal(idxS1Status);
+                        const s1Status = isNoneStatus(s1StatusRaw) ? "none" : "active";
+                        const s1Start = formatSheetDateToISO(c[idxS1Start] ? (c[idxS1Start].v || c[idxS1Start].f) : "") || existing.stage1.start;
+                        const s1End = formatSheetDateToISO(c[idxS1End] ? (c[idxS1End].v || c[idxS1End].f) : "") || existing.stage1.end;
+                        const fishPctVal = parseFloat(cellVal(idxFishPct));
+                        const saltPctVal = parseFloat(cellVal(idxSaltPct));
+                        const fishPct = !isNaN(fishPctVal) ? fishPctVal : (existing.stage1.fishPct ?? 85);
+                        const saltPct = !isNaN(saltPctVal) ? saltPctVal : (existing.stage1.saltPct ?? 15);
+                        const s1Note = cellVal(idxS1Note) || existing.stage1.note;
+                        const otherMatVal = cellVal(idxOtherMat);
+                        const otherName = (otherMatVal && !isNoneStatus(otherMatVal)) ? otherMatVal : (existing.stage1.otherName || "");
+
+                        const s2StatusRaw = cellVal(idxS2Status);
+                        const s2Status = isNoneStatus(s2StatusRaw) ? "none" : "active";
+                        const s2Start = formatSheetDateToISO(c[idxS2Start] ? (c[idxS2Start].v || c[idxS2Start].f) : "") || existing.stage2.start;
+                        const s2End = formatSheetDateToISO(c[idxS2End] ? (c[idxS2End].v || c[idxS2End].f) : "") || existing.stage2.end;
+                        const s2Note = cellVal(idxS2Note) || existing.stage2.note;
+
+                        const s3StatusRaw = cellVal(idxS3Status);
+                        const s3Status = isNoneStatus(s3StatusRaw) ? "none" : "active";
+                        const s3Start = formatSheetDateToISO(c[idxS3Start] ? (c[idxS3Start].v || c[idxS3Start].f) : "") || existing.stage3.start;
+                        const s3End = formatSheetDateToISO(c[idxS3End] ? (c[idxS3End].v || c[idxS3End].f) : "") || existing.stage3.end;
+                        const s3Note = cellVal(idxS3Note) || existing.stage3.note;
+
+                        existing.id = vatIdRaw;
+                        existing.sauceType = sauceType;
+                        existing.fishType = fishType;
+                        existing.fishKg = fishKg;
+                        existing.saltType = saltType;
+                        existing.saltKg = saltKg;
+                        existing.fishWeight = `${fishKg} kg ${fishType}`;
+                        existing.saltWeight = `${saltKg} kg ${saltType}`;
+
+                        existing.stage1.status = s1Status;
+                        existing.stage1.start = s1Start;
+                        existing.stage1.end = s1End;
+                        existing.stage1.fishPct = fishPct;
+                        existing.stage1.saltPct = saltPct;
+                        existing.stage1.otherName = otherName;
+                        existing.stage1.note = s1Note;
+
+                        existing.stage2.status = s2Status;
+                        existing.stage2.start = s2Start;
+                        existing.stage2.end = s2End;
+                        existing.stage2.note = s2Note;
+
+                        existing.stage3.status = s3Status;
+                        existing.stage3.start = s3Start;
+                        existing.stage3.end = s3End;
+                        existing.stage3.note = s3Note;
+
+                        mapObj[vatIdRaw] = existing;
+                        updatedCount++;
+                    });
+
+                    if (updatedCount > 0) {
+                        saveAllVatsMap(mapObj);
+                        syncStageConfigToUI(activeVatId);
+                        renderIotChart();
+                        const stBadge = document.getElementById('ggform-sync-status');
+                        if (stBadge) {
+                            stBadge.innerHTML = `<i class="fa-solid fa-check-circle text-emerald-400 mr-1"></i>Đã đồng bộ ${updatedCount} Ang từ "Câu trả lời biểu mẫu 2" (${new Date().toLocaleTimeString('vi-VN')})`;
+                        }
+                        if (showNotice) {
+                            alert(`✅ Đã đồng bộ thành công ${updatedCount} Ang mắm từ tab "Câu trả lời biểu mẫu 2" lên Website!`);
+                        }
+                    }
+                } catch (err) {
+                    console.error("Lỗi đồng bộ GG Form Sheet:", err);
+                }
+            };
+
+            const oldScript = document.getElementById('gviz-stage-form-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'gviz-stage-form-script';
+            script.src = `https://docs.google.com/spreadsheets/d/${STAGE_FORM_SHEET_ID}/gviz/tq?gid=${STAGE_FORM_SHEET_GID}&tqx=out:json;responseHandler:${callbackName}&_=${Date.now()}`;
+            document.body.appendChild(script);
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            fetchStageLogsFromGGFormSheet(false);
+            setInterval(() => fetchStageLogsFromGGFormSheet(false), 10000);
             renderAllProducts();
             syncStageConfigToUI();
             selectOrderMode('preorder');
